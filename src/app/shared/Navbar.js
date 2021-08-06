@@ -181,7 +181,7 @@ class Navbar extends Component {
               <Dropdown.Toggle as="a" className="nav-link cursor-pointer no-caret">
                 <div className="navbar-profile">
                   <img className="img-xs rounded-circle" src={require('../../assets/images/faces/face15.jpg')} alt="profile" />
-                  <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>{this.props.user}</Trans></p>
+                  <p className="mb-0 d-none d-sm-block navbar-profile-name"><Trans>{}</Trans></p>
                   <i className="mdi mdi-menu-down d-none d-sm-block"></i>
                 </div>
               </Dropdown.Toggle>
@@ -200,14 +200,14 @@ class Navbar extends Component {
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="!#" onClick={evt =>evt.preventDefault()}  className="preview-item">
+                <Dropdown.Item href="/demo/corona-react-free/template/demo_1/"   className="preview-item">
                   <div className="preview-thumbnail">
                     <div className="preview-icon bg-dark rounded-circle">
                       <i className="mdi mdi-logout text-danger"></i>
                     </div>
                   </div>
                   <div className="preview-item-content">
-                    <p className="preview-subject mb-1"><Trans>Log Out</Trans></p>
+                    <Link to="/"><p className="preview-subject mb-1"><Trans>Log Out</Trans></p></Link>
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Divider />

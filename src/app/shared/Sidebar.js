@@ -67,7 +67,7 @@ class Sidebar extends Component {
                   <span className="count bg-success"></span>
                 </div>
                 <div className="profile-name">
-                  <h5 className="mb-0 font-weight-normal"><Trans>Henry Klein</Trans></h5>
+                  <h5 className="mb-0 font-weight-normal"><Trans>{}</Trans></h5>
                   <span><Trans>Gold Member</Trans></span>
                 </div>
               </div>

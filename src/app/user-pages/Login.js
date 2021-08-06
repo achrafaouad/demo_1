@@ -5,8 +5,8 @@ import { Form,Alert} from 'react-bootstrap';
 
 export class Login extends Component {
   constructor(props){
-    super(props);
-    this.state={mail:"",pass:"", alert:false};
+    super(props);  
+    this.state={mail:"",pass:"", alert:false,user:{},parcels:{}};
     this.handlechange = this.handlechange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,7 +18,7 @@ export class Login extends Component {
     console.log(this.state);
   }
   handleSubmit(e){
-
+    e.preventDefault();
     fetch("http://localhost:3001/signin",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
@@ -31,16 +31,44 @@ export class Login extends Component {
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{console.log(responseJson);
-     this.props.history.push(
-      {
-        pathname: '/dashboard',
-        state: responseJson
-    }
-     );
-    });
-     e.preventDefault();
- }
+    if(responseJson){this.props.history.push(
+              {
+                pathname: '/dashboard',
+                state: {user:responseJson}
+            }
+     )}
+          }
+    )
+
+//     //seconde request
+//     fetch("http://localhost:3001/get_foncier",{
+//       method:'POST',
+//       headers:{'Content-Type':"application/json"},
+//       body:JSON.stringify({
+//         id:this.state.user.id})
+//  }).then(response2 =>{
+//    if(response2.ok){
+//      return response2.json();
+//    }
+//    throw new Error('request failed');}, networkError => console.log(networkError))
+//    .then( responseJson2 => {{console.log(responseJson2);
+//     this.setState({foncier:responseJson2});}
+//     this.forceUpdateHandler()
+//      this.props.history.push(
+//        {
+//          pathname: '/dashboard',
+//          state: {user:this.state.user, parcels:this.state.foncier }
+//      }
+//       );
+    
+     
   
+//   }))
+  
+}
+forceUpdateHandler(){
+  this.forceUpdate();
+};
   render() {
     return (
       <div>

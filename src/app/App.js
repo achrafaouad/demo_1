@@ -8,14 +8,35 @@ import Footer from './shared/Footer';
 import { withTranslation } from "react-i18next";
 
 class App extends Component {
-  state = {}
-  componentDidMount() {
-    this.onRouteChanged();
+  constructor(props){
+
+    super(props);
+    this.state = {userInfo:{}}
+    
   }
+
+  
+  componentDidMount() {    
+
+    this.onRouteChanged();
+    
+      
+  
+        
+       
+       console.log('l app')
+      }
+    
+
+
+
+
+
+
   render () {
-    let navbarComponent = !this.state.isFullPageLayout ? <Navbar/> : '';
-    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar/> : '';
-    let footerComponent = !this.state.isFullPageLayout ? <Footer/> : '';
+    let navbarComponent = !this.state.isFullPageLayout ? <Navbar  userInfo ={this.state.userInfo}/> : '';
+    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar  userInfo ={this.state.userInfo}/> : '';
+    let footerComponent = !this.state.isFullPageLayout ? <Footer /> : '';
     return (
       <div className="container-scroller">
         { sidebarComponent }
@@ -23,7 +44,7 @@ class App extends Component {
           { navbarComponent }
           <div className="main-panel">
             <div className="content-wrapper">
-              <AppRoutes/>
+              <AppRoutes userInfo ={this.state.userInfo}/>
             </div>
             { footerComponent }
           </div>
@@ -36,12 +57,26 @@ class App extends Component {
     if (this.props.location !== prevProps.location) {
       this.onRouteChanged();
     }
+    
   }
 
   onRouteChanged() {
     console.log("ROUTE CHANGED");
     const { i18n } = this.props;
     const body = document.querySelector('body');
+
+    
+
+    
+    if(this.props.location.pathname === '/dashboard') {
+      if(this.props.history.location.state){
+        this.setState({userInfo:this.props.history.location.state})
+        console.log("ha l app ",this.props.history.location.state)
+        this.forceUpdate();
+      }
+    }
+
+
     if(this.props.location.pathname === '/layout/RtlLayout') {
       body.classList.add('rtl');
       i18n.changeLanguage('ar');
@@ -51,7 +86,7 @@ class App extends Component {
       i18n.changeLanguage('en');
     }
     window.scrollTo(0, 0);
-    const fullPageLayoutRoutes = ['/user-pages/login-1', '/user-pages/login-2', '/user-pages/register-1', '/user-pages/register-2', '/user-pages/lockscreen', '/error-pages/error-404', '/error-pages/error-500', '/general-pages/landing-page'];
+    const fullPageLayoutRoutes = ['/', '/user-pages/login-2', '/user-pages/register-1', '/user-pages/register-2', '/user-pages/lockscreen', '/error-pages/error-404', '/error-pages/error-500', '/general-pages/landing-page'];
     for ( let i = 0; i < fullPageLayoutRoutes.length; i++ ) {
       if (this.props.location.pathname === fullPageLayoutRoutes[i]) {
         this.setState({

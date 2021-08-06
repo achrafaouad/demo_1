@@ -69,6 +69,13 @@
 @import "../assets/styles/footer";
 @import "../assets/styles/layout";
 
+
+.my_input {
+  border: none;
+  border-radius: 5px;
+  border-color: aqua;
+  width: 100px;
+}
 .add_polygone {
 margin: 20px;
 
@@ -86,3 +93,6 @@ margin: 20px;
     box-shadow: 5px 5px 15px black;
     
 }
+
+
+

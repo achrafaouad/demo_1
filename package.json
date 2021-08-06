@@ -5,8 +5,10 @@
   "private": true,
   "dependencies": {
     "@lourenci/react-kanban": "^0.13.0",
+    "@material-ui/core": "^4.12.3",
     "@mdi/font": "^4.2.95",
     "@tinymce/tinymce-react": "^3.3.2",
+    "antd": "^4.16.9",
     "bcrypt": "^5.0.1",
     "bootstrap": "^4.3.1",
     "bosket": "^0.2.3",
@@ -62,11 +64,13 @@
     "react-tag-autocomplete": "^5.11.1",
     "react-treebeard": "^3.2.4",
     "react-trello": "^2.2.3",
+    "reactjs-popup": "^2.0.5",
     "simple-line-icons": "^2.4.1",
     "slick-carousel": "^1.8.1",
     "sweetalert2-react": "^0.8.3",
     "ti-icons": "^0.1.2",
     "typicons.font": "^2.0.9"
+    
   },
   "scripts": {
     "start": "react-scripts start",

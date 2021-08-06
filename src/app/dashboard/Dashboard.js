@@ -17,7 +17,13 @@ export class Dashboard extends Component {
 constructor(props){
   super(props);
   console.log('achraf');
-  console.log(this.props.history.location.state);
+  console.log("hana f dashboard",this.props.userInfo);
+
+  if(this.props.userInfo){
+    this.state={userInfo:this.props.userInfo}
+    this.forceUpdate();
+  }
+  
 }
     //other functions eliminated for brevity
     //other functions eliminated for brevity
@@ -58,7 +64,7 @@ constructor(props){
             <div className="card">
               <div className="card-body" >
                 <h4 className="card-title">My map</h4>
-                <MyMap/>
+                <MyMap userInfo ={this.state.userInfo}/>
               </div>
             </div>
           </div>

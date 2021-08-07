@@ -18,10 +18,7 @@ import Zoom from "ol/control/Zoom"
 import ZoomSlider from 'ol/control/ZoomSlider';
 import OverviewMap from 'ol/control/OverviewMap';
 import Popup from './popup.js'
-
-import Button from 'react-bootstrap/Button';
 import GeoJSON from 'ol/format/GeoJSON';
-import Layer from "ol/layer/Layer";
 class PublicMap extends Component {
 
   constructor(props) {
@@ -110,10 +107,10 @@ class PublicMap extends Component {
      .then( responseJson2 =>{console.log(responseJson2);
      console.log("ha les pqrcel");
       return responseJson2;  
-      this.setState({parcels:geometrys});
-      this.forceUpdate()     
+          
       })
-      
+      this.setState({parcels:geometrys});
+      this.forceUpdate() 
     // Listen to map changes
     this.olmap.on("moveend", () => {
       let center = this.olmap.getView().getCenter();
@@ -148,7 +145,7 @@ class PublicMap extends Component {
 
     title: 'medium low Risk',
 
-    source:this.mediumLow,
+    source: this.mediumLow,
 
     style: new Style({
 
@@ -172,25 +169,32 @@ class PublicMap extends Component {
 
   });
    this.state.parcels.forEach(({ geometry }) => {
-    let jsonData = JSON.stringify(geometry)
-    //jsonData["crs"] = {"type":"name","properties":{"name":"EPSG:3857"}}
-     //console.log(geometry),
+
+   
+    // let jsonData = JSON.parse(geometry)
+    // jsonData["crs"] = {"type":"name","properties":{"name":"EPSG:3857"}}
+    //  console.log(geometry),
+
      this.mediumLow.addFeatures(this.format.readFeatures(geometry,{ featureProjection: 'EPSG:3857' }))
-     console.log(this.format.readFeatures(geometry,{ featureProjection: 'EPSG:3857' }))
+     console.log(geometry)
+     console.log(this.format.readFeature(geometry,{ featureProjection: 'EPSG:3857' }))
      
    }
      )
-     this.olmap.addLayer(this.mediumLowVector);
-    
-   this.forceUpdate()
-   this.olmap.on('click',(e)=>{
-     this.olmap.forEachFeatureAtPixel(e.pixel, (feature,Layer)=>{
-       console.log(feature.getKeys())
-       
-       console.log(Layer)
 
-     })
-   })
+     this.olmap.on('click',(e)=>{
+      this.olmap.forEachFeatureAtPixel(e.pixel, (feature,Layer)=>{
+        for(var i =0 ; i < (this.state.parcels.length) ; i++){
+         if(JSON.stringify(JSON.parse(this.state.parcels[i].geometry).coordinates) === JSON.stringify(JSON.parse(this.format.writeGeometry(feature.getGeometry())).coordinates)){
+            console.log(this.state.parcels[i])
+           }
+ 
+        }
+      })
+    })
+
+     this.olmap.addLayer(this.mediumLowVector);
+  
       document.getElementById('undo').addEventListener('click', () => {
         if(this.draw){this.draw.removeLastPoint()}});
   }
@@ -215,6 +219,9 @@ class PublicMap extends Component {
       
        
        var Features= this.format.writeGeometry(coords);
+       Features = JSON.parse(Features)
+       Features["crs"]={"type":"name","properties":{"name":"EPSG:3857"}}
+       Features = JSON.stringify(Features)
        this.last_feature = Features
       //console.log(feature.getGeometry().Area())
       console.log(feature.getGeometry().getArea())
@@ -275,7 +282,7 @@ flyTo(location, done) {
       duration: duration / 2,
     },
     callback
-  );
+  )
 }
 
   render() {
@@ -287,7 +294,7 @@ flyTo(location, done) {
         <div className="d-grid gap-2 d-md-flex justify-content-md-end  add_polygone grid-margin">
        
 
-       <Popup user ={this.props.user} last_feature={this.state.last_feature} surface ={this.state.surface} visible={this.state.visible}/>
+       <Popup user ={this.props.userInfo.user} last_feature={this.state.last_feature} surface ={this.state.surface} update={()=>{this.setState({done:true})}} />
       
         <button className="btn btn-warning me-md-2 "  type="button" id="submit_par" style={{ visibility:"hidden" }} >submit</button>
         <button visible type="button" className="btn btn-success btn-fw " id="drow_polygone">

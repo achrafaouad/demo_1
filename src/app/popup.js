@@ -61,8 +61,7 @@ class Popup extends React.Component {
         nom:this.state.nom,
         surface:this.props.surface,
         geometry:this.props.last_feature,
-        id_exp:4,
-        //this.props.user.id,
+        id_exp:this.props.user.id,
         prix_loue:this.state.prix_loue,
         proprietaire:this.state.proprietaire,
         date_loue:this.state.date_loue,
@@ -96,8 +95,7 @@ class Popup extends React.Component {
    .then(responseJson =>{console.log(responseJson)} );
 
    })
-
-      
+      this.props.update();
      
     this.setState({
       visible: false,

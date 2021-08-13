@@ -30,13 +30,14 @@ class AppRoutes extends Component {
       <Suspense fallback={<Spinner/>}>
         <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/dashboard" 
-           render={(props) => (
-          <Dashboard {...props} userInfo ={this.props.userInfo} />
-        )}
-        />
+        <Route exact path="/dashboard" component={Dashboard}/>
+          
+      
           <Route  path="/user-pages/register-1" component={ Register1 } />
-          <Route path="/basic-ui/buttons" component={ Buttons } />
+          <Route path="/basic-ui/buttons" component={Buttons}/>
+           
+          
+          
           <Route path="/basic-ui/dropdowns" component={ Dropdowns } />
           <Route path="/basic-ui/typography" component={ Typography } />
 

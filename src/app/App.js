@@ -11,19 +11,56 @@ class App extends Component {
   constructor(props){
 
     super(props);
-    this.state = {userInfo:{}}
+    this.state = {}
     
   }
 
+
+
+  // async fetch_data() {
+  //   var id1;
+  //   if(this.state.userInfo){
+  //      id1 = this.state.userInfo.id
+  //      console.log("userInfo")
+  //   }
+  //   if(this.props.history.location.state){
+  //     id1 = this.props.history.location.state.user.id
+  //     console.log("history")
+  //   }
+  //   this.data = await fetch("http://localhost:3001/user", {
+  //     method: "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify({
+  //       id: id1
+  //     })}).then(response2 =>{
+  //      if(response2.ok){
+  //        return response2.json();
+  //      }
+  //      throw new Error('request failed');}, networkError => console.log(networkError))
+  //      .then( responseJson2 =>{
+  //        return responseJson2
+ 
+  //       })
+        
+  //       //this.setState({userInfo:this.data}) 
+  //       console.log("mn l fetch",this.data[0])
+  //       this.setState({userInfo:this.data[0]})
+  //       console.log(this.state)
+  //      }
+ 
+       
+  //      componentWillUnmount(){
+  //         clearInterval(this.intervalID);
+          
+  //       }
+
   
   componentDidMount() {    
-
-    this.onRouteChanged();
     
-      
+    this.onRouteChanged();
   
-        
-       
+
+       console.log(this.state)
        console.log('l app')
       }
     
@@ -34,8 +71,8 @@ class App extends Component {
 
 
   render () {
-    let navbarComponent = !this.state.isFullPageLayout ? <Navbar  userInfo ={this.state.userInfo}/> : '';
-    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar  userInfo ={this.state.userInfo}/> : '';
+    let navbarComponent = !this.state.isFullPageLayout ? <Navbar  userInfo ={JSON.parse(sessionStorage.getItem('user'))}/> : '';
+    let sidebarComponent = !this.state.isFullPageLayout ? <Sidebar  userInfo ={JSON.parse(sessionStorage.getItem('user'))}/> : '';
     let footerComponent = !this.state.isFullPageLayout ? <Footer /> : '';
     return (
       <div className="container-scroller">
@@ -44,7 +81,7 @@ class App extends Component {
           { navbarComponent }
           <div className="main-panel">
             <div className="content-wrapper">
-              <AppRoutes userInfo ={this.state.userInfo}/>
+              <AppRoutes/>
             </div>
             { footerComponent }
           </div>
@@ -62,6 +99,7 @@ class App extends Component {
 
   onRouteChanged() {
     console.log("ROUTE CHANGED");
+    console.log("mn l app",this.state)
     const { i18n } = this.props;
     const body = document.querySelector('body');
 
@@ -70,9 +108,12 @@ class App extends Component {
     
     if(this.props.location.pathname === '/dashboard') {
       if(this.props.history.location.state){
-        this.setState({userInfo:this.props.history.location.state})
+        sessionStorage.setItem('user', JSON.stringify(this.props.history.location.state.user));
+        this.setState({userInfo:JSON.parse(sessionStorage.getItem('user'))})
+
         console.log("ha l app ",this.props.history.location.state)
         this.forceUpdate();
+        
       }
     }
 

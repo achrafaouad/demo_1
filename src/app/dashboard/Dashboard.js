@@ -60,14 +60,9 @@ constructor(props){
     return (
       <div>
         <div className="row ">
-          <div className="col-12 grid-margin">
-            <div className="card">
-              <div className="card-body" >
-                <h4 className="card-title">My map</h4>
-                <MyMap userInfo ={this.state.userInfo}/>
-              </div>
-            </div>
-          </div>
+          
+                <MyMap/>
+              
         </div>
         
         <div className="row">

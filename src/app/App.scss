@@ -69,6 +69,9 @@
 @import "../assets/styles/footer";
 @import "../assets/styles/layout";
 
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,500;1,400&display=swap');
+
 
 .my_input {
   border: none;
@@ -76,10 +79,7 @@
   border-color: aqua;
   width: 100px;
 }
-.add_polygone {
-margin: 20px;
 
-}
 .login1 , .register1{
     background: url("./user-pages/loginImg.jpg") no-repeat center center fixed; 
   -webkit-background-size: cover;
@@ -94,5 +94,115 @@ margin: 20px;
     
 }
 
+.heading {
+  font-family: 'Work Sans', sans-serif;
+  font-size:30px;
+  padding-top:15px
+  
+}
+.grid{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  color:#ffff
+}
+.myForm{
+  margin-top: 20px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.myForm{
+  margin-top: 20px;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+#profil{
+  background: url("./basic-ui/red-zeppelin-SAk_AHc7HhA-unsplash.png") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
+  
+.heading {
+  font-family: 'Work Sans', sans-serif;
+  font-size:30px;
+  padding-top:15px
+  
+}
+.addTra{
+  background: url("./basic-ui/gozha-net-xDrxJCdedcI-unsplash.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 
 
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+label {
+  font-size: medium;
+  color: #ffff;
+}
+#title {
+  text-align: center;
+  font-family: arial, sans-serif;
+  color: #ffff;
+}
+
+#students {
+  text-align: center;
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  border: 3px solid #ddd;
+  width: 100%;
+}
+
+#students td, #students th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#students tr:nth-child(even){background-color: #f2f2f2;}
+#students tr:nth-child(2n+1){background-color: #ffff;}
+#students tr:hover {background-color: #ddd;}
+
+#students th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #00ac4a;
+  color: white;
+}
+tr{
+  color:black
+}
+
+
+
+.grid-item {
+  padding: 20px;
+}

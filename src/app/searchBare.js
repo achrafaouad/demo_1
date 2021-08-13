@@ -15,6 +15,7 @@ import PlacesAutocomplete, {
               value={this.state.adress}
               onChange={this.handlechange}
               onSelect={this.handleSelect}
+              style={{width:"150px"}}
             >
               {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                 <div>

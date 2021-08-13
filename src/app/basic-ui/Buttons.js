@@ -1,420 +1,162 @@
 import React, { Component } from 'react';
-
+import EditProfil from "./editProfil";
+import ChangerMotPass from "./changerMotPass";
+import TileSource from 'ol/source/Tile';
 class Buttons extends Component {
+  constructor(props) {
+    super(props);
+    console.log("hello", this.props)
+    
+    
+      console.log("mn uttons",this.props.userInfo)
+      const {id} = JSON.parse(sessionStorage.getItem('user'));
+      this.state={afficher:false,afficherPass:false,id:id}
+      console.log(this.state)
+
+    
+    
+    
+    
+    this.handleClick=this.handleClick.bind(this);
+    this.handleClickPass=this.handleClickPass.bind(this);
+    
+    console.log("webbi",this.props.userInfo)
+    console.log(this.state)
+    
+  }
+
+  handleClick(){
+    this.setState({afficher:this.state.afficher === false?true:false}) 
+    
+  }
+  handleClickPass(){
+    this.setState({afficherPass:this.state.afficherPass === false?true:false})
+  }
+
+
+
+  async fetch_data() {
+
+    this.data = await fetch("http://localhost:3001/user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: JSON.parse(sessionStorage.getItem('user')).id,
+      }),
+    }).then(response2 =>{
+       if(response2.ok){
+         return response2.json();
+       }
+       throw new Error('request failed');}, networkError => console.log(networkError))
+       .then( responseJson2 =>{
+         return responseJson2
+ 
+        })
+        
+        this.setState({user:this.data[0]}) 
+    
+       }
+
+       componentDidMount(){
+        console.log("didmount")
+        const oneSecond = 1000;
+
+        this.intervalID = setInterval(() => {
+            this.fetch_data()
+           
+        }, oneSecond);
+     } 
+  componentWillUnmount(){
+    clearInterval(this.intervalID);
+    
+  }
+
+
+
+  
   render () {
+    console.log("button",this.state)
+    let myPhoto
+
+    if(this.state.user){if(this.state.user.photo){
+      myPhoto = this.state.user.photo
+    }
+    else myPhoto = "uploads/1628505205753.jpg"}
     return (
-      <div>
-        <div className="page-header">
-          <h3 className="page-title">
-            Buttons
-          </h3>
-          <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item"><a href="!#" onClick={event => event.preventDefault()}>UI Elements</a></li>
-              <li className="breadcrumb-item active" aria-current="page">Buttons</li>
-            </ol>
-          </nav>
-        </div>
+      <>
+
+      { (this.state.user) &&  <div>
+        
         <div className="row">
           <div className="col-12 grid-margin stretch-card">
             <div className="card">
             <div className="card-body">
-                <h4 className="card-title">Normal buttons</h4>
-                <p className="card-description">Use any of the available button classes to quickly create a styled button.</p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-primary btn-fw">Primary</button>
-                  <button type="button" className="btn btn-secondary btn-fw">Secondary</button>
-                  <button type="button" className="btn btn-success btn-fw">Success</button>
-                  <button type="button" className="btn btn-danger btn-fw">Danger</button>
-                  <button type="button" className="btn btn-warning btn-fw">Warning</button>
-                  <button type="button" className="btn btn-info btn-fw">Info</button>
-                  <button type="button" className="btn btn-light btn-fw">Light</button>
-                  <button type="button" className="btn btn-dark btn-fw">Dark</button>
-                  <button type="button" className="btn btn-link btn-fw">Link</button>
-                </div>
+            <div class="container" id='profil' style={{height:"auto" , color:"#ffff"}}>
+          <div class="row">
+            <div class="col-sm center">
+              <img
+                className=" shadow"
+                 
+                style={{ width:"150px", height: "auto", margin: "20px",clipPath:"ellipse(40% 40%)" }}
+                  src={"http://localhost:3001/"+ myPhoto } 
+                alt=" hello"
+              />
+              
+            </div>
+            <div class="col-sm" style={{padding:"12px"}}>
+              <div>
+                <strong> Nom</strong> : {this.state.user.nom}
               </div>
-              <div className="card-body">
-                <h4 className="card-title">Rounded buttons</h4>
-                <p className="card-description">Add class <code>.btn-rounded</code></p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-primary btn-rounded btn-fw">Primary</button>
-                  <button type="button" className="btn btn-secondary btn-rounded btn-fw">Secondary</button>
-                  <button type="button" className="btn btn-success btn-rounded btn-fw">Success</button>
-                  <button type="button" className="btn btn-danger btn-rounded btn-fw">Danger</button>
-                  <button type="button" className="btn btn-warning btn-rounded btn-fw">Warning</button>
-                  <button type="button" className="btn btn-info btn-rounded btn-fw">Info</button>
-                  <button type="button" className="btn btn-light btn-rounded btn-fw">Light</button>
-                  <button type="button" className="btn btn-dark btn-rounded btn-fw">Dark</button>
-                  <button type="button" className="btn btn-link btn-rounded btn-fw">Link</button>
-                </div>
+              <div>
+                <strong>CIN </strong> :{this.state.user.cin}
               </div>
-              <div className="card-body">
-                <h4 className="card-title">Outlined buttons</h4>
-                <p className="card-description">Add class <code>.btn-outline-&#123;color&#125;</code> for outline buttons</p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-outline-primary btn-fw">Primary</button>
-                  <button type="button" className="btn btn-outline-secondary btn-fw">Secondary</button>
-                  <button type="button" className="btn btn-outline-success btn-fw">Success</button>
-                  <button type="button" className="btn btn-outline-danger btn-fw">Danger</button>
-                  <button type="button" className="btn btn-outline-warning btn-fw">Warning</button>
-                  <button type="button" className="btn btn-outline-info btn-fw">Info</button>
-                  <button type="button" className="btn btn-outline-light btn-fw">Light</button>
-                  <button type="button" className="btn btn-outline-dark btn-fw">Dark</button>
-                  <button type="button" className="btn btn-link btn-fw">Link</button>
-                </div>
+              <div>
+                <strong>Adresse </strong> : {this.state.user.adress}
               </div>
-              <div className="card-body">
-                <h4 className="card-title">Inverse buttons</h4>
-                <p className="card-description">Add class <code>.btn-inverse-&#123;color&#125; for inverse buttons</code></p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-inverse-primary btn-fw">Primary</button>
-                  <button type="button" className="btn btn-inverse-secondary btn-fw">Secondary</button>
-                  <button type="button" className="btn btn-inverse-success btn-fw">Success</button>
-                  <button type="button" className="btn btn-inverse-danger btn-fw">Danger</button>
-                  <button type="button" className="btn btn-inverse-warning btn-fw">Warning</button>
-                  <button type="button" className="btn btn-inverse-info btn-fw">Info</button>
-                  <button type="button" className="btn btn-inverse-light btn-fw">Light</button>
-                  <button type="button" className="btn btn-inverse-dark btn-fw">Dark</button>
-                  <button type="button" className="btn btn-link btn-fw">Link</button>
-                </div>
+              <div>
+                <strong>Devise </strong> : {this.state.user.devise}
               </div>
             </div>
-          </div>
-          <div className="col-md-8 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-md-7">
-                    <h4 className="card-title">Icon Buttons</h4>
-                    <p className="card-description">Add class <code>.btn-icon</code> for buttons with only icons</p>
-                    <div className="template-demo d-flex justify-content-between flex-nowrap">
-                      <button type="button" className="btn btn-primary btn-rounded btn-icon">
-                        <i className="mdi mdi-home-outline"></i>
-                      </button>
-                      <button type="button" className="btn btn-dark btn-rounded btn-icon">
-                        <i className="mdi mdi-internet-explorer"></i>
-                      </button>
-                      <button type="button" className="btn btn-danger btn-rounded btn-icon">
-                        <i className="mdi mdi-email-open"></i>
-                      </button>
-                      <button type="button" className="btn btn-info btn-rounded btn-icon">
-                        <i className="mdi mdi-star"></i>
-                      </button>
-                      <button type="button" className="btn btn-success btn-rounded btn-icon">
-                        <i className="mdi mdi-map-marker"></i>
-                      </button>
-                    </div>
-                    <div className="template-demo d-flex justify-content-between flex-nowrap">
-                      <button type="button" className="btn btn-inverse-primary btn-rounded btn-icon">
-                        <i className="mdi mdi-home-outline"></i>
-                      </button>
-                      <button type="button" className="btn btn-inverse-dark btn-icon">
-                        <i className="mdi mdi-internet-explorer"></i>
-                      </button>
-                      <button type="button" className="btn btn-inverse-danger btn-icon">
-                        <i className="mdi mdi-email-open"></i>
-                      </button>
-                      <button type="button" className="btn btn-inverse-info btn-icon">
-                        <i className="mdi mdi-star"></i>
-                      </button>
-                      <button type="button" className="btn btn-inverse-success btn-icon">
-                        <i className="mdi mdi-map-marker"></i>
-                      </button>
-                    </div>
-                    <div className="template-demo d-flex justify-content-between flex-nowrap mt-4">
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-heart-outline text-danger"></i>
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-music text-dark"></i>
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-star text-primary"></i>
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-signal text-info"></i>                          
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-trending-up text-success"></i>                          
-                      </button>
-                    </div>
-                    <div className="template-demo d-flex justify-content-between flex-nowrap">
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-heart-outline"></i>
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-music"></i>
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-star"></i>
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-signal"></i>                          
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-rounded btn-icon">
-                        <i className="mdi mdi-trending-up"></i>                          
-                      </button>
-                    </div>
-                  </div>
-                  <div className="col-md-5">
-                    <h4 className="card-title">Button Size</h4>
-                    <p className="card-description">Use class <code>.btn-&#123;size&#125;</code></p>
-                    <div className="template-demo">
-                      <button type="button" className="btn btn-outline-secondary btn-lg">btn-lg</button>
-                      <button type="button" className="btn btn-outline-secondary btn-md">btn-md</button>
-                      <button type="button" className="btn btn-outline-secondary btn-sm">btn-sm</button>
-                    </div>
-                    <div className="template-demo mt-4">
-                      <button type="button" className="btn btn-danger btn-lg">btn-lg</button>
-                      <button type="button" className="btn btn-success btn-md">btn-md</button>
-                      <button type="button" className="btn btn-primary btn-sm">btn-sm</button>
-                    </div>
-                  </div>
-                </div>
+            <div class="col-sm" style={{padding:"12px"}}>
+              <div>
+                <strong> Ville</strong> : {this.state.user.ville}
               </div>
+              <div>
+                <strong>Pays </strong> : {this.state.user.pays}
+              </div>
+              <div>
+                <strong>code Insee </strong> : {this.state.user.code_insee}
+              </div>
+              
             </div>
-          </div>
-          <div className="col-md-4 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Block buttons</h4>
-                <p className="card-description">Add class <code>.btn-block</code></p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-info btn-lg btn-block">Block buttons
-                    <i className="mdi mdi-menu float-right"></i>
-                  </button>
-                  <button type="button" className="btn btn-dark btn-lg btn-block">Block buttons</button>
-                  <button type="button" className="btn btn-primary btn-lg btn-block">
-                    <i className="mdi mdi-account"></i>                      
-                    Block buttons
-                  </button>
-                  <button type="button" className="btn btn-outline-secondary btn-lg btn-block">Block buttons</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-12 grid-margin">
-            <div className="card">
-              <div className="card-body">
-                <div className="row">
-                  <div className="col-md-6">
-                    <h4 className="card-title">Button groups</h4>
-                    <p className="card-description">Wrap a series of buttons with <code>.btn</code> 
-                      in <code>.btn-group</code></p>
-                    <div className="template-demo">
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-outline-secondary">1</button>
-                        <button type="button" className="btn btn-outline-secondary">2</button>
-                        <button type="button" className="btn btn-outline-secondary">3</button>
-                      </div>
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-heart-outline"></i>
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-calendar"></i>
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-clock"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="template-demo">
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-primary">1</button>
-                        <button type="button" className="btn btn-primary">2</button>
-                        <button type="button" className="btn btn-primary">3</button>
-                      </div>
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-primary">
-                          <i className="mdi mdi-heart-outline"></i>
-                        </button>
-                        <button type="button" className="btn btn-primary">
-                          <i className="mdi mdi-calendar"></i>
-                        </button>
-                        <button type="button" className="btn btn-primary">
-                          <i className="mdi mdi-clock"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div className="template-demo mt-4">
-                      <div className="btn-group-vertical" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-format-vertical-align-top"></i>
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-format-vertical-align-center"></i>
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-format-vertical-align-bottom"></i>
-                        </button>
-                      </div>
-                      <div className="btn-group-vertical" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-outline-secondary">Default</button>
-                        <div className="btn-group">
-                          <button type="button" className="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">Dropdown</button>
-                          <div className="dropdown-menu">
-                            <a className="dropdown-item" href="!#" onClick={event => event.preventDefault()}>Go back</a>
-                            <a className="dropdown-item" href="!#" onClick={event => event.preventDefault()}>Delete</a>
-                            <a className="dropdown-item" href="!#" onClick={event => event.preventDefault()}>Swap</a>
-                          </div>                          
-                        </div>
-                        <button type="button" className="btn btn-outline-secondary">Default</button>
-                      </div>
-                      <div className="btn-group-vertical" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-outline-secondary">Top</button>
-                        <button type="button" className="btn btn-outline-secondary">Middle</button>                          
-                        <button type="button" className="btn btn-outline-secondary">Bottom</button>
-                      </div>
-                    </div>
-                    <div className="template-demo mt-4">
-                      <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-star d-block mb-1"></i>
-                          Favourites
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-reload d-block mb-1"></i>
-                          Reload
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary">
-                          <i className="mdi mdi-account d-block mb-1"></i>
-                          Users
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <h4 className="card-title">Button with text and icon</h4>
-                    <p className="card-description">Wrap icon and text inside <code>.btn-icon-text</code> and use <code>.btn-icon-prepend</code> 
-                      or <code>.btn-icon-append</code> for icon tags</p>
-                    <div className="template-demo">
-                      <button type="button" className="btn btn-primary btn-icon-text">
-                        <i className="mdi mdi-file-check btn-icon-prepend"></i>
-                        Submit
-                      </button>
-                      <button type="button" className="btn btn-dark btn-icon-text">
-                        Edit
-                        <i className="mdi mdi-file-check btn-icon-append"></i>                          
-                      </button>
-                      <button type="button" className="btn btn-success btn-icon-text">
-                        <i className="mdi mdi-alert btn-icon-prepend"></i>                                                    
-                        Warning
-                      </button>
-                    </div>
-                    <div className="template-demo">
-                      <button type="button" className="btn btn-danger btn-icon-text">
-                        <i className="mdi mdi-upload btn-icon-prepend"></i>                                                    
-                        Upload
-                      </button>
-                      <button type="button" className="btn btn-info btn-icon-text">
-                        Print
-                        <i className="mdi mdi-printer btn-icon-append"></i>                                                                              
-                      </button>
-                      <button type="button" className="btn btn-warning btn-icon-text">
-                        <i className="mdi mdi-reload btn-icon-prepend"></i>                                                    
-                        Reset
-                      </button>
-                    </div>
-                    <div className="template-demo mt-2">
-                      <button type="button" className="btn btn-outline-primary btn-icon-text">
-                        <i className="mdi mdi-file-check btn-icon-prepend"></i>
-                        Submit
-                      </button>
-                      <button type="button" className="btn btn-outline-secondary btn-icon-text">
-                        Edit
-                        <i className="mdi mdi-file-check btn-icon-append"></i>                          
-                      </button>
-                      <button type="button" className="btn btn-outline-success btn-icon-text">
-                        <i className="mdi mdi-alert btn-icon-prepend"></i>                                                    
-                        Warning
-                      </button>
-                    </div>
-                    <div className="template-demo">
-                      <button type="button" className="btn btn-outline-danger btn-icon-text">
-                        <i className="mdi mdi-upload btn-icon-prepend"></i>                                                    
-                        Upload
-                      </button>
-                      <button type="button" className="btn btn-outline-info btn-icon-text">
-                        Print
-                        <i className="mdi mdi-printer btn-icon-append"></i>                                                                              
-                      </button>
-                      <button type="button" className="btn btn-outline-warning btn-icon-text">
-                        <i className="mdi mdi-reload btn-icon-prepend"></i>                                                    
-                        Reset
-                      </button>
-                    </div>
-                    <div className="template-demo mt-2">
-                      <button className="btn btn-outline-light btn-icon-text">
-                        <i className="mdi mdi-apple btn-icon-prepend mdi-36px"></i>
-                        <span className="d-inline-block text-left">
-                          <small className="font-weight-light d-block">Available on the</small>
-                          App Store
-                        </span>
-                      </button>
-                      <button className="btn btn-outline-light btn-icon-text">
-                        <i className="mdi mdi-android-debug-bridge btn-icon-prepend mdi-36px"></i>
-                        <span className="d-inline-block text-left">
-                          <small className="font-weight-light d-block">Get it on the</small>
-                          Google Play
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Social Icon Buttons</h4>
-                <p className="card-description">Add class <code>.btn-social-icon</code></p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-social-icon btn-outline-facebook"><i className="mdi mdi-facebook"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-outline-youtube"><i className="mdi mdi-youtube"></i></button>                                        
-                  <button type="button" className="btn btn-social-icon btn-outline-twitter"><i className="mdi mdi-twitter"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-outline-dribbble"><i className="mdi mdi-dribbble"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-outline-linkedin"><i className="mdi mdi-linkedin"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-outline-google"><i className="mdi mdi-google-plus"></i></button>
-                </div>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-social-icon btn-facebook"><i className="mdi mdi-facebook"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-youtube"><i className="mdi mdi-youtube"></i></button>                                        
-                  <button type="button" className="btn btn-social-icon btn-twitter"><i className="mdi mdi-twitter"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-dribbble"><i className="mdi mdi-dribbble"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-linkedin"><i className="mdi mdi-linkedin"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-google"><i className="mdi mdi-google-plus"></i></button>
-                </div>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-social-icon btn-facebook btn-rounded"><i className="mdi mdi-facebook"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-youtube btn-rounded"><i className="mdi mdi-youtube"></i></button>                                        
-                  <button type="button" className="btn btn-social-icon btn-twitter btn-rounded"><i className="mdi mdi-twitter"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-dribbble btn-rounded"><i className="mdi mdi-dribbble"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-linkedin btn-rounded"><i className="mdi mdi-linkedin"></i></button>
-                  <button type="button" className="btn btn-social-icon btn-google btn-rounded"><i className="mdi mdi-google-plus"></i></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 grid-margin stretch-card">
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Social button with text</h4>
-                <p className="card-description">Add class <code>.btn-social-icon-text</code></p>
-                <div className="template-demo">
-                  <button type="button" className="btn btn-social-icon-text btn-facebook"><i className="mdi mdi-facebook"></i>Facebook</button>
-                  <button type="button" className="btn btn-social-icon-text btn-youtube"><i className="mdi mdi-youtube"></i>Youtube</button>                                        
-                  <button type="button" className="btn btn-social-icon-text btn-twitter"><i className="mdi mdi-twitter"></i>Twitter</button>
-                  <button type="button" className="btn btn-social-icon-text btn-dribbble"><i className="mdi mdi-dribbble"></i>Dribbble</button>
-                  <button type="button" className="btn btn-social-icon-text btn-linkedin"><i className="mdi mdi-linkedin"></i>Linkedin</button>
-                  <button type="button" className="btn btn-social-icon-text btn-google"><i className="mdi mdi-google-plus"></i>Google</button>
-                </div>
-              </div>
+            <div class="col-sm" style={{padding:"12px"}}>
+            <button type="button" class="btn btn-success btn-sm" style={{marginBottom:"12px"}} onClick={this.handleClickPass}>Changer le mot de passe</button><br/>
+            
             </div>
           </div>
         </div>
-      </div>
+        <div className="container" >
+            A propos : {this.state.user.description}
+        </div>
+
+        <div className="container" >
+
+          <button type="button" class="btn btn-primary btn-sm btn-block " style={{width:"100%" , boxShadow:'5px 3px 2px 1px rgba(0, 0, 0, .3)'}} onClick={this.handleClick}>Modifier mon profil</button>
+        </div>
+        {console.error("hana",)}
+        { this.state.afficher && <EditProfil Edit = {this.state.user}/>}
+        {(this.state.afficherPass && this.state.afficher=== false) && <ChangerMotPass user = {this.state.user}/>}
+             
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+        </div>
+      </div> }
+      </>
     );
   }
 }

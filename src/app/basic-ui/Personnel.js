@@ -6,23 +6,27 @@ import 'antd/dist/antd.css';
 import AddTracteur from './add_tracteur';
 import Scroll from "./Scroll";
 import CardList from "./CardList";
+import AddPersonnel from "./addPersonnel";
+import PersonnelPage from "./personnelPage";
 const { Search } = Input;
 
 const { Option } = Select;
-export class Dropdowns extends Component {
+export class Personnel extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
-    this.state = { name:'',addm:false ,value:''}
+    this.state = { name:'',addm:false, afficher_card:false ,value:''}
     this.fetch_data()
  this.provinceData = [];
  this.onChange = this.onChange.bind(this);
  this.addMat = this.addMat.bind(this);
+ this.ON_afficherList = this.ON_afficherList.bind(this);
+ this.choosen = this.choosen.bind(this);
  
 };
 
    async fetch_data() {
 
-   this.data1 = await fetch("http://localhost:3001/getMaterielAchete").then(response2 =>{
+   this.data = await fetch("http://localhost:3001/getPers_saisonnier").then(response2 =>{
       if(response2.ok){
         return response2.json();
       }
@@ -32,23 +36,25 @@ export class Dropdowns extends Component {
 
        })
 
-       this.data2 = await fetch("http://localhost:3001/getMaterielLoue").then(response2 =>{
-      if(response2.ok){
-        return response2.json();
-      }
-      throw new Error('request failed');}, networkError => console.log(networkError))
-      .then( responseJson2 =>{
-        return responseJson2
+       this.data2 = await fetch("http://localhost:3001/getPers_permanent").then(response2 =>{
+        if(response2.ok){
+          return response2.json();
+        }
+        throw new Error('request failed');}, networkError => console.log(networkError))
+        .then( responseJson2 =>{
+          return responseJson2
+  
+         })
+         
 
-       })
-       var newArray = this.data1.concat(this.data2);
-       this.setState({data:newArray})
+         var newArray = this.data.concat(this.data2);
+       this.setState({data:newArray}) 
    
       }
 
       componentDidMount(){
          console.log("didmount")
-         const oneSecond = 5000;
+         const oneSecond = 10000;
 
          this.intervalID = setInterval(() => {
              this.fetch_data()
@@ -61,6 +67,11 @@ export class Dropdowns extends Component {
          
        }
 
+       choosen(val){
+         console.log("ha li 3welty" ,val);
+         this.setState({choosen:val})
+       }
+
 
       onChange(e){
 
@@ -70,6 +81,12 @@ export class Dropdowns extends Component {
       addMat(){
          let afficher = this.state.addm?false:true
          this.setState({addm:afficher})
+         console.log(this.state)
+      }
+
+      ON_afficherList(){
+        let afficher_card1 = this.state.afficher_card?false:true
+         this.setState({afficher_card:afficher_card1})
          console.log(this.state)
       }
       
@@ -91,7 +108,7 @@ export class Dropdowns extends Component {
 
             <br/>
 
-            { (this.state.addm === false) &&<>
+            { (this.state.addm === false && this.state.afficher_card === false) &&<>
             <div class="d-flex flex-row-reverse bd-highlight">
             
              <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
@@ -102,7 +119,7 @@ export class Dropdowns extends Component {
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter un materiel
+                + ajouter un personnel
               </button>
              </div>
              <br/>
@@ -114,9 +131,9 @@ export class Dropdowns extends Component {
       <h1>Loading</h1> :
       (
         <div className='tc'>
-          <h1 className='f1' style={{color:"#ffff"}}>Materiels</h1>
+          <h1 className='f1' style={{color:"#ffff"}}>Personnel</h1>
           <Scroll>
-            <CardList materiels={filteredRobots} />
+            <CardList materiels={filteredRobots} ON_afficherList={this.ON_afficherList} ON_choosen ={this.choosen} />
           </Scroll>
         </div>
       )}
@@ -125,9 +142,14 @@ export class Dropdowns extends Component {
             
             </>
   }
+   { ( this.state.afficher_card === true) &&<>
+    <PersonnelPage exploitation={this.state.choosen} retour={this.ON_afficherList}/>
+   </>
+   }
 
 
-              {(this.state.addm === true) && <AddTracteur reafficher={this.addMat}/>}
+
+              {(this.state.addm === true) && <AddPersonnel reafficher={this.addMat}/>}
             </div>
           </div>
         </div>
@@ -136,4 +158,4 @@ export class Dropdowns extends Component {
   }
 }
 
-export default Dropdowns;
+export default Personnel;

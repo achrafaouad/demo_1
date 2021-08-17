@@ -20,7 +20,7 @@ const gender = [
 ];
 const { TextArea } = Input;
 
-class Alimantation extends React.Component {
+class AddTraitement extends React.Component {
   constructor(props){
     super(props);
     this.state = { visible: this.props.visible, typeFoncier: false ,production:"animal"};
@@ -30,8 +30,7 @@ class Alimantation extends React.Component {
     this.handlechange=this.handlechange.bind(this);
     this.handleChange_value=this.handleChange_value.bind(this);
    
-    this.onChange_date_alimentation=this.onChange_date_alimentation.bind(this);
-    this.onChange_date_fin=this.onChange_date_fin.bind(this);
+    this.onChange_date_traitement=this.onChange_date_traitement.bind(this);
     
     this.optionAliment()
     console.log(this.state)
@@ -46,17 +45,17 @@ class Alimantation extends React.Component {
   handleOk = (e) => {
     
     
-      fetch("http://localhost:3001/add_alimentation",{
+      fetch("http://localhost:3001/effectuer_traitement",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
-            id_aliment:this.state.id_aliment,
-            quantité:this.state.quantité,
-            id_exploitation:this.props.id,
-            note:this.state.note,
-            duré:this.state.duré,
-            date_alimentation:this.state.date_alimentation,
-            price:this.state.price
+        id_trait:this.state.id_trait ,
+        id_ann:this.props.id,
+        date_traitement:this.state.date_traitement,
+        note:this.state.note,
+        numero_bulletin:this.state.numero_bulletin,
+        veterinaire:this.state.veterinaire,
+        cout:this.state.cout
       })
  }).then(response =>{
    if(response.ok){
@@ -71,6 +70,7 @@ class Alimantation extends React.Component {
     this.setState({
       visible: false,
     });
+
   }
   
   handleCancel = (e) => {
@@ -93,7 +93,10 @@ class Alimantation extends React.Component {
 
 
   async optionAliment(){
-    this.data = await fetch("http://localhost:3001/aliment").then(response2 =>{
+    this.data = await fetch("http://localhost:3001/get_traitement",{
+        method: "POST",
+        body: {id:50},
+      }).then(response2 =>{
         if(response2.ok){
           return response2.json();
         }
@@ -102,7 +105,7 @@ class Alimantation extends React.Component {
           return responseJson2
 
          })
-         this.setState({aliment:this.data})
+         this.setState({traitement:this.data})
          
     
 //     return this.data.map((aliment, index) => {
@@ -116,45 +119,35 @@ class Alimantation extends React.Component {
 
   
 
-  onChange_date_alimentation(date,dateString) {
+onChange_date_traitement(date,dateString) {
     console.log(date,dateString);
-    this.setState({"date_alimentation":dateString})
+    this.setState({"date_traitement":dateString})
     
   }
-  onChange_date_fin(date,dateString) {
-    console.log(date,dateString);
 
-    const a = new Date(this.state.date_alimentation),
-    b = new Date(dateString)
-    var timeDiff = Math.abs(b.getTime() - a.getTime());
-    var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-    this.setState ({duré:diffDays})
-    this.setState({price:(diffDays*this.state.prix_unit*this.state.quantité)})
-  }
- 
 
   handleChange_value(e){
       console.log(e.target.value)
-      this.setState({id_aliment:JSON.parse(e.target.value).id_aliment,unit:JSON.parse(e.target.value).unit,prix_unit:JSON.parse(e.target.value).prix_unit})
+      this.setState({id_trait:JSON.parse(e.target.value).id_trait})
+      console.log("ha state",this.state)
   }
 
 
   render() {
-      if(this.state.aliment){
-       var lolo = this.state.aliment.map((e, key) => {
-        return <option key={e.id_aliment} value={JSON.stringify(e)}>{e.nom}</option>;
+      if(this.state.traitement){
+       var lolo = this.state.traitement.map((e, key) => {
+        return <option key={e.id_trait} value={JSON.stringify(e)}>{e.operation}</option>;
         })
     }
     
-    const {  value3 } = this.state;
     console.log('props', this.props)
     console.log('render', this.state)
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter une alimentation</Button>
+        <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter un traitement</Button>
         <Modal
-          title="ajouter une alimentation"
+          title="Ajouter Votre animal"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -162,33 +155,23 @@ class Alimantation extends React.Component {
         
           
           
-        <p>Aliment</p>
+        <p>traitement</p>
         <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
-        <option defaultValue>choisie Votre Aliment</option>
+        <option defaultValue>choisie Votre traitement</option>
         
         {lolo}
         
         </select>
         <br/>
           
-    <p>Qauntité par jour</p>
-       <InputGroup className="mb-3">
-       <FormControl
-         type="Number"
-         placeholder="prix d'achat"
-         name="quantité"
-         aria-label="Recipient's username"
-         aria-describedby="basic-addon2"
-         onChange={this.handlechange}
-       />
-       <InputGroup.Text id="basic-addon2">{this.state.unit}</InputGroup.Text>
-     </InputGroup>
     
-       <p>prix d'achat par {this.state.unit}</p>
+       <p>cout de traitement </p>
        <InputGroup className="mb-3">
        <FormControl
          type="Number"
-         placeholder="prix d'achat"
+         name="cout"
+         onChange={this.handlechange}
+         placeholder="cout de traitement"
          value={this.state.prix_unit}
          aria-label="Recipient's username"
          aria-describedby="basic-addon2"
@@ -196,26 +179,33 @@ class Alimantation extends React.Component {
        <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
      </InputGroup>
 
-     <p>total a payer en dh</p>
+     <p>veterinaire</p>
        <InputGroup className="mb-3">
        <FormControl
-         type="Number"
-         placeholder="prix d'achat"
-         name="prix"
-         value={this.state.price}
+         type="text"
+         placeholder="veterinaire"
+         name="veterinaire"
          aria-label="Recipient's username"
          aria-describedby="basic-addon2"
          onChange={this.handlechange}
        />
-       <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
+     </InputGroup>
+
+     <p>Numero de Bulletin</p>
+       <InputGroup className="mb-3">
+       <FormControl
+         type="text"
+         placeholder="Numero de Bulletin"
+         name="Numero de Bulletin"
+         aria-label="Recipient's username"
+         aria-describedby="basic-addon2"
+         onChange={this.handlechange}
+       />
      </InputGroup>
     
 
-<p>Date de debut de ce regime</p>
-    <DatePicker onChange={this.onChange_date_alimentation}/>
-
-<p>Date de fin de ce regime</p>
-    <DatePicker onChange={this.onChange_date_fin}/>
+<p>Date de traitement</p>
+    <DatePicker onChange={this.onChange_date_traitement}/>
 
 
 <p>note</p>
@@ -230,4 +220,4 @@ class Alimantation extends React.Component {
 }
 
 
-export default Alimantation
+export default AddTraitement

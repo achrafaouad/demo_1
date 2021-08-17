@@ -10,6 +10,7 @@
     "@tinymce/tinymce-react": "^3.3.2",
     "antd": "^4.16.9",
     "bcrypt": "^5.0.1",
+    "tachyons": "^4.12.0",
     "bcrypt-nodejs": "0.0.3",
     "bootstrap": "^4.3.1",
     "bosket": "^0.2.3",

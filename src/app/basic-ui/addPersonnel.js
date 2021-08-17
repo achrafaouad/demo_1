@@ -2,11 +2,11 @@ import React, { Component } from "react";
 
 import { DatePicker, Radio } from "antd";
 const bati = [ 
-  { label: "LOCATION", value: "LOCATION" },
-  { label: "PROPRIÉTAIRE", value: "PROPRIÉTAIRE" }
+  { label: "Saisonnier", value: "Saisonnier" },
+  { label: "Permanent", value: "Permanent" }
 ];
 
-class AddTracteur extends Component {
+class AddPersonnel extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -54,23 +54,20 @@ class AddTracteur extends Component {
   onSUBMIT(e) {
     e.preventDefault();
     if (this.state.nom) {
-      fetch("http://localhost:3001/add_materiel", {
+      fetch("http://localhost:3001/add_personnel", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          nom: this.state.nom,
-          description: this.state.description,
-          fabriquant: this.state.fabriquant,
-          model: this.state.model,
-          date_achat: this.state.date_achat,
-          derniere_assurence: this.state.derniere_assurence,
-          derniere_controle_tec: this.state.derniere_controle_tec,
-          prix_achat: this.state.prix_achat,
-          immatriculation: this.state.immatriculation,
-          immatriculation: this.state.immatriculation,
-          n_enregistrement: this.state.n_enregistrement,
-          prix_location_jour: this.state.prix_location_jour,
-          Propriétaire: this.state.Propriétaire,
+            nom:this.state.nom,
+            adress:this.state.adress,
+            ville:this.state.ville,
+            cin:this.state.cin,
+            pays:this.state.pays,
+            note:this.state.note,
+            salaire_jr:this.state.salaire_jr,
+            salaire_mois:this.state.salaire_mois,
+            id_exp:JSON.parse(sessionStorage.getItem('user')).id
+
         }),
       })
         .then(
@@ -88,7 +85,7 @@ class AddTracteur extends Component {
             const formdata = new FormData();
           formdata.append("materiel", this.state.myFile);
           formdata.append("id", responseJson.data);
-          fetch("http://localhost:3001/upload", {
+          fetch("http://localhost:3001/uploadMypers", {
             method: "POST",
             body: formdata,
           })
@@ -121,7 +118,7 @@ class AddTracteur extends Component {
           style={{ height: "120px" }}
         >
           {" "}
-          Nouveau matériel
+          Nouveau Personnel
         </div>
         <div className="grid">
           <form className="myForm" >
@@ -138,72 +135,93 @@ class AddTracteur extends Component {
                 onChange={this.handleChange}
               />
               <div id="emailHelp" class="form-text">
-                Ajouter le nom de votre materiel
+                Ajouter le nom de votre Personnel
               </div>
             </div>
 
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">
-                Déscription
+                Adresse
               </label>
               <input
                 type="text"
                 class="form-control"
-                name="description"
+                name="adress"
                 id="exampleInputPassword1"
                 onChange={this.handleChange}
               />
             </div>
 
-            <div class="mb-3">
-              <label for="Nom" class="form-label">
-                Type :{" "}
-              </label>
-              <br />
-              <select className="custom-select custom-select-sm">
-                <option defaultValue>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
+            
 
             <div class="mb-3">
               <label for="Fabriquant" class="form-label">
-                Fabriquant
+                Ville
               </label>
               <input
                 type="text"
                 class="form-control"
-                name="fabriquant"
+                name="ville"
                 id="Fabriquant"
                 aria-describedby="emailHelp"
                 onChange={this.handleChange}
               />
               <div id="Fabriquant" class="form-text">
-                S'il y a la possibilité insère le fabriquant de ce matériel
+                S'il y a la possibilité insère la Ville de votre personnel
               </div>
             </div>
             <div class="mb-3">
               <label for="Modèle" class="form-label">
-                Modèle
+               CIN
               </label>
               <input
                 type="text"
                 class="form-control"
-                name="model"
+                name="cin"
                 id="Modèle"
                 aria-describedby="emailHelp"
                 onChange={this.handleChange}
               />
               <div id="Modèle" class="form-text">
-                S'il y a la possibilité insère le Modèle
+                S'il y a la possibilité insère le CIN
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="Modèle" class="form-label">
+               Pays
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="pays"
+                id="Modèle"
+                aria-describedby="emailHelp"
+                onChange={this.handleChange}
+              />
+              <div id="Modèle" class="form-text">
+                S'il y a la possibilité insère le Pays
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="Modèle" class="form-label">
+              note
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="note"
+                id="Modèle"
+                aria-describedby="emailHelp"
+                onChange={this.handleChange}
+              />
+              <div id="Modèle" class="form-text">
+                S'il y a la possibilité insère une note
               </div>
             </div>
 
             <div class="mb-3">
               <label for="Propriété" class="form-label">
-                Propriété
+                Personnel
               </label>{" "}
               <br />
               <Radio.Group
@@ -217,119 +235,46 @@ class AddTracteur extends Component {
             </div>
             {/*PROPRIÉTAIRE*/}
             {/*date achat*/}
-            {this.state.myProp === "PROPRIÉTAIRE" && (
+            {this.state.myProp === "Permanent" && (
               <>
-                <div
-                  id="date-picker-example"
-                  class="md-form md-outline input-with-post-icon datepicker"
-                >
-                  <label for="example">Date d'achat</label> <br />
-                  <DatePicker onChange={this.onChangeAchat} />
-                </div>
-                <br />
+              
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">
-                    Coût d'achat
+                  salaire par mois
                   </label>
                   <input
                     type="number"
                     class="form-control"
-                    name="prix_achat"
+                    name="salaire_mois"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     onChange={this.handleChange}
                   />
                   <div id="emailHelp" class="form-text">
-                    Ajouter le Coût d'achat
+                    Ajouter le salaire par mois
                   </div>
                 </div>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
-                    Plaque d'immatriculation
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="immatriculation"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="emailHelp" class="form-text">
-                    Ajouter la Plaque d'immatriculation
-                  </div>
-                </div>
-                {/*Dernier controle technique*/}
-                <div
-                  id="date-picker-example"
-                  class="md-form md-outline input-with-post-icon datepicker"
-                >
-                  <label for="example">Dernier controle technique</label> <br />
-                  <DatePicker onChange={this.onChangeControl} />
-                </div>
-                {/*date achat*/}
-                <div
-                  id="date-picker-example"
-                  class="md-form md-outline input-with-post-icon datepicker"
-                >
-                  <br />
-                  <label for="example">Dernière assurance</label> <br />
-                  <DatePicker onChange={this.onChangeAssurance} />
-                </div>
-                <br />
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
-                    N° d'enregistrement officiel
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="n_enregistrement"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="emailHelp" class="form-text">
-                    Ajouter le N° d'enregistrement officiel
-                  </div>
-                </div>{" "}
+                
               </>
             )}
 
             {/*LOCATION*/}
-            {this.state.myProp === "LOCATION" && (
+            {this.state.myProp === "Saisonnier" && (
               <>
-                <div class="mb-3">
+              <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">
-                    Prix de location (jour)
+                  salaire par jour
                   </label>
                   <input
                     type="number"
                     class="form-control"
-                    name="prix_location_jour"
+                    name="salaire_jr"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     onChange={this.handleChange}
                   />
                   <div id="emailHelp" class="form-text">
-                    Ajouter le Prix de location par jour
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="Fabriquant" class="form-label">
-                    Propriétaire
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    name="Propriétaire"
-                    id="Fabriquant"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="Fabriquant" class="form-text">
-                    S'il y a la possibilité insère le Propriétaire de ce
-                    matériel
+                    Ajouter le salaire par jour 
                   </div>
                 </div>
               </>
@@ -337,7 +282,7 @@ class AddTracteur extends Component {
             {/*LOCATION*/}
             <div class="mb-1">
               <label for="formFile" class="form-label">
-                choisie l'image de votre materiel
+                choisie l'image de votre Personnel
               </label>
               <input
                 class="form-control"
@@ -353,10 +298,10 @@ class AddTracteur extends Component {
             <button class="btn ">Annuler</button>
           </form>
         </div>
-        {/* {(this.state.src) && <img src={"http://localhost:3001/"+this.state.src} style={{width:"250px",height:"auto"}}/>} */}
+        
       </div>
     );
   }
 }
 
-export default AddTracteur;
+export default AddPersonnel;

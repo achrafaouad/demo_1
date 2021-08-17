@@ -83,6 +83,7 @@ class Popup extends React.Component {
         id_foncier:responseJson.data,
         batiment:String(this.state.batiment),
         note:this.state.prix_achat,
+        errige:this.state.errige,
         culture_permanent:String(this.state.culture_permanent),
         source_eau:String(this.state.source_eau)
 

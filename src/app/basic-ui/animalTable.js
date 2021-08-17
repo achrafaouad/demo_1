@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import { Input} from 'antd';
+import AnimalProfil from "./animalProfil";
 
 const { Search } = Input;
 
@@ -9,7 +10,9 @@ export class AnimalTable extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
     this.state = { name:'' , afficher:false}
-
+    this.fetch_data();
+    this.onChange = this.onChange.bind(this)
+    this.afficheranimal = this.afficheranimal.bind(this)
  
 }
 
@@ -18,7 +21,7 @@ export class AnimalTable extends Component {
 async fetch_data() {
     
 
-    this.data = fetch("http://localhost:3001/getAnimal",{
+      await fetch("http://localhost:3001/getAnimal",{
         method:'POST',
         headers:{'Content-Type':"application/json"},
         body:JSON.stringify({id_exploitation:this.props.id})}).then(response2 =>{
@@ -27,12 +30,12 @@ async fetch_data() {
        }
        throw new Error('request failed');}, networkError => console.log(networkError))
        .then( responseJson2 =>{
-           console.log("ha data",typeof responseJson2)
-         return responseJson2
+           console.log("ha data", responseJson2)
+           this.setState({data:responseJson2})
         })
         
-        this.setState({data:this.data})
-        this.onChange = this.onChange.bind(this); 
+        
+        console.log("ha l hayawan" ,this.state.data) 
 }
 
        renderTableData() {
@@ -40,11 +43,11 @@ async fetch_data() {
         
 
             if(this.state.value){
-              return this.state.data.filter((d)=>{if(d.id) return d.id.includes(this.state.value)} ).map((student, index) => {
+              return this.state.data.filter((d)=>{if(d.id_ann) return (d.id_ann == this.state.value)} ).map((student, index) => {
                   const { id_ann, gender, date_birth, race,sous_famille } = student //destructuring
       
                   return (
-                     <tr key={id_ann} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
+                     <tr key={id_ann} onClick ={()=> {this.setState({choosen_ann:student, afficher:true }); this.props.afficher_animal();console.log(student)}}>
                         <td>{id_ann}</td>
                         <td>{gender}</td>
                         <td>{date_birth}</td>
@@ -62,7 +65,7 @@ async fetch_data() {
                 const { id_ann, gender, date_birth, race,sous_famille } = student //destructuring
       
                   return (
-                     <tr key={id_ann} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
+                     <tr key={id_ann} onClick ={ ()=> {this.setState({choosen_ann:student,afficher:true }); this.props.afficher_animal(); console.log(student)}}>
                         <td>{id_ann}</td>
                         <td>{gender}</td>
                         <td>{date_birth}</td>
@@ -78,12 +81,10 @@ async fetch_data() {
     }}
     onChange(e){
 
-        this.setState({value:e.target.value.toUpperCase()})
+        this.setState({value:e.target.value})
         console.log(e.target.value)
     }
-    componentDidMount(){
-        this.fetch_data()
-    }
+    
 
     renderTableHeader() {
         if(this.state.data){
@@ -103,6 +104,13 @@ async fetch_data() {
         
      }
 
+     afficheranimal(){
+       let afficher = this.state.afficher === true?false:true
+       this.setState({afficher:afficher})
+       console.log("rje3 t9")
+       this.props.afficher_animal()
+     }
+
     render(){
         
         return(
@@ -110,24 +118,26 @@ async fetch_data() {
         <div className="row">
           <div className="col-lg-12 grid-margin">
             <div className="card">
-               {(!this.state.afficher)&& <>
-            <h1 id='title'>Exploitation Animal</h1>
+          
+            {(!this.state.afficher) && <><h1 id='title'>Exploitation Animal</h1>
 
             
             <div class="d-flex flex-row-reverse bd-highlight">
             
-             <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+             <Search  placeholder="filtrer par l'id de votre animal" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
        
              </div>
              <br/>
              <br/>
 
-            <table id='students'>
+            <table id='students' style={{width:"100%", height: "auto",}}>
                <tbody>
                    <tr>{this.renderTableHeader()} </tr> 
                    {(this.state.data) && this.renderTableData() }
                </tbody>
-            </table> </> }
+            </table></> }
+
+            {(this.state.afficher) &&<AnimalProfil choosed = {this.state.choosen_ann} afficher={this.afficheranimal}/>}
             
           
 

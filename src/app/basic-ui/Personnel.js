@@ -26,7 +26,7 @@ export class Personnel extends Component {
 
    async fetch_data() {
 
-   this.data = await fetch("http://localhost:3001/getPers_saisonnier").then(response2 =>{
+   this.data = await fetch("http://localhost:3001/getPersonnel1").then(response2 =>{
       if(response2.ok){
         return response2.json();
       }
@@ -36,19 +36,9 @@ export class Personnel extends Component {
 
        })
 
-       this.data2 = await fetch("http://localhost:3001/getPers_permanent").then(response2 =>{
-        if(response2.ok){
-          return response2.json();
-        }
-        throw new Error('request failed');}, networkError => console.log(networkError))
-        .then( responseJson2 =>{
-          return responseJson2
-  
-         })
          
 
-         var newArray = this.data.concat(this.data2);
-       this.setState({data:newArray}) 
+       this.setState({data:this.data}) 
    
       }
 

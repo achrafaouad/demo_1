@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { FaBeer } from 'react-icons/fa';
 import { DatePicker, Radio } from "antd";
 const bati = [ 
   { label: "LOCATION", value: "LOCATION" },
@@ -126,9 +126,11 @@ class AddTracteur extends Component {
         <div className="grid">
           <form className="myForm" >
             <div class="mb-3">
+
               <label for="Nom" class="form-label">
                 Nom
               </label>
+              
               <input
                 type="text"
                 class="form-control"
@@ -144,7 +146,7 @@ class AddTracteur extends Component {
 
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">
-                Déscription
+                Déscription 
               </label>
               <input
                 type="text"

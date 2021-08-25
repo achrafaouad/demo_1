@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Dropdown, ButtonGroup } from "react-bootstrap";
 import { Select } from 'antd';
+import { format } from 'date-fns';
 import { Input} from 'antd';
 import 'antd/dist/antd.css';
 import ExploitationPage from "./exploitationPage";
@@ -68,16 +69,17 @@ export class Dropdowns extends Component {
                     const { id_exploitation, surface, date_exploitation, batiment,nom } = student //destructuring
         
                     return (
-                       <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
-                          <td>{id_exploitation}</td>
-                          <td>{nom}</td>
-                          <td>{surface}</td>
-                          <td>{date_exploitation}</td>
-                          <td>{batiment}</td>
-                          <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
-                              <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
-                       </tr>
-                    )
+                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
+                        <td>{id_exploitation}</td>
+                        <td>{nom}</td>
+                        <td>{surface}</td>
+                        <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
+                             }</td>
+                        <td>{batiment}</td>
+                        <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
+                            <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
+                     </tr>
+                  )
                  })
               }
               else{
@@ -85,17 +87,18 @@ export class Dropdowns extends Component {
                     
                   const { id_exploitation, surface, date_exploitation, batiment,nom } = student //destructuring
         
-                    return (
-                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student , afficher:true})}>
-                     <td>{id_exploitation}</td>
-                     <td>{nom}</td>
-                     <td>{surface}</td>
-                     <td>{date_exploitation}</td>
-                     <td>{String(batiment)}</td>
-                     <td>{<><button type="button" class="btn btn-success btn-sm" onClick ={()=> this.setState({choosen:student})}>Editer</button>
-                         <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
-                  </tr>
-                    )
+                  return (
+                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
+                        <td>{id_exploitation}</td>
+                        <td>{nom}</td>
+                        <td>{surface}</td>
+                        <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
+                             }</td>
+                        <td>{batiment}</td>
+                        <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
+                            <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
+                     </tr>
+                  )
                  })
               }
          

@@ -6,23 +6,25 @@ import 'antd/dist/antd.css';
 import AddTracteur from './add_tracteur';
 import Scroll from "./Scroll";
 import CardList from "./CardList";
+import MaterielPage from "./MaterielPage";
 const { Search } = Input;
 
 const { Option } = Select;
 export class Dropdowns extends Component {
   constructor(props) {
     super(props); //since we are extending class Table so we have to use super in order to override Component class constructor
-    this.state = { name:'',addm:false ,value:''}
+    this.state = { name:'',addm:false ,value:'', afficher_card:false}
     this.fetch_data()
  this.provinceData = [];
  this.onChange = this.onChange.bind(this);
  this.addMat = this.addMat.bind(this);
- 
+ this.ON_afficherList = this.ON_afficherList.bind(this);
+ this.choosen = this.choosen.bind(this);
 };
 
    async fetch_data() {
 
-   this.data1 = await fetch("http://localhost:3001/getMaterielAchete").then(response2 =>{
+   this.data = await fetch("http://localhost:3001/getMateriel").then(response2 =>{
       if(response2.ok){
         return response2.json();
       }
@@ -32,17 +34,9 @@ export class Dropdowns extends Component {
 
        })
 
-       this.data2 = await fetch("http://localhost:3001/getMaterielLoue").then(response2 =>{
-      if(response2.ok){
-        return response2.json();
-      }
-      throw new Error('request failed');}, networkError => console.log(networkError))
-      .then( responseJson2 =>{
-        return responseJson2
-
-       })
-       var newArray = this.data1.concat(this.data2);
-       this.setState({data:newArray})
+       
+       
+       this.setState({data:this.data})
    
       }
 
@@ -72,6 +66,16 @@ export class Dropdowns extends Component {
          this.setState({addm:afficher})
          console.log(this.state)
       }
+      ON_afficherList(){
+        let afficher_card1 = this.state.afficher_card?false:true
+         this.setState({afficher_card:afficher_card1})
+         console.log(this.state)
+      }
+      choosen(val){
+        console.log("ha li 3welty" ,val);
+        this.setState({choosen:val})
+      }
+
       
   render() {
    const { data, value } = this.state;
@@ -81,6 +85,7 @@ export class Dropdowns extends Component {
          return d.nom.toLowerCase().includes(value.toLowerCase());
    })
 }
+
    
      console.log("render",this.state)
     return (
@@ -91,10 +96,11 @@ export class Dropdowns extends Component {
 
             <br/>
 
-            { (this.state.addm === false) &&<>
+            { (this.state.addm === false && this.state.afficher_card === false) &&<>
             <div class="d-flex flex-row-reverse bd-highlight">
             
              <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+             =
              <button
                 visible
                 type="button"
@@ -116,7 +122,7 @@ export class Dropdowns extends Component {
         <div className='tc'>
           <h1 className='f1' style={{color:"#ffff"}}>Materiels</h1>
           <Scroll>
-            <CardList materiels={filteredRobots} />
+            <CardList materiels={filteredRobots} ON_afficherList={this.ON_afficherList} ON_choosen ={this.choosen}/>
           </Scroll>
         </div>
       )}
@@ -125,6 +131,11 @@ export class Dropdowns extends Component {
             
             </>
   }
+   { ( this.state.afficher_card === true) &&<>
+    <MaterielPage exploitation={this.state.choosen} retour={this.ON_afficherList}/>
+   </>
+   }
+
 
 
               {(this.state.addm === true) && <AddTracteur reafficher={this.addMat}/>}

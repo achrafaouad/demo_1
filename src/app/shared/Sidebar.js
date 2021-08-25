@@ -137,6 +137,8 @@ class Sidebar extends Component {
                   <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/typography') ? 'nav-link active' : 'nav-link' } to="/basic-ui/typography"><Trans>Exploitations Animal</Trans></Link></li>
                   <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/exploitationVeg') ? 'nav-link active' : 'nav-link' } to="/basic-ui/exploitationVeg"><Trans>Exploitations vegetale</Trans></Link></li>
                   <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Personnel') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Personnel"><Trans>Personnel</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Produits') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Produits"><Trans>Produits</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Travail') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Travail"><Trans>Travail</Trans></Link></li>
                 </ul>
               </div>
             </Collapse>
@@ -153,6 +155,7 @@ class Sidebar extends Component {
               <div>
                 <ul className="nav flex-column sub-menu">
                   <li className="nav-item"> <Link className={ this.isPathActive('/form-elements/basic-elements') ? 'nav-link active' : 'nav-link' } to="/form-elements/basic-elements"><Trans>Basic Elements</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/form-elements/NouvelleOperation') ? 'nav-link active' : 'nav-link' } to="/form-elements/NouvelleOperation"><Trans>NouvelleOperation</Trans></Link></li>
                 </ul>
               </div>
             </Collapse>

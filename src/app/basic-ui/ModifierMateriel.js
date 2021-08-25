@@ -15,33 +15,18 @@ import { Slider, Switch } from 'antd';
 const { Option } = Select;
 
 const type = [ 
-  { label: 'OPÉRATEUR', value: "OPÉRATEUR" },
-  { label: 'PRESTATAIRE', value: "PRESTATAIRE" },
-  { label: 'INCONNU', value: "INCONNU" }
+  { label: 'Location', value: "Location" },
+  { label: 'propriétaire', value: "propriétaire" }
 ];
-const Personnel = [ 
-  { label: 'Saisonnier', value: "Saisonnier" },
-  { label: 'permanent', value: "permanent" },
-  
-];
-const qualification = [ 
-  { label: 'BASIQUE', value: "BASIQUE" },
-  { label: 'QUALIFIÉ', value: "QUALIFIÉ" },
-  { label: 'FUMIGATEUR', value: "FUMIGATEUR" },
-  { label: 'PILOTE', value: "PILOTE" }
-];
-const conseiller = [ 
-  { label: 'Oui', value: "Oui" },
-  { label: 'Non', value: "Non" }
-];
+
 const { TextArea } = Input;
 
-class ModifierPersonnel extends React.Component {
+class ModifierMateriel extends React.Component {
   constructor(props){
     super(props);
     if(this.props.expl){
-        var {id_pers,nom,salaire_hr,adress,ville,cin,pays,id_exp,salaire_mois,salaire_jr,tva,type,niveau_qualification,certiphyto,conseiller,email,téléphone,code_insee}=this.props.expl;
-        this.state = {nom:nom,salaire_hr:salaire_hr,id_pers:id_pers,adress:adress,ville:ville,salaire_jr:salaire_jr,cin:cin,pays:pays,id_exp:id_exp,salaire_mois:salaire_mois,tva:tva,type:type,niveau_qualification:niveau_qualification,certiphyto:certiphyto,conseiller:conseiller,email:email,téléphone:téléphone,code_insee:code_insee}
+        var {nom,description,model,immatriculation,fabriquant,prix_location_jour,propriétaire,derniere_controle_tec,derniere_assurence,n_enregistrement}=this.props.expl;
+        this.state = {nom:nom,description:description,model:model,immatriculation:immatriculation,fabriquant:fabriquant,prix_location_jour:prix_location_jour,propriétaire:propriétaire,derniere_controle_tec:derniere_controle_tec,derniere_assurence:derniere_assurence,n_enregistrement:n_enregistrement}
         console.log("hakhona",this.props.expl)
         console.log(this.state)
         
@@ -76,27 +61,22 @@ class ModifierPersonnel extends React.Component {
   handleOk = (e) => {
     
     
-      fetch("http://localhost:3001/update_personnel",{
+      fetch("http://localhost:3001/updateMateriel",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
         nom:this.state.nom,
-        id_pers:this.state.id_pers,
-        adress:this.state.adress,
-        ville:this.state.ville,
-        salaire_hr:this.state.salaire_hr,
-        cin:this.state.cin,
-        pays:this.state.pays,
-        id_exp:this.state.id_exp,
-        tva:this.state.tva,
-        type:this.state.type,
-        niveau_qualification:this.state.niveau_qualification,
-        certiphyto:this.state.certiphyto,
-        conseiller:this.state.conseiller,
-        email:this.state.email,
-        téléphone:this.state.téléphone,
-        code_insee:this.state.code_insee
-      })
+        description:this.state.description,
+        model:this.state.model,
+        immatriculation:this.state.immatriculation,
+        fabriquant:this.state.fabriquant,
+        prix_hr:this.state.prix_hr,
+        propriétaire:this.state.propriétaire,
+        derniere_controle_tec:this.state.derniere_controle_tec,
+        derniere_assurence:this.state.derniere_assurence,
+        n_enregistrement:this.state.n_enregistrement,
+        id:this.props.expl.id_mat      
+    })
  }).then(response =>{
    if(response.ok){
      return response.json();
@@ -162,26 +142,26 @@ class ModifierPersonnel extends React.Component {
           />
           
         </InputGroup>
-        <p>Adresse</p>
+        <p>Description</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="Adresse"
-            name="adress"
-            value={this.state.adress}
+            placeholder="description"
+            name="description"
+            value={this.state.description}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
         </InputGroup>
-        <p>Ville</p>
+        <p>Model</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="ville"
-            name="ville"
-            value={this.state.ville}
+            placeholder="model"
+            name="model"
+            value={this.state.model}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
@@ -189,142 +169,110 @@ class ModifierPersonnel extends React.Component {
           
         </InputGroup>
 
-        <p>CIN</p>
+        <p>Immatriculation</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="cin"
-            name="cin"
-            value={this.state.cin}
+            placeholder="immatriculation"
+            name="immatriculation"
+            value={this.state.immatriculation}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
         </InputGroup>
-        <p>Pays</p>
+        <p>Fabriquant</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="pays"
-            name="pays"
-            value={this.state.pays}
+            placeholder="fabriquant"
+            name="fabriquant"
+            value={this.state.fabriquant}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
         </InputGroup>
+       
+       
         
-         <p>salaire par heure</p>
+         <p>Prix de location par jour</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="salaire par heure"
-            name="salaire_hr"
-            value={this.state.salaire_hr}
+            placeholder="prix_location par heure"
+            name="prix_hr"
+            value={this.state.prix_location_jour}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
         </InputGroup> 
+         <p>Propriétaire</p>
+       
+          <InputGroup className="mb-3">
+          <FormControl
+            placeholder="propriétaire"
+            name="propriétaire"
+            value={this.state.propriétaire}
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+            onChange={this.handlechange}
+          />
+          
+        </InputGroup> 
+        
 
         
-        <p>TVA</p>
+        <p>dernière controle technique</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="tva"
-            name="tva"
-            value={this.state.tva}
+            placeholder="derniere_controle_tec"
+            name="derniere_controle_tec"
+            value={this.state.derniere_controle_tec}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
-        </InputGroup>
-        <p>N° Certiphyto</p>
+        </InputGroup> 
+        <p>dernière assurence</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="N°certiphyto"
-            name="certiphyto"
-            value={this.state.certiphyto}
+            placeholder="derniere_assurencer"
+            name="derniere_assurence"
+            value={this.state.derniere_assurence}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
-        </InputGroup>
-        <p>Email</p>
+        </InputGroup> 
+       
+          
+         
+        <p> N° d'Enregistrement</p>
        
           <InputGroup className="mb-3">
           <FormControl
-            placeholder="email"
-            name="email"
-            value={this.state.email}
+            placeholder="n_enregistrement"
+            name="n_enregistrement"
+            value={this.state.n_enregistrement}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
           
-        </InputGroup>
-        <p>Téléphone</p>
-       
-          <InputGroup className="mb-3">
-          <FormControl
-            placeholder="téléphone"
-            name="téléphone"
-            value={this.state.téléphone}
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            onChange={this.handlechange}
-          />
-          
-        </InputGroup>
-        <p>Code Insee</p>
-       
-          <InputGroup className="mb-3">
-          <FormControl
-            placeholder="code_insee"
-            name="code_insee"
-            value={this.state.code_insee}
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            onChange={this.handlechange}
-          />
-          
-        </InputGroup>
-
-    <p>Type</p>
-    <Radio.Group
-          options={type}
-          name="type"
-          onChange={this.handlechange}
-          value={this.state.type}
-          optionType="button"
-          buttonStyle="solid"
-        />
-      
-    <p>Niveau de qualification</p>
-    <Radio.Group
-          options={qualification}
-          name="niveau_qualification"
-          onChange={this.handlechange}
-          value={this.state.niveau_qualification}
-          optionType="button"
-          buttonStyle="solid"
-        />
-    <p>Est un conseiller</p>
-    <Radio.Group
-          options={conseiller}
-          name="conseiller"
-          onChange={this.handlechange}
-          value={this.state.conseiller}
-          optionType="button"
-          buttonStyle="solid"
-        />
+        </InputGroup> 
+        
+        
+        
+        
     
    
 
@@ -341,4 +289,4 @@ class ModifierPersonnel extends React.Component {
 }
 
 
-export default ModifierPersonnel
+export default ModifierMateriel

@@ -15,11 +15,12 @@ import Alimantation from "./alimentation";
 import AnimalTable from "./animalTable";
 import Modifier from "./Modifier";
 import ModifierPersonnel from "./ModifierPersonnel";
+import ModifierMateriel from "./ModifierMateriel";
 const style = {
     display: "grid",
     gridTemplateColumns: "50%  50%"}
 
-class PersonnelPage extends Component{
+class MaterielPage extends Component{
     constructor(props){
         super(props);
 
@@ -51,67 +52,53 @@ class PersonnelPage extends Component{
             <div className="grid-item">
             
             <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
-            <h3 style={{color:"#434c5e"}}>Information du Personnel</h3>
+            <h3 style={{color:"#434c5e"}}>Information du Materiel</h3>
             <hr style={{border: ".2px solid white"}}/>
             <div  >
                 <strong> Nom</strong> : {(!this.state.choosen.nom)?"-":this.state.choosen.nom}
                 
               </div>
             <div>
-                <strong> Adress</strong> : {(!this.state.choosen.adress)?"-":this.state.choosen.adress}
+                <strong> Description</strong> : {(!this.state.choosen.description)?"-":this.state.choosen.description}
                 
               </div>
             <div>
-                <strong> Ville</strong> : {(!this.state.choosen.ville)?"-":this.state.choosen.ville}
+                <strong> Model</strong> : {(!this.state.choosen.model)?"-":this.state.choosen.model}
                 
               </div>
             <div>
-                <strong> CIN</strong> : {(!this.state.choosen.cin)?"-":this.state.choosen.cin}
+                <strong> Immatriculation</strong> : {(!this.state.choosen.immatriculation)?"-":this.state.choosen.immatriculation}
                 
               </div>
             
             <div>
-                <strong> Pays</strong> : {(!this.state.choosen.pays)?"-":this.state.choosen.pays}
+                <strong> Fabriquant</strong> : {(!this.state.choosen.fabriquant)?"-":this.state.choosen.fabriquant}
                 
               </div>
+             
               <div>
-                <strong> salaire (heure)</strong> : {(!this.state.choosen.salaire_hr)?"-":this.state.choosen.salaire_hr} dh
+                <strong> dernière controle technique </strong> : {(!this.state.choosen.derniere_controle_tec)?"-":this.state.choosen.derniere_controle_tec} 
+              </div>
+              <div>
+                <strong> dernière assurence</strong> : {(!this.state.choosen.derniere_assurence)?"-":this.state.choosen.derniere_assurence}
               </div>
               
               <div>
-                <strong> N° de TVA</strong> : {(!this.state.choosen.tva)?"-":this.state.choosen.tva}
+                <strong> N° d'Enregistrement</strong> : {(!this.state.choosen.n_enregistrement)?"-":this.state.choosen.n_enregistrement}
               </div>
               <div>
-                <strong> Type</strong> : {(!this.state.choosen.type)?"-":this.state.choosen.type}
+                <strong>Prix de location par heure</strong> : {(!this.state.choosen.prix_hr)?"-":this.state.choosen.prix_hr} dh
               </div>
               <div>
-                <strong> Niveau de qualification</strong> : {(!this.state.choosen.niveau_qualification)?"-":this.state.choosen.niveau_qualification}
+                <strong>Propriétaire</strong> : {(!this.state.choosen.propriétaire)?"-":this.state.choosen.propriétaire}
               </div>
-              <div>
-                <strong> N° Certiphyto</strong> : {(!this.state.choosen.certiphyto)?"-":this.state.choosen.certiphyto}
-              </div>
-              <div>
-                <strong>Est un conseiller</strong> : {(!this.state.choosen.conseiller)?"-":this.state.choosen.conseiller}
-              </div>
-              <div>
-                <strong>Email</strong> : {(!this.state.choosen.email)?"-":this.state.choosen.email}
-              </div>
-              <div>
-                <strong>Téléphone</strong> : {(!this.state.choosen.téléphone)?"-":this.state.choosen.téléphone}
-              </div>
-              <div>
-                <strong>Code INSEE</strong> : {(!this.state.choosen.code_insee)?"-":this.state.choosen.code_insee}
-              </div>
-              
-              <div>
-                <strong>Notes</strong> : {(!this.state.choosen.note)?"-":this.state.choosen.note}
-              </div>
+             
               
               
 
             </div>
             <div style={{display: "flex"}}>
-            <ModifierPersonnel id={this.state.choosen.id_exploitation} expl={this.state.choosen}/>
+            <ModifierMateriel id={this.state.choosen.id_exploitation} expl={this.state.choosen}/>
             <button type="button" style={{width:"80px" , marginLeft:"10px"}} class="btn btn-success btn-sm">suprimer</button>
             </div>
             </div>
@@ -132,4 +119,4 @@ class PersonnelPage extends Component{
     }
 }
 
-export default PersonnelPage;
+export default MaterielPage;

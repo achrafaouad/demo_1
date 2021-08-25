@@ -140,6 +140,7 @@ class Alimantation extends React.Component {
 
 
   render() {
+    
       if(this.state.aliment){
        var lolo = this.state.aliment.map((e, key) => {
         return <option key={e.id_aliment} value={JSON.stringify(e)}>{e.nom}</option>;

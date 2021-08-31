@@ -89,7 +89,7 @@ class Buttons extends Component {
         
         <div className="row">
           <div className="col-12 grid-margin stretch-card">
-            <div className="card">
+            <div className="card" style={{height:'auto'}}>
             <div className="card-body">
             <div class="container" id='profil' style={{height:"auto" , color:"#ffff"}}>
           <div class="row">

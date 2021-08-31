@@ -32,10 +32,11 @@ class  PopupRecolte extends React.Component {
     this.handleCancel=this.handleCancel.bind(this);
     this.showModal=this.showModal.bind(this);
     this.handleChange=this.handleChange.bind(this);
+    this.handleChange_value=this.handleChange_value.bind(this);
    
     this.hour = 0;
 
-    
+    this.Reacolt()
   }
  
   showModal = () => {
@@ -72,22 +73,75 @@ class  PopupRecolte extends React.Component {
       console.log(e.target.value)
        
       if(e.target.name === "kg"){
-        this.props.quanitity(e.target.value)
-        
-      }
-      if(e.target.name === "prix"){
-        this.props.price(e.target.value)
-        
+        this.setState({quanitity:e.target.value})
       }
       
+      
   }
+
+  handleChange_value(e){
+    console.log(e.target.value)
+    this.setState({id_recolte:JSON.parse(e.target.value).id_prod})
+    this.setState({Nom_produit:JSON.parse(e.target.value).nom})
+    if(JSON.parse(e.target.value).quantité) this.setState({quanitityExist:JSON.parse(e.target.value).quantité})
+    else this.setState({quanitityExist: 0})
+    console.log(JSON.parse(e.target.value).quantité)
+    console.log(JSON.parse(e.target.value).id_prod)
+  }
+
+
+  componentDidUpdate(prevProps, prevState) {
+  
+    if (prevState!== this.state) {
+      console.log('pokemons state has changed.')
+      this.props.id_recolte(this.state.id_recolte,this.state.Nom_produit)
+      this.props.quanitity(this.state.quanitity)
+      this.props.SumQRecolt((Number(this.state.quanitityExist)+Number(this.state.quanitity)))
+
+    }
+  }
+  
+
+  async Reacolt(){
+    this.data = await fetch("http://localhost:3001/getRecolte",{
+                          method:'POST',
+                          headers:{'Content-Type':"application/json"},
+                          body:JSON.stringify({
+                            id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+                          })
+                     }).then(response2 =>{
+                   if(response2.ok){
+                     return response2.json();
+                   }
+                   throw new Error('request failed');}, networkError => console.log(networkError))
+                   .then( responseJson2 =>{
+                     return responseJson2
+                    })
+         this.setState({Recolt:this.data})
+         
+    
+//     return this.data.map((aliment, index) => {
+//         const { id_aliment,nom } = aliment //destructuring
+//         return (
+//       <option value={id_aliment}>{nom}</option>
+//     )
+//   })
+
+}
+
+
+
 
 
  
 
 
   render() {  
-    
+    if(this.state.Recolt){
+      var lolo = this.state.Recolt.map((e, key) => {
+       return <option key={e.id_prod} value={JSON.stringify(e)}>{e.nom}</option>;
+       })
+   }
     console.log('props', this.state)
     
     console.log(this.props.last_feature)
@@ -101,17 +155,21 @@ class  PopupRecolte extends React.Component {
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
+     <p>RÉCOLTES</p>
+        <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
+        <option defaultValue>choisie Votre RÉCOLTE</option>
+        
+        {lolo}
+        
+        </select>
+        <br/>
 
 <div class="input-group mb-3">
   <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "kg" onChange={this.handleChange}/>
   <span class="input-group-text" id="basic-addon2">KG</span>
 </div>
             
-<div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "prix" onChange={this.handleChange}/>
-  <span class="input-group-text" id="basic-addon2"> Dh/kg</span>
-</div>
-            
+ 
            
              
           

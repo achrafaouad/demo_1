@@ -21,7 +21,13 @@ export class BasicElements extends Component {
 
   async fetching (){
   
-    await fetch("http://localhost:3001/getOperation")
+    await fetch("http://localhost:3001/getOperation",{
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+      })
+ })
               .then(
                 (response) => {
                   if (response.ok) {
@@ -50,27 +56,7 @@ export class BasicElements extends Component {
     bsCustomFileInput.init()
   }
 
-  renderTableHeader() {
-   
-       
-       return (
-          <>
-       
-       <th key={0}  ></th>
-       <th key={1}  >id_exploitation</th>
-       <th key={2}  >Date</th>
-       <th key={3}  >Exploitation</th>
-       <th key={4}  >Surface travaillée</th>
-       <th key={5}  >Travaux</th>
-       <th key={6}  >Durée de l’opération</th>
-       <th key={7}  >Produits </th>
-       <th key={8}> Opérateurs</th>
-       <th key={9}> Matériels</th>
-       <th key={9}> Notes</th>
-       </>
-       )
-    
- }
+  
  addMat(){
   let afficher = this.state.addm?false:true
   this.setState({addm:afficher})
@@ -86,17 +72,8 @@ export class BasicElements extends Component {
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">Horizontal Two column</h4>
-                {/* <Scroll>
-                <table id='students' style={{width:"100%", height: "auto",}}>
-               <tbody>
-                   <tr>{this.renderTableHeader()}</tr>
-
-                </tbody>
-                </table> 
-                </Scroll>
-                <BasicTable/> */}
+                
                  
-                 {/* <SortingTable/> */}
 
                  {(this.state.addm === false && this.state.data144) && <><button
                 type="button"

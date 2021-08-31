@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Input} from 'antd';
+import 'antd/dist/antd.css';
 
 import { DatePicker, Radio } from "antd";
 const bati = [ 
@@ -6,6 +8,7 @@ const bati = [
   { label: "Permanent", value: "Permanent" }
 ];
 
+const { TextArea } = Input;
 class AddPersonnel extends Component {
   constructor(props) {
     super(props);
@@ -64,8 +67,6 @@ class AddPersonnel extends Component {
             cin:this.state.cin,
             pays:this.state.pays,
             note:this.state.note,
-            salaire_jr:this.state.salaire_jr,
-            salaire_mois:this.state.salaire_mois,
             id_exp:JSON.parse(sessionStorage.getItem('user')).id
 
         }),
@@ -203,83 +204,17 @@ class AddPersonnel extends Component {
               </div>
             </div>
             <div class="mb-3">
-              <label for="Modèle" class="form-label">
-              note
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                name="note"
-                id="Modèle"
-                aria-describedby="emailHelp"
-                onChange={this.handleChange}
-              />
+              
+              <p>note</p>
+        <TextArea rows={2} name="note" onChange={this.handleChange} />
+
               <div id="Modèle" class="form-text">
                 S'il y a la possibilité insère une note
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="Propriété" class="form-label">
-                Personnel
-              </label>{" "}
-              <br />
-              <Radio.Group
-          options={bati}
-          name="myProp"
-          onChange={this.handlechange1}
-          value={this.state.myProp}
-          optionType="button"
-          buttonStyle="solid"
-        />
-            </div>
-            {/*PROPRIÉTAIRE*/}
-            {/*date achat*/}
-            {this.state.myProp === "Permanent" && (
-              <>
-              
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
-                  salaire par mois
-                  </label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    name="salaire_mois"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="emailHelp" class="form-text">
-                    Ajouter le salaire par mois
-                  </div>
-                </div>
-                
-              </>
-            )}
-
-            {/*LOCATION*/}
-            {this.state.myProp === "Saisonnier" && (
-              <>
-              <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
-                  salaire par jour
-                  </label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    name="salaire_jr"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="emailHelp" class="form-text">
-                    Ajouter le salaire par jour 
-                  </div>
-                </div>
-              </>
-            )}
-            {/*LOCATION*/}
+          
+          
             <div class="mb-1">
               <label for="formFile" class="form-label">
                 choisie l'image de votre Personnel

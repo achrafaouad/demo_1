@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 
 import { DatePicker, Radio } from "antd";
+import { Input } from 'antd';
+import 'antd/dist/antd.css';
+const { TextArea } = Input;
 const bati = [ 
   { label: "PHYTOSANITAIRES", value: "PHYTOSANITAIRES" },
   { label: "ENGRAIS", value: "ENGRAIS" },
-  { label: "SEMENCES/PLANTS", value: "SEMENCES/PLANTS" }
+  { label: "SEMENCES/PLANTS", value: "SEMENCES/PLANTS" },
+  { label: "Aliment", value: "Aliment" },
 ];
 
 class AddProduit extends Component {
@@ -43,7 +47,7 @@ class AddProduit extends Component {
   
   onSUBMIT(e) {
     e.preventDefault();
-    if (this.state.nom) {
+    if (this.state.nom && !(this.state.myProp === 'Aliment')) {
       fetch("http://localhost:3001/add_produit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -60,6 +64,7 @@ class AddProduit extends Component {
           Phosphore: this.state.Phosphore,
           potassium: this.state.potassium,
           composition_n_oligo_elements: this.state.composition_n_oligo_elements,
+          id_exp:JSON.parse(sessionStorage.getItem('user')).id 
         }),
       })
         .then(
@@ -71,13 +76,43 @@ class AddProduit extends Component {
           },
           (networkError) => console.log(networkError)
         )
-        .then(responseJson =>
-          console.log(responseJson.data)
+        .then(responseJson =>{
+          console.log(responseJson.data);}
+         );
+        this.props.reafficher()
+      e.preventDefault();
+    }
+
+    if(this.state.myProp === 'Aliment' && this.state.nom){
+      fetch("http://localhost:3001/add_aliment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: this.state.nom,
+          prix_unit: this.state.prix_uni,
+          unit: this.state.unité,
+          fournisseur:this.state.fournisseur,
+          note:this.state.note,
+          id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+        }),
+      })
+        .then(
+          (response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("request failed");
+          },
+          (networkError) => console.log(networkError)
+        )
+        .then(responseJson =>{
+          console.log(responseJson.data);}
          );
         this.props.reafficher()
       e.preventDefault();
     }
   }
+
 
   render() {
     return (
@@ -147,6 +182,32 @@ class AddProduit extends Component {
                 buttonStyle="solid"
                 />
             </div> 
+
+            {(this.state.myProp === 'Aliment') &&
+              <>
+              <div class="mb-3">
+              <label for="Nom" class="form-label">
+                Fournisseur    
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="Nom"
+                name="fournisseur"
+                aria-describedby="emailHelp"
+                onChange={this.handleChange}
+              />
+              <div id="emailHelp" class="form-text">
+                Ajouter le nom de votre Produit
+              </div>
+            </div>
+
+            <p>note</p>
+        <TextArea rows={2} name="note" onChange={this.handleChange} />
+
+   
+            </>
+            }
 
             {(this.state.myProp === "PHYTOSANITAIRES") && <><div class="mb-3">
               <label for="Fabriquant" class="form-label">

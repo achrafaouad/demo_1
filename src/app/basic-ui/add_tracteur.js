@@ -60,17 +60,14 @@ class AddTracteur extends Component {
         body: JSON.stringify({
           nom: this.state.nom,
           description: this.state.description,
-          fabriquant: this.state.fabriquant,
           model: this.state.model,
-          date_achat: this.state.date_achat,
+          immatriculation: this.state.immatriculation,
+          fabriquant: this.state.fabriquant,
           derniere_assurence: this.state.derniere_assurence,
           derniere_controle_tec: this.state.derniere_controle_tec,
-          prix_achat: this.state.prix_achat,
-          immatriculation: this.state.immatriculation,
-          immatriculation: this.state.immatriculation,
           n_enregistrement: this.state.n_enregistrement,
-          prix_location_jour: this.state.prix_location_jour,
           Propriétaire: this.state.Propriétaire,
+          id_exp:JSON.parse(sessionStorage.getItem('user')).id 
         }),
       })
         .then(
@@ -157,18 +154,6 @@ class AddTracteur extends Component {
               />
             </div>
 
-            <div class="mb-3">
-              <label for="Nom" class="form-label">
-                Type :{" "}
-              </label>
-              <br />
-              <select className="custom-select custom-select-sm">
-                <option defaultValue>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-            </div>
 
             <div class="mb-3">
               <label for="Fabriquant" class="form-label">
@@ -203,48 +188,8 @@ class AddTracteur extends Component {
               </div>
             </div>
 
-            <div class="mb-3">
-              <label for="Propriété" class="form-label">
-                Propriété
-              </label>{" "}
-              <br />
-              <Radio.Group
-          options={bati}
-          name="myProp"
-          onChange={this.handlechange1}
-          value={this.state.myProp}
-          optionType="button"
-          buttonStyle="solid"
-        />
-            </div>
-            {/*PROPRIÉTAIRE*/}
-            {/*date achat*/}
-            {this.state.myProp === "PROPRIÉTAIRE" && (
-              <>
-                <div
-                  id="date-picker-example"
-                  class="md-form md-outline input-with-post-icon datepicker"
-                >
-                  <label for="example">Date d'achat</label> <br />
-                  <DatePicker onChange={this.onChangeAchat} />
-                </div>
-                <br />
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
-                    Coût d'achat
-                  </label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    name="prix_achat"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="emailHelp" class="form-text">
-                    Ajouter le Coût d'achat
-                  </div>
-                </div>
+            
+               
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">
                     Plaque d'immatriculation
@@ -295,28 +240,8 @@ class AddTracteur extends Component {
                     Ajouter le N° d'enregistrement officiel
                   </div>
                 </div>{" "}
-              </>
-            )}
-
-            {/*LOCATION*/}
-            {this.state.myProp === "LOCATION" && (
-              <>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label">
-                    Prix de location (jour)
-                  </label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    name="prix_location_jour"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    onChange={this.handleChange}
-                  />
-                  <div id="emailHelp" class="form-text">
-                    Ajouter le Prix de location par jour
-                  </div>
-                </div>
+              
+            
                 <div class="mb-3">
                   <label for="Fabriquant" class="form-label">
                     Propriétaire
@@ -334,8 +259,7 @@ class AddTracteur extends Component {
                     matériel
                   </div>
                 </div>
-              </>
-            )}
+              
             {/*LOCATION*/}
             <div class="mb-1">
               <label for="formFile" class="form-label">

@@ -118,15 +118,20 @@ class PopupPhyto extends React.Component {
  
   async fetch_data() {
 
-    this.data1 = await fetch("http://localhost:3001/getPhyto").then(response2 =>{
-       if(response2.ok){
-         return response2.json();
-       }
-       throw new Error('request failed');}, networkError => console.log(networkError))
-       .then( responseJson2 =>{
-         return responseJson2
- 
-        })
+    this.data1 = await fetch("http://localhost:3001/getPhyto",{
+          method:'POST',
+          headers:{'Content-Type':"application/json"},
+          body:JSON.stringify({
+            id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+          })
+     }).then(response2 =>{
+           if(response2.ok){
+             return response2.json();
+           }
+           throw new Error('request failed');}, networkError => console.log(networkError))
+           .then( responseJson2 =>{
+             return responseJson2
+            })
  
     
         
@@ -140,7 +145,7 @@ class PopupPhyto extends React.Component {
           
         return this.state.data.map((st,index)=>{
             return (<div class="form-check">
-            <input key={st.azot} class="form-check-input" type="checkbox" value={[st.nom,st.prix_uni,st.id_prod]} id="flexCheckDefault" onChange={this.handleCh}/>
+            <input key={st.azot} class="form-check-input" type="checkbox" value={[st.nom,st.prix_uni,st.id_prod,st.quantité]} id="flexCheckDefault" onChange={this.handleCh}/>
             <label class="form-check-label" for="flexCheckDefault">
             {st.nom}
             </label>

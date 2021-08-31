@@ -25,7 +25,13 @@ export class Dropdowns extends Component {
 
    async fetch_data() {
 
-   this.data = await fetch("http://localhost:3001/getExploitationAnimal").then(response2 =>{
+   this.data = await fetch("http://localhost:3001/getExploitationAnimal",{
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+      })
+ }).then(response2 =>{
       if(response2.ok){
         return response2.json();
       }
@@ -75,7 +81,7 @@ export class Dropdowns extends Component {
                         <td>{surface}</td>
                         <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
                              }</td>
-                        <td>{batiment}</td>
+                        <td>{(batiment)?'Oui':'Non'}</td>
                         <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
                             <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
                      </tr>
@@ -91,10 +97,10 @@ export class Dropdowns extends Component {
                      <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
                         <td>{id_exploitation}</td>
                         <td>{nom}</td>
-                        <td>{surface}</td>
+                        <td>{surface} ha </td>
                         <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
                              }</td>
-                        <td>{batiment}</td>
+                        <td>{(batiment)?'Oui':'Non'}</td>
                         <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
                             <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
                      </tr>

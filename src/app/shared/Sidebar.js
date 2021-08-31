@@ -203,7 +203,8 @@ class Sidebar extends Component {
             <Collapse in={ this.state.iconsMenuOpen }>
               <div>
                 <ul className="nav flex-column sub-menu">
-                  <li className="nav-item"> <Link className={ this.isPathActive('/icons/mdi') ? 'nav-link active' : 'nav-link' } to="/icons/mdi"><Trans>Material</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/icons/mdi') ? 'nav-link active' : 'nav-link' } to="/icons/mdi"><Trans>Calendrier</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/icons/stock') ? 'nav-link active' : 'nav-link' } to="/icons/stock"><Trans>stock</Trans></Link></li>
                 </ul>
               </div>
             </Collapse>

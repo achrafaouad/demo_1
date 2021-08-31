@@ -43,8 +43,9 @@ class NouvelleOperation extends Component {
     this.min = this.min.bind(this)
     this.ListEngrais = this.ListEngrais.bind(this)
     this.ListVal = this.ListVal.bind(this)
-    this.price = this.price.bind(this)
     this.quanitity = this.quanitity.bind(this)
+    this.id_recolte = this.id_recolte.bind(this)
+    this.SumQRecolt = this.SumQRecolt.bind(this)
     this.ListSemence = this.ListSemence.bind(this)
     this.ListValues = this.ListValues.bind(this)
     this.ListPhyto = this.ListPhyto.bind(this)
@@ -105,73 +106,188 @@ class NouvelleOperation extends Component {
     console.log('ha les parcels', this.idparcels)
 // produits
     this.qunatite = [];
+    this.produitaUpdate = [];
+    this.QuantityUpdate = [];
+    this.currentQuantity = [];
+    this.currentQuantityE = [];
+    this.currentQuantityPH = [];
+    this.currentQuantitySEM = [];
+    this.Names = []
+    this.nomDesproductsEng=[];
+    this.nomDesproductsPh=[];
+    this.nomDesproductsSEM=[];
 
     if(this.state.sd){
       this.listEngraiss = this.state.sd.map((element)=>{
         return Number(element.split(',')[2])
       })
+      this.currentQuantityE = this.state.sd.map((element)=>{
+        return Number(element.split(',')[3])
+      })
+      this.nomDesproductsEng = this.state.sd.map((element)=>{
+        return element.split(',')[0]
+      })
       for(let i= 0; i< this.state.Values.length;i++){
          this.qunatite.push(this.state.Values[i])
+         this.QuantityUpdate.push(this.state.Values[i])
       }
     }
+
+
     console.log('ha les parcels', this.listEngraiss)
    
     if(this.state.phyto){
       this.listphyto = this.state.phyto.map((element)=>{
         return Number(element.split(',')[2])
       })
+
+      this.currentQuantityPH = this.state.phyto.map((element)=>{
+        return Number(element.split(',')[3])
+      })
+      
+      this.nomDesproductsPh = this.state.phyto.map((element)=>{
+        return element.split(',')[0]
+      })
       for(let i= 0; i< this.state.ListValuesPhyto.length;i++){
         this.qunatite.push(this.state.ListValuesPhyto[i])
+        this.QuantityUpdate.push(this.state.ListValuesPhyto[i])
      }
     }
+
+
     console.log('ha les parcels', this.listphyto)
    
     if(this.state.sem){
       this.listSemence = this.state.sem.map((element)=>{
         return Number(element.split(',')[2])
       })
+      this.currentQuantitySEM = this.state.sem.map((element)=>{
+        return Number(element.split(',')[3])
+      })
+      this.nomDesproductsSEM = this.state.sem.map((element)=>{
+        return  element.split(',')[0]
+      })
+
 
       for(let i= 0; i< this.state.ValueSem.length;i++){
         this.qunatite.push(this.state.ValueSem[i])
+        this.QuantityUpdate.push(this.state.ValueSem[i])
      }
     }
+
+    if(this.state.quanitity){
+      
+        this.qunatite.push(this.state.quanitity)
+     
+    }
+
+
     console.log('ha les parcels', this.listSemence)
 
-    if(this.listEngraiss && (!this.listphyto) && (!this.listSemence)){
+    if(this.listEngraiss && (!this.listphyto) && (!this.listSemence) && (!this.state.id_prod)){
       this.produits = [...this.listEngraiss]
+      this.produitaUpdate = [...this.listEngraiss]
+      this.currentQuantity = [...this.currentQuantityE]
+      this.Names = [...this.nomDesproductsEng]
     }
-    else if(this.listphyto && (!this.listEngraiss) && (!this.listSemence)){
+
+
+    else if(this.listphyto && (!this.listEngraiss) && (!this.listSemence) && (!this.state.id_prod)){
       this.produits = [...this.listphyto]
+      this.produitaUpdate = [...this.listphyto]
+      this.currentQuantity = [...this.currentQuantityPH]
+      this.Names = [...this.nomDesproductsPh]
+      
     }
-    else if(this.listSemence && (!this.listEngraiss) && (!this.listphyto)){
+    else if(this.listSemence && (!this.listEngraiss) && (!this.listphyto) && (!this.state.id_prod)){
       this.produits = [...this.listSemence]
+      this.produitaUpdate = [...this.listSemence]
+      this.currentQuantity = [...this.currentQuantitySEM]
+      this.Names = [...this.nomDesproductsSEM]
     }
 
-    else if(this.listEngraiss && this.listphyto && (!this.listSemence)){
+    else if(this.state.id_prod && (!this.listEngraiss) && (!this.listphyto) && (!this.listSemence)){
+      this.produits = [this.state.id_prod]
+    }
+
+
+    else if(this.listEngraiss && this.listphyto && (!this.listSemence)&& (!this.state.id_prod)){
         this.produits = [...this.listEngraiss,...this.listphyto]
+        this.produitaUpdate = [...this.listEngraiss,...this.listphyto]
+        this.currentQuantity = [...this.currentQuantityE,...this.currentQuantityPH]
+        this.Names = [...this.nomDesproductsEng,...this.nomDesproductsPh]
     }
-    else if(this.listEngraiss && this.listSemence && (!this.listphyto)){
+    else if(this.listEngraiss && this.listSemence && (!this.listphyto)&& (!this.state.id_prod)){
         this.produits = [...this.listEngraiss,...this.listSemence]
+        this.produitaUpdate = [...this.listEngraiss,...this.listSemence]
+        this.currentQuantity = [...this.currentQuantityE,...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsEng,...this.nomDesproductsSEM]
     }
-    else if(this.listSemence && this.listEngraiss && (!this.listphyto)){
-        this.produits = [...this.listSemence,...this.listEngraiss]
+    else if(this.listEngraiss && this.state.id_prod && (!this.listphyto)&& (!this.listSemence)){
+        this.produits = [...this.listEngraiss,...[this.state.id_prod]]
+        this.produitaUpdate = [...this.listEngraiss]
+        this.currentQuantity = [...this.currentQuantityE]
+        this.Names = [...this.nomDesproductsEng]
     }
-    else if(this.listSemence && this.listphyto && (!this.listEngraiss)){
-        this.produits = [...this.listSemence,...this.listphyto]
+    else if(this.listphyto && this.listSemence && (!this.listEngraiss)&& (!this.state.id_prod)){
+        this.produits = [...this.listphyto ,...this.listSemence]
+        this.produitaUpdate = [...this.listphyto ,...this.listSemence]
+        this.currentQuantity = [...this.currentQuantityPH,...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsPh,...this.nomDesproductsSEM]
     }
-    else if(this.listphyto && this.listSemence && (!this.listEngraiss)){
-        this.produits = [...this.listphyto,...this.listSemence]
+    else if(this.listphyto && this.state.id_prod && (!this.listEngraiss)&& (!this.listSemence)){
+        this.produits = [...this.listphyto ,...[this.state.id_prod]]
+        this.produitaUpdate = [...this.listphyto]
+        this.currentQuantity = [...this.currentQuantityPH]
+        this.Names = [...this.nomDesproductsPh]
     }
-    else if(this.listphyto && this.listEngraiss && (!this.listSemence)){
-        this.produits = [...this.listphyto,...this.listEngraiss]
+    else if(this.listSemence && this.state.id_prod && (!this.listphyto)&& (!this.listEngraiss)){
+        this.produits = [...this.listSemence , ...[this.state.id_prod]]
+        this.produitaUpdate = [...this.listSemence]
+        this.currentQuantity = [...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsSEM]
     }
 
-    if(this.listEngraiss && this.listphyto && this.listSemence){
-      this.produits = [...this.listEngraiss,...this.listphyto,...this.listSemence]
+
+
+    else if(this.listSemence && this.state.id_prod && (this.listphyto)&& (!this.listEngraiss)){
+        this.produits = [...this.listphyto ,...this.listSemence, ...[this.state.id_prod]]
+        this.produitaUpdate = [...this.listphyto ,...this.listSemence]
+        this.currentQuantity = [...this.currentQuantityPH,...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsPh,...this.nomDesproductsSEM]
+    }
+    else if(this.listSemence && this.state.id_prod && (this.listEngraiss)&& (!this.listphyto)){
+        this.produits = [...this.listEngraiss ,...this.listSemence, ...[this.state.id_prod]]
+        this.produitaUpdate = [...this.listEngraiss,...this.listSemence]
+        this.currentQuantity = [...this.currentQuantityE,...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsEng,...this.nomDesproductsSEM]
+    }
+
+    else if(this.listSemence && this.listphyto && (this.listEngraiss)&& (!this.state.id_prod)){
+        this.produits = [...this.listEngraiss, ...this.listphyto,...this.listSemence ]
+        this.produitaUpdate = [...this.listEngraiss, ...this.listphyto,...this.listSemence ]
+        this.currentQuantity = [...this.currentQuantityE,...this.currentQuantityPH,...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsEng,...this.nomDesproductsPh,...this.nomDesproductsSEM]
+    }
+
+    else if(this.listphyto && this.state.id_prod && (this.listEngraiss)&& (!this.listSemence)){
+        this.produits = [...this.listEngraiss,...this.listphyto , ...[this.state.id_prod]]
+        this.produitaUpdate = [...this.listEngraiss,...this.listphyto]
+        this.currentQuantity = [...this.currentQuantityE,...this.currentQuantityPH]
+        this.Names = [...this.nomDesproductsEng,...this.nomDesproductsPh]
+    }
+
+
+
+    if(this.listEngraiss && this.listphyto && this.listSemence && this.state.id_prod){
+      this.produits = [...this.listEngraiss,...this.listphyto,...this.listSemence ,...[this.state.id_prod]]
+      this.produitaUpdate = [...this.listEngraiss, ...this.listphyto,...this.listSemence ]
+        this.currentQuantity = [...this.currentQuantityE,...this.currentQuantityPH,...this.currentQuantitySEM]
+        this.Names = [...this.nomDesproductsEng,...this.nomDesproductsPh,...this.nomDesproductsSEM]
     }
 
     
-    console.log('la list des produit est', this.produits)o
+    console.log('la list des produit est', this.produits)
    
     if(!this.state.hour && !this.state.min){
       this.dure = '00:00'
@@ -216,7 +332,8 @@ class NouvelleOperation extends Component {
           duré:this.dure,
           note:this.state.note,
           prix_totale:this.state.sommeN,
-          travaux: this.state.listof
+          travaux: this.state.listof,
+          id_exp:JSON.parse(sessionStorage.getItem('user')).id 
         }),
       })
         .then(
@@ -320,6 +437,117 @@ class NouvelleOperation extends Component {
                 body: JSON.stringify({
                   id_operation:responseJson.data,
                   id_personnels :this.id_personnels,
+                }),
+              })
+                .then(
+                  (response) => {
+                    if (response.ok) {
+                      return response.json();
+                    }
+                    throw new Error("request failed");
+                  },
+                  (networkError) => console.log(networkError)
+                )
+                .then((responseJson) => {
+                  console.log(responseJson);
+                  
+            })
+        }
+
+
+        if(this.state.id_prod){
+          fetch("http://localhost:3001/updateRecolte", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  id_prod:this.state.id_prod,
+                  quantité:this.state.SumQRecolt
+                }),
+              })
+                .then(
+                  (response) => {
+                    if (response.ok) {
+                      return response.json();
+                    }
+                    throw new Error("request failed");
+                  },
+                  (networkError) => console.log(networkError)
+                )
+                .then((responseJson) => {
+                  console.log(responseJson);
+                  
+            })
+        }
+
+      //todo
+
+        if(this.state.id_prod){
+          fetch("http://localhost:3001/handleMouvement", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  nom:this.state.nomProdRecolt,
+                  quantite:this.state.quanitity,
+                  type:"Entrant",
+                  Mouvement:"Opération",
+                  date:this.state.date_application,
+                  note:this.state.note,
+                  id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+                }),
+              })
+                .then(
+                  (response) => {
+                    if (response.ok) {
+                      return response.json();
+                    }
+                    throw new Error("request failed");
+                  },
+                  (networkError) => console.log(networkError)
+                )
+                .then((responseJson) => {
+                  console.log(responseJson);
+                  
+            })
+        }
+
+        if(this.produitaUpdate){
+          fetch("http://localhost:3001/updateProduit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  id_produit:this.produitaUpdate,
+                  QuantityUpdate:this.QuantityUpdate,
+                  currentQuantity:this.currentQuantity
+                }),
+              })
+                .then(
+                  (response) => {
+                    if (response.ok) {
+                      return response.json();
+                    }
+                    throw new Error("request failed");
+                  },
+                  (networkError) => console.log(networkError)
+                )
+                .then((responseJson) => {
+                  console.log(responseJson);
+                  
+            })
+        }
+
+        //todo
+        if(this.produitaUpdate){
+          fetch("http://localhost:3001/handleMouvementProduit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                   noms:this.Names,
+                   qunatite:this.qunatite,
+                   type:"Sortant",
+                   Mouvement:"Opération",
+                   date:this.state.date_application,
+                   note:this.state.note,
+                   id_exp:JSON.parse(sessionStorage.getItem('user')).id 
                 }),
               })
                 .then(
@@ -455,7 +683,7 @@ class NouvelleOperation extends Component {
    if(this.state.Values){
    if(this.state.sd){
      return this.state.sd.map((st,index)=>{
-       return <li key={index}> {st} avec une quantité de {this.state.Values[index]} kg</li>
+       return <li key={index}> {st.split(',')[0]} avec une quantité de {this.state.Values[index]} kg</li>
      })
    }
   }
@@ -515,22 +743,29 @@ listPhytoRender(){
  this.setState({quanitity:valeur})
  
 }
-
-price(val){
+SumQRecolt(val){
   let valeur = val
- 
- this.setState({price:valeur})
 
+ this.setState({SumQRecolt:valeur})
+ 
+}
+id_recolte(val , val2){
+  let id = val
+  let nom = val2
+
+ this.setState({id_prod:id , nomProdRecolt:nom})
  
 }
 
+
+
 listRecolteRender(){
   if(this.state.quanitity){
-  if(this.state.price){
+  
 
   
-      return <li > Récolte avec une quantité de {this.state.quanitity} kg et de prix de vent de {this.state.price} dh/kg </li>
-  }
+      return <li > {this.state.id_prod},{this.state.id_prod}, {this.state.SumQRecolt} Récolte avec une quantité de {this.state.quanitity} kg </li>
+  
  }
 }
 
@@ -615,6 +850,7 @@ calcule_somme(){
 
     console.log("ha some",this.somme,this.sommeN )
     console.log("ha min",this.state.hour,this.state.min )
+    console.log("ha noms",this.Names )
 
 }
  
@@ -733,7 +969,7 @@ calcule_somme(){
               </div>
               <div className="d-flex flex-row-reverse bd-highlight" >
               
-                <PopupRecolte  quanitity= {this.quanitity} price={this.price} />
+                <PopupRecolte  quanitity= {this.quanitity} id_recolte={this.id_recolte}  SumQRecolt={this.SumQRecolt} />
               </div>
               <ul>
 

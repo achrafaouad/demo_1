@@ -2,18 +2,20 @@ import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import { Tabs } from 'antd';
 import { Input} from 'antd';
-import AddProduit from "./addProduits";
-import { format } from 'date-fns';
+import AddMouvement from "./addMouvement";
+import { FilteringTable } from "./FilteringTable";
+import Scroll from "../basic-ui/Scroll";
+
 const { Search } = Input;
 const { TabPane } = Tabs;
 function callback(key) {
     console.log(key);
   }
 
- class Produits extends Component {
+ class Stock extends Component {
     constructor(props) {
         super(props);
-        this.state={path:"getPhyto",addm:false}
+        this.state={path:"getPhyto",addm:false , data:[]}
         this.onChange = this.onChange.bind(this);
         this.addMat = this.addMat.bind(this);
         
@@ -25,7 +27,7 @@ function callback(key) {
 
       async fetch_data1() {
 
-        this.data = await fetch("http://localhost:3001/getPhyto",{
+        this.data1 = await fetch("http://localhost:3001/getPhyto",{
           method:'POST',
           headers:{'Content-Type':"application/json"},
           body:JSON.stringify({
@@ -40,13 +42,10 @@ function callback(key) {
              return responseJson2
             })
             
-            this.setState({data1:this.data}) 
+             
         
-           }
 
-           async fetch_data2() {
-
-            this.data = await fetch("http://localhost:3001/getSemence",{
+            this.data2 = await fetch("http://localhost:3001/getSemence",{
               method:'POST',
               headers:{'Content-Type':"application/json"},
               body:JSON.stringify({
@@ -61,13 +60,9 @@ function callback(key) {
                  return responseJson2
                 })
                 
-                this.setState({data2:this.data}) 
-            
-               }
+                
 
-               async fetch_data3() {
-
-                this.data = await fetch("http://localhost:3001/getEngrais",{
+                this.data3 = await fetch("http://localhost:3001/getEngrais",{
                   method:'POST',
                   headers:{'Content-Type':"application/json"},
                   body:JSON.stringify({
@@ -82,19 +77,19 @@ function callback(key) {
                      return responseJson2
                     })
                     
-                    this.setState({data3:this.data}) 
+                    this.setState({data:[...this.data1 , ...this.data2,...this.data3]})  
                 
                    }
 
-               async fetch_data4() {
+               async fetch_dataHistorique() {
 
-                this.data = await fetch("http://localhost:3001/getRecolte",{
-                          method:'POST',
-                          headers:{'Content-Type':"application/json"},
-                          body:JSON.stringify({
-                            id_exp:JSON.parse(sessionStorage.getItem('user')).id 
-                          })
-                     }).then(response2 =>{
+                this.data = await fetch("http://localhost:3001/historique",{
+                  method:'POST',
+                  headers:{'Content-Type':"application/json"},
+                  body:JSON.stringify({
+                    id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+                  })
+             }).then(response2 =>{
                    if(response2.ok){
                      return response2.json();
                    }
@@ -103,14 +98,34 @@ function callback(key) {
                      return responseJson2
                     })
                     
-                    this.setState({data4:this.data}) 
+                    this.setState({data144:this.data})  
                 
                    }
 
-                   async fetch_data5() {
+               async fetch_dataRecolt() {
 
-                        
-                        this.data = await fetch("http://localhost:3001/get_aliment1",{
+                this.data = await fetch("http://localhost:3001/getRecolte",{
+                  method:'POST',
+                  headers:{'Content-Type':"application/json"},
+                  body:JSON.stringify({
+                    id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+                  })
+             }).then(response2 =>{
+           if(response2.ok){
+             return response2.json();
+           }
+           throw new Error('request failed');}, networkError => console.log(networkError))
+           .then( responseJson2 =>{
+             return responseJson2
+            })
+                    
+                    this.setState({data_recolt:this.data})  
+                
+                   }
+
+               async fetch_dataAliment() {
+
+                this.data = await fetch("http://localhost:3001/get_aliment1",{
                           method:'POST',
                           headers:{'Content-Type':"application/json"},
                           body:JSON.stringify({
@@ -124,29 +139,28 @@ function callback(key) {
                        .then(responseJson =>{
                         return responseJson
                        })
-
-                       this.setState({data5:this.data}) 
-                      
-
-                       }
+                    
+                    this.setState({data6:this.data})  
+                
+                   }
 
     
            componentDidMount(){
             console.log("didmount")
             this.fetch_data1()
-            this.fetch_data2()
-            this.fetch_data3()
-            this.fetch_data4()
-            this.fetch_data5()
-            var oneSecond = 4000;
+            this.fetch_dataRecolt()
+            this.fetch_dataHistorique()
+            this.fetch_dataAliment()
+
+            var oneSecond = 40000;
    
             this.intervalID = setInterval(() => {
                 
                 this.fetch_data1()
-                this.fetch_data2()
-                this.fetch_data3()
-                this.fetch_data4()
-                this.fetch_data5()
+                this.fetch_dataRecolt()
+                this.fetch_dataHistorique()
+                this.fetch_dataAliment()
+               
             }, oneSecond);
          }
    
@@ -156,34 +170,32 @@ function callback(key) {
           }
 
           renderTableData() {
-            if(this.state.data1){
+            if(this.state.data){
                 if(this.state.value){
-                  return this.state.data1.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
-                    const { composition, n_enregistrement,nom,id_prod } = student //destructuring
+                  return this.state.data.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
+                    const { quantité, unité,nom,id_prod } = student //destructuring
           
                     return (
                      <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
                      <td>{nom}</td>
-                     <td>{n_enregistrement}</td>
-                     <td>{composition}</td>
+                     <td>{quantité} {unité}</td>
                      
                   </tr>
                     )
                    })
                 }
                 else{
-                  return this.state.data1.map((student, index) => {
+                  return this.state.data.map((student, index) => {
                       
-                    const { composition, n_enregistrement,nom,id_prod } = student //destructuring
+                    const { quantité, unité,nom,id_prod } = student //destructuring
           
-                      return (
-                       <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
-                       <td>{nom}</td>
-                       <td>{n_enregistrement}</td>
-                       <td>{composition}</td>
-                       
-                    </tr>
-                      )
+                    return (
+                     <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                     <td>{nom}</td>
+                     <td>{quantité} {unité}</td>
+                     
+                  </tr>
+                    )
                    })
                 }
            
@@ -191,44 +203,47 @@ function callback(key) {
 
     
         renderTableHeader() {
-            if(this.state.data1){
+            if(this.state.data){
                
                return (
                   <>
                <th key={1}  >Nom de Produit</th>
-               <th key={2}  >N° d'Enregistrement</th>
-               <th key={3}  >Composition</th>
+               <th key={2}  >Quantité</th>
                </>
                )
             
             }
             
          }
-         renderTableDataEngrai() {
-            if(this.state.data3){
+         renderTableDataRecolt() {
+            if(this.state.data_recolt){
                 if(this.state.value){
-                  return this.state.data3.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
-                    const {azot,photosphere,potassium,composition_n_oligo_elements, unité,nom,id_prod } = student //destructuring
+                  return this.state.data_recolt.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
+                    const { nom , culture, quantité,prix_uni,unité,id_prod  } = student //destructuring
           
                     return (
                      <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
                      <td>{nom}</td>
-                     <td>{unité}</td>
-                     <td>{azot}% Azote {photosphere}% Photosphère {composition_n_oligo_elements}% Oligo Aliments {potassium}% Potassium </td>
+                     <td>{culture}</td>
+                     <td>{quantité} {unité}</td>
+                     <td>{prix_uni} dh</td>
+                     
                   </tr>
                     )
                    })
                 }
                 else{
-                  return this.state.data3.map((student, index) => {
+                  return this.state.data_recolt.map((student, index) => {
                       
-                    const {azot,Phosphore,potassium,composition_n_oligo_elements, unité,nom,id_prod } = student //destructuring
+                    const { nom , culture, quantité,prix_uni,unité,id_prod  } = student //destructuring
           
                     return (
                      <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
                      <td>{nom}</td>
-                     <td>{unité}</td>
-                     <td>{azot}% Azote {Phosphore}% Phosphore {composition_n_oligo_elements}% Oligo Aliments {potassium}% Potassium </td>
+                     <td>{culture}</td>
+                     <td>{quantité} {unité}</td>
+                     <td>{prix_uni} dh</td>
+                     
                   </tr>
                     )
                    })
@@ -237,14 +252,15 @@ function callback(key) {
         }}
 
     
-        renderTableHeaderEngrai() {
-            if(this.state.data3){
+        renderTableHeaderRecolt() {
+            if(this.state.data_recolt){
                
                return (
                   <>
-               <th key={1}  >Nom de Produit</th>
-               <th key={2}  >Unité</th>
-               <th key={3}  >Composition</th>
+               <th key={1}  >Nom</th>
+               <th key={2}  >culture</th>
+               <th key={3}  > quantité</th>
+               <th key={4}  >prix unitaire</th>
                </>
                )
             
@@ -259,7 +275,7 @@ function callback(key) {
                     const { nom, culture,unité,id_prod } = student //destructuring
           
                     return (
-                     <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                     <tr key={id_prod + nom} onClick ={()=> this.setState({choosen:student , afficher:true})}>
                      <td>{nom}</td>
                      <td>{culture}</td>
                      <td>{unité}</td>
@@ -286,122 +302,72 @@ function callback(key) {
            
         }}
 
-         renderTableDataRecolte() {
-            if(this.state.data4){
+    
+        renderTableHeaderSemence() {
+            if(this.state.data3){
+               
+               return (
+                  <>
+               <th key={1}  >Nom de Produit</th>
+               <th key={2}  >Culture</th>
+               <th key={3}  >Unité</th>
+               </>
+               )
+            
+            }
+            
+         }
+         renderTableDataAliment() {
+            if(this.state.data6){
                 if(this.state.value){
-                  return this.state.data4.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
-                    const { nom, culture,unité,id_prod } = student //destructuring
+                  return this.state.data6.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
+                    const { nom, fournisseur,unit,id_aliment,quantite } = student //destructuring
           
                     return (
-                     <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                     <tr key={id_aliment + nom} onClick ={()=> this.setState({choosen:student , afficher:true})}>
                      <td>{nom}</td>
-                     <td>{culture}</td>
-                     <td>{unité}</td>
+                     <td>{quantite}</td>
+                     <td>{unit}</td>
+                     <td>{fournisseur}</td>
                      
                   </tr>
                     )
                    })
                 }
                 else{
-                  return this.state.data4.map((student, index) => {
+                  return this.state.data6.map((student, index) => {
                       
-                    const { nom, culture,unité,id_prod } = student //destructuring
+                    const { nom, fournisseur,unit,id_aliment,quantite } = student //destructuring
           
                     return (
-                     <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                     <tr key={id_aliment + nom} onClick ={()=> this.setState({choosen:student , afficher:true})}>
                      <td>{nom}</td>
-                     <td>{culture}</td>
-                     <td>{unité}</td>
-                     
+                     <td>{quantite} </td>
+                     <td>{unit}</td>
+                     <td>{fournisseur}</td>
                   </tr>
-                    )   
+                    )  
                    })
                 }
            
         }}
 
     
-        renderTableHeaderRecolte() {
+        renderTableHeaderAliment() {
             
                
                return (
                   <>
                <th key={1}  >Nom de Produit</th>
-               <th key={2}  >Culture</th>
+               <th key={2}  >Quantité</th>
                <th key={3}  >Unité</th>
-               </>
-               )
-               }
-               renderTableHeaderSemence() {
-            
-               
-               return (
-                  <>
-               <th key={1}  >Nom de Produit</th>
-               <th key={2}  >Culture</th>
-               <th key={3}  >Unité</th>
+               <th key={3}  >Fournisseur</th>
                </>
                )
             
             
             
          }
-
-         renderTableDataAliment() {
-          if(this.state.data5){
-              if(this.state.value){
-                return this.state.data5.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
-                  const { nom, date_achat,note,unit, fournisseur,id_aliment } = student //destructuring
-        
-                  return (
-                   <tr key={id_aliment} onClick ={()=> this.setState({choosen:student , afficher:true})}>
-                   <td>{nom}</td>
-                   <td>{  format(new Date(date_achat), 'dd/MM/yyyy')
-                             }</td>
-                   <td>{unit}</td>
-                   <td>{fournisseur}</td>
-                   <td>{note}</td>
-                   
-                </tr>
-                  )
-                 })
-              }
-
-              else{
-                return this.state.data5.map((student, index) => {
-                    
-                  const { nom, date_achat,note,unit, fournisseur,id_aliment } = student //destructuring
-        
-                  return (
-                   <tr key={id_aliment} onClick ={()=> this.setState({choosen:student , afficher:true})}>
-                   <td>{nom}</td>
-                   <td>{  format(new Date(date_achat), 'dd/MM/yyyy')
-                             }</td>
-                   <td>{unit}</td>
-                   <td>{fournisseur}</td>
-                   <td>{note}</td>
-                   
-                </tr>
-                  )   
-                 })
-              }
-         
-      }}
-
-  
-      renderTableHeaderAliment() {
-          
-             
-             return (
-                <>
-             <th key={1}  >Nom de Aliment</th>
-             <th key={2}  >date d'achat</th>
-             <th key={3}  >Unité</th>
-             <th key={4}  >Fournisseur</th>
-             <th key={5}  >Note</th>
-             </>
-             )
-             }
 
          onChange(e){
 
@@ -431,7 +397,7 @@ render(){
         <div className="row">
           <div className="col-lg-12 grid-margin">
             <div className="card ">
-                { (this.state.addm === false) && <><div className="container">
+                { (this.state.addm === false) && <><div style={{padding:"15px"}}>
                    <div class="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
                 <button
                 visible
@@ -440,13 +406,13 @@ render(){
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter un Produit
+                + ajouter un Mouvement de Stock
               </button>
               </div>
-            <Tabs defaultActiveKey="1" onChange={callback} style={{color:"#ffff"}}>
-                <TabPane tab="PHYTOSANITAIRES" key="1"   >
+            <Tabs defaultActiveKey="1" onChange={callback} style={{color:"#ffff" , width:'100%'}}>
+                <TabPane tab="stock des Produits" key="1"   >
 
-                <h1 id='title'>PHYTOSANITAIRES</h1>
+                <h1 id='title'>stock des Produits</h1>
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
@@ -463,29 +429,27 @@ render(){
                     </tbody>
                     </table>
                         </TabPane>
+                
+                        <TabPane tab="Mouvement de stock" key="3"   >
+
+              <h1 id='title'>Mouvement de stock</h1>
 
 
-                <TabPane tab="ENGRAIS" key="2" >
-                <h1 id='title'>Engrais</h1>
+                <div class="d-flex flex-row-reverse bd-highlight">
+                </div>
+                <br/>
+                <br/>
+                { (this.state.data144) && <Scroll>
+                   
+                <FilteringTable datadnem = {this.state.data144}/>
+                   
+                 </Scroll>
+                 }
+                    </TabPane>
 
-            
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                    
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-            
-                    </div>
-                    <br/>
-                    <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
-                    <tbody>
-                        <tr>{this.renderTableHeaderEngrai()} </tr>
-                        {this.renderTableDataEngrai()}
-                    </tbody>
-                    </table>
-                </TabPane>
-                <TabPane tab="SEMENCES/PLANTS" key="3" >
 
-                <h1 id='title'>SEMENCES/PLANTS</h1>
+                <TabPane tab="stock des Récoltes" key="2" >
+                <h1 id='title'>stock des Récoltes</h1>
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
@@ -497,34 +461,16 @@ render(){
                     <br/>
                     <table id='students' style={{width:"100%", height: "auto",}}>
                     <tbody>
-                        <tr>{this.renderTableHeaderSemence()} </tr>
-                        {this.renderTableDataSemence()}
+                        <tr>{this.renderTableHeaderRecolt()} </tr>
+                        {this.renderTableDataRecolt()}
                     </tbody>
                     </table>
                 </TabPane>
-                <TabPane tab="RÉCOLTES" key="4" >
-
-                <h1 id='title'>RÉCOLTES</h1>
-
             
-                    <div class="d-flex flex-row-reverse bd-highlight">
-                    
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-            
-                    </div>
-                    <br/>
-                    <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
-                    <tbody>
-                        <tr>{this.renderTableHeaderRecolte()} </tr>
-                        {this.renderTableDataRecolte()}
-                    </tbody>
-                    </table>
-                </TabPane>
+           
 
-                <TabPane tab="Aliments" key="5" >
-
-                <h1 id='title'>Aliments</h1>
+                <TabPane tab="stock des Aliments" key="4" >
+                <h1 id='title'>stock des Aliments</h1>
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
@@ -541,11 +487,12 @@ render(){
                     </tbody>
                     </table>
                 </TabPane>
+            
             </Tabs>
             </div> </>}
 
 
-            {(this.state.addm === true) && <AddProduit reafficher={this.addMat}/>}
+           {(this.state.addm === true) && <AddMouvement reafficher={this.addMat}/>} 
         </div>
         </div>
         </div>
@@ -557,4 +504,4 @@ render(){
 }
 
 
-export default Produits 
+export default Stock 

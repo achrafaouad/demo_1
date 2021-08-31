@@ -196,21 +196,6 @@ class ModifierMateriel extends React.Component {
           
         </InputGroup>
        
-       
-        
-         <p>Prix de location par jour</p>
-       
-          <InputGroup className="mb-3">
-          <FormControl
-            placeholder="prix_location par heure"
-            name="prix_hr"
-            value={this.state.prix_location_jour}
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            onChange={this.handlechange}
-          />
-          
-        </InputGroup> 
          <p>Propriétaire</p>
        
           <InputGroup className="mb-3">

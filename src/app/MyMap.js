@@ -118,8 +118,8 @@ class PublicMap extends Component {
 
   changeBaseMap = (e) => {
     console.log(this.olmap.getLayers().getArray()[0]);
-    console.log(e.target.name);
-    if (e.target.name == "Esri map") {
+    console.log("nemmi choof mn l map ",e.target.id);
+    if (e.target.id === "Esri map") {
       this.setState({ map_name: "Esri map" });
       this.olmap.getLayers().getArray()[0] = this.arcgisMap;
     } else {
@@ -168,7 +168,7 @@ class PublicMap extends Component {
   }
 
    componentDidMount() {
-    console.log("hello world ha l map");
+    console.log("hello world ha l map rje3t");
     this.olmap.setTarget("map");
 
     // Listen to map changes
@@ -417,7 +417,7 @@ class PublicMap extends Component {
             </div>
             <div className="p-2 bd-highlight">
               <button
-                visible
+                
                 type="button"
                 className="btn btn-success btn-fw "
                 id="drow_polygone"
@@ -442,7 +442,7 @@ class PublicMap extends Component {
             </div>
           </div>
 
-          <div className="d-flex flex-row bd-highlight ">
+          <div className="d-flex flex-row bd-highlight add_polygone">
             <Pov changeBaseMap={this.changeBaseMap}/>
             
           </div>

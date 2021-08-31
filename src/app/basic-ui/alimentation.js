@@ -45,7 +45,6 @@ class Alimantation extends React.Component {
   
   handleOk = (e) => {
     
-    
       fetch("http://localhost:3001/add_alimentation",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
@@ -56,7 +55,10 @@ class Alimantation extends React.Component {
             note:this.state.note,
             duré:this.state.duré,
             date_alimentation:this.state.date_alimentation,
-            price:this.state.price
+            price:this.state.price,
+            currentStock:this.state.currentStock,
+            nom:this.state.nom,
+            id_exp:JSON.parse(sessionStorage.getItem('user')).id 
       })
  }).then(response =>{
    if(response.ok){
@@ -93,7 +95,13 @@ class Alimantation extends React.Component {
 
 
   async optionAliment(){
-    this.data = await fetch("http://localhost:3001/aliment").then(response2 =>{
+    this.data = await fetch("http://localhost:3001/get_aliment1",{
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+      })
+ }).then(response2 =>{
         if(response2.ok){
           return response2.json();
         }
@@ -135,7 +143,7 @@ class Alimantation extends React.Component {
 
   handleChange_value(e){
       console.log(e.target.value)
-      this.setState({id_aliment:JSON.parse(e.target.value).id_aliment,unit:JSON.parse(e.target.value).unit,prix_unit:JSON.parse(e.target.value).prix_unit})
+      this.setState({id_aliment:JSON.parse(e.target.value).id_aliment,unit:JSON.parse(e.target.value).unit,prix_unit:JSON.parse(e.target.value).prix_unit ,currentStock:JSON.parse(e.target.value).quantite,nom:JSON.parse(e.target.value).nom})
   }
 
 

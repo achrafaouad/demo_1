@@ -13,12 +13,14 @@ const Personnel = lazy(() => import('./basic-ui/Personnel'));
 const Produits = lazy(() => import('./basic-ui/Produits'));
 const Travail = lazy(() => import('./basic-ui/Travail'));
 
+
 const BasicElements = lazy(() => import('./form-elements/BasicElements'));
 const NouvelleOperation = lazy(() => import('./form-elements/NouvelleOperation'));
 
 const BasicTable = lazy(() => import('./tables/BasicTable'));
 
 const Mdi = lazy(() => import('./icons/Mdi'));
+const stock = lazy(() => import('./icons/stock'));
 
 const ChartJs = lazy(() => import('./charts/ChartJs'));
 
@@ -55,6 +57,7 @@ class AppRoutes extends Component {
           <Route path="/tables/basic-table" component={ BasicTable } />
 
           <Route path="/icons/mdi" component={ Mdi } />
+          <Route path="/icons/stock" component={ stock } />
 
           <Route path="/charts/chart-js" component={ ChartJs } />
 

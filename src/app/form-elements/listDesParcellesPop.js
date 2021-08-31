@@ -105,7 +105,13 @@ class PopupPArc extends React.Component {
 
  
   async getParcelle(){
-    this.data = await fetch("http://localhost:3001/getExploitationVeg").then(response =>{
+    this.data = await fetch("http://localhost:3001/getExploitationVeg",{
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+      })
+ }).then(response =>{
         if(response.ok){
           return response.json();
         }

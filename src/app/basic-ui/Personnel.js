@@ -26,7 +26,13 @@ export class Personnel extends Component {
 
    async fetch_data() {
 
-   this.data = await fetch("http://localhost:3001/getPersonnel1").then(response2 =>{
+   this.data = await fetch("http://localhost:3001/getPersonnel1",{
+    method:'POST',
+    headers:{'Content-Type':"application/json"},
+    body:JSON.stringify({
+      id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+    })
+}).then(response2 =>{
       if(response2.ok){
         return response2.json();
       }

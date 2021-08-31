@@ -13,6 +13,12 @@ class AnimalProfil extends Component{
 
         console.log("hana f profil dielo",this.state)
         this.fetch_data()
+        if(this.state.animal.photo){
+          this.src = "http://localhost:3001/" + this.state.animal.photo
+        }
+        else{
+          this.src = "https://p0.pikist.com/photos/881/972/cow-prairie-field-agro-industry-heifer-breeding-agriculture-animal-farm.jpg"
+        }
     }
     
 
@@ -131,13 +137,14 @@ componentWillUnmount(){
         return (<>
             { (this.state.animal) && <>
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> {this.props.afficher();console.log("rje3")} }>retour</button>
-             <h1 style={{color:"#ffff"}}>Détails de l'animal</h1>
+             <h1 style={{color:"#ffff" , textAlign:'center'}}>Détails de l'animal</h1>
              <hr style={{border: ".5px solid white"}}/>
             <div class="grid-container" style={style}>
             <div class="grid-item">
-            <h3 style={{color:"#ffff"}}>Information sur l'animal</h3>
+            <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+            <h3 style={{color:"#434c5e"}}>Information sur l'animal</h3>
             <hr style={{border: ".2px solid white"}}/>
-            <div style={{margin: "15px",color:"white"}}>
+              
             
             <div  >
                 <strong> Id Animal</strong> : {this.state.animal.id_ann}
@@ -175,7 +182,7 @@ componentWillUnmount(){
                  
                  <img
                  style={{width:"100%", height: "auto",}}
-                 src={"http://localhost:3001/uploads/1628505205753.jpg" } 
+                 src={this.src}
                 alt=" hello"/>
          
           

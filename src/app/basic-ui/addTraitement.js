@@ -94,8 +94,11 @@ class AddTraitement extends React.Component {
 
   async optionAliment(){
     this.data = await fetch("http://localhost:3001/get_traitement",{
-        method: "POST",
-        body: {id:50},
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+      }),
       }).then(response2 =>{
         if(response2.ok){
           return response2.json();

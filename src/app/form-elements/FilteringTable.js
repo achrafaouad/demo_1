@@ -4,6 +4,7 @@ import { useTable ,useGlobalFilter, useFilters,usePagination} from 'react-table'
 import { COLUMNS } from './Columns'
 import './Style.css'
 import { GlobalFilter } from './GlobalFilter'
+import ReactHTMLTableToExcel from "react-html-table-to-excel"
 
 
 
@@ -48,8 +49,17 @@ export const FilteringTable = ({datadnem}) => {
   return (
     
     < >
+    <div className="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
+    <div style={{margin:"10px"}}>
+      
+    <ReactHTMLTableToExcel className="btn btn-info" table="emp-table2"  filename="Emp Excel file" sheet="Sheet" buttonText="Export to Excel"/>
+    </div>
+    <div style={{margin:"10px"}}>
     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <table {...getTableProps()} >
+    </div>
+    </div>
+
+      <table {...getTableProps()} id="emp-table2">
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>

@@ -47,7 +47,7 @@ export class Dropdowns extends Component {
       componentDidMount(){
          console.log("didmount")
          this.fetch_data()
-         var oneSecond = 40000;
+         var oneSecond = 10000;
 
          this.intervalID = setInterval(() => {
              
@@ -78,7 +78,7 @@ export class Dropdowns extends Component {
                      <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
                         <td>{id_exploitation}</td>
                         <td>{nom}</td>
-                        <td>{surface}</td>
+                        <td>{Math.round(surface)} ha</td>
                         <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
                              }</td>
                         <td>{(batiment)?'Oui':'Non'}</td>
@@ -97,7 +97,7 @@ export class Dropdowns extends Component {
                      <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
                         <td>{id_exploitation}</td>
                         <td>{nom}</td>
-                        <td>{surface} ha </td>
+                        <td>{Math.round(surface)} ha </td>
                         <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
                              }</td>
                         <td>{(batiment)?'Oui':'Non'}</td>

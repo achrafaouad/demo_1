@@ -11,6 +11,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
     <span>
       Search:{' '}
       <input
+      style={{color:"black"}}
         value={value || ''}
         onChange={e => {
           setValue(e.target.value);

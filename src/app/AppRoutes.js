@@ -12,6 +12,7 @@ const ExploitaionVeg = lazy(() => import('./basic-ui/ExploitaionVeg'));
 const Personnel = lazy(() => import('./basic-ui/Personnel'));
 const Produits = lazy(() => import('./basic-ui/Produits'));
 const Travail = lazy(() => import('./basic-ui/Travail'));
+const Traitement = lazy(() => import('./basic-ui/Traitement'));
 
 
 const BasicElements = lazy(() => import('./form-elements/BasicElements'));
@@ -50,6 +51,7 @@ class AppRoutes extends Component {
           <Route path="/basic-ui/dropdowns" component={ Dropdowns } />
           <Route path="/basic-ui/typography" component={ Typography } />
           <Route path="/basic-ui/Travail" component={ Travail } />
+          <Route path="/basic-ui/Traitement" component={ Traitement } />
 
           <Route path="/form-Elements/basic-elements" component={ BasicElements } />
           <Route path="/form-Elements/NouvelleOperation" component={ NouvelleOperation } />

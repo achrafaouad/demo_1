@@ -71,7 +71,7 @@ export class BasicElements extends Component {
           <div className="col-12 grid-margin">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Horizontal Two column</h4>
+                <h4 className="card-title">Mes Operation</h4>
                 
                  
 

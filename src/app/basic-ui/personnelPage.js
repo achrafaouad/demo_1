@@ -15,6 +15,9 @@ import Alimantation from "./alimentation";
 import AnimalTable from "./animalTable";
 import Modifier from "./Modifier";
 import ModifierPersonnel from "./ModifierPersonnel";
+import  "./StyleResp.css";
+
+
 const style = {
     display: "grid",
     gridTemplateColumns: "50%  50%"}
@@ -27,6 +30,10 @@ class PersonnelPage extends Component{
             var choosen = this.props.exploitation
     
             this.state={choosen:choosen }
+
+            if(this.state.choosen.image) this.src = 'http://localhost:3001/' + this.state.choosen.image
+            else this.src = 'https://media.istockphoto.com/photos/farmer-in-a-soybean-field-agricultural-concept-picture-id1158664559?k=20&m=1158664559&s=612x612&w=0&h=m3QOA7KCz_KYlKsiA4Dc4uA-Lp-uKUdRO3LWnOE3rgg='
+
         }
         
         
@@ -45,14 +52,14 @@ class PersonnelPage extends Component{
         return (<>
             
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> this.props.retour()}>retour</button>
-             <h1 style={{color:"#ffff"}}>Détails de l'exploitation</h1>
-             <hr style={{border: ".5px solid white"}}/>
+             <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails de l'exploitation</h1>
+             <hr class="style18"/>
             <div class="grid-container" style={style}>
             <div className="grid-item">
             
             <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
             <h3 style={{color:"#434c5e"}}>Information du Personnel</h3>
-            <hr style={{border: ".2px solid white"}}/>
+            <hr class="style18"/>
             <div  >
                 <strong> Nom</strong> : {(!this.state.choosen.nom)?"-":this.state.choosen.nom}
                 
@@ -116,13 +123,12 @@ class PersonnelPage extends Component{
             </div>
             </div>
             <div class="grid-item">
-                  <div className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+                  <div style={{display: "flex", justifyContent: "center"}}>
                   <img
-                 style={{width:"100%", height: "auto",}}
-                 src={"http://localhost:3001/uploads/1628505205753.jpg" } 
+                 style={{width:"50%", height: "auto", borderRadius: "10px" , boxShadow: "5px 5px 5px"}}
+                 src={this.src } 
                 alt=" hello"/>
-                  </div>
-
+                </div>
               </div>
             </div>
             

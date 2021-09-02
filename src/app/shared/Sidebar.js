@@ -53,7 +53,8 @@ class Sidebar extends Component {
 
   render () {
     return (
-      <nav className="sidebar sidebar-offcanvas" id="sidebar" style={{height:"auto"}}>
+      <nav className="sidebar sidebar-offcanvas" id="sidebar" style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
         <div className="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
           <a className="sidebar-brand brand-logo" href="index.html"><img src={require('../../assets/images/logo.svg')} alt="logo" /></a>
           <a className="sidebar-brand brand-logo-mini" href="index.html"><img src={require('../../assets/images/logo-mini.svg')} alt="logo" /></a>
@@ -139,6 +140,7 @@ class Sidebar extends Component {
                   <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Personnel') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Personnel"><Trans>Personnel</Trans></Link></li>
                   <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Produits') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Produits"><Trans>Produits</Trans></Link></li>
                   <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Travail') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Travail"><Trans>Travail</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/basic-ui/Traitement') ? 'nav-link active' : 'nav-link' } to="/basic-ui/Traitement"><Trans>Traitement</Trans></Link></li>
                 </ul>
               </div>
             </Collapse>

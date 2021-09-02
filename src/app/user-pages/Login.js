@@ -40,30 +40,7 @@ export class Login extends Component {
           }
     )
 
-//     //seconde request
-//     fetch("http://localhost:3001/get_foncier",{
-//       method:'POST',
-//       headers:{'Content-Type':"application/json"},
-//       body:JSON.stringify({
-//         id:this.state.user.id})
-//  }).then(response2 =>{
-//    if(response2.ok){
-//      return response2.json();
-//    }
-//    throw new Error('request failed');}, networkError => console.log(networkError))
-//    .then( responseJson2 => {{console.log(responseJson2);
-//     this.setState({foncier:responseJson2});}
-//     this.forceUpdateHandler()
-//      this.props.history.push(
-//        {
-//          pathname: '/dashboard',
-//          state: {user:this.state.user, parcels:this.state.foncier }
-//      }
-//       );
-    
-     
-  
-//   }))
+
   
 }
 forceUpdateHandler(){

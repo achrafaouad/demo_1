@@ -8,6 +8,7 @@ import PopupMatMod from './PopupMatMod';
 import PopupSemece from './PopupSemece';
 import PopupUpdatePhyt from './PopupUpdatePhyt';
 import PopupUpdateEngrais from './PopupUpdateEngrais';
+import ReactHTMLTableToExcel from "react-html-table-to-excel"
 
 const { Search } = Input;
 const { TabPane } = Tabs;
@@ -458,10 +459,9 @@ export class BasicTable extends Component {
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">Basic Table</h4>
-                <p className="card-description"> Add className <code>.table</code>
-                </p>
+              <div className="card-body" style={{height:"100%"}}>
+                <h1 className="card-title">les prix</h1>
+              
                 <div className="table-responsive">
                 <Tabs defaultActiveKey="1" onChange={callback} style={{color:"#ffff"}}>
                 <TabPane tab="OPÉRATEURS" key="1"   >
@@ -470,13 +470,13 @@ export class BasicTable extends Component {
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
-                    
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students1"  filename="personnel" sheet="Sheet" buttonText="Export to Excel"/>
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students1' style={{width:"100%", height: "auto",}}>
                     <tbody>
                          <tr>{this.renderTableHeader_personnel()} </tr>
                         {this.renderTableData_personnel()}
@@ -492,11 +492,11 @@ export class BasicTable extends Component {
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-            
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students2"  filename="MATÉRIELS" sheet="Sheet" buttonText="Export to Excel"/>
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students2' style={{width:"100%", height: "auto",}}>
                     <tbody>
                         <tr>{this.renderTableHeader_MATÉRIELS()} </tr>
                         {this.renderTableData_MATÉRIELS()} 
@@ -511,11 +511,12 @@ export class BasicTable extends Component {
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-            
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students3"  filename="SEMENCES_PLANTS" sheet="Sheet" buttonText="Export to Excel"/>
+
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students3' style={{width:"100%", height: "auto",}}>
                     <tbody>
                          <tr>{this.renderTableHeader_SEMENCES_PLANTS()} </tr>
                         {this.renderTableData_SEMENCES_PLANTS()} 
@@ -530,11 +531,12 @@ export class BasicTable extends Component {
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-            
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students4"  filename="PHYTOSANITAIRES" sheet="Sheet" buttonText="Export to Excel"/>
+
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students4' style={{width:"100%", height: "auto",}}>
                     <tbody>
                          <tr>{this.renderTableHeader_PHYTOSANITAIRES()} </tr>
                         {this.renderTableData_PHYTOSANITAIRES()}
@@ -549,11 +551,11 @@ export class BasicTable extends Component {
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-            
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students5"  filename="ENGRAIS" sheet="Sheet" buttonText="Export to Excel"/>
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students5' style={{width:"100%", height: "auto",}}>
                     <tbody>
                          <tr>{this.renderTableHeader_ENGRAIS()} </tr>
                         {this.renderTableData_ENGRAIS()}

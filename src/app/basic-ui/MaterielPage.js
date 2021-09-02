@@ -16,9 +16,12 @@ import AnimalTable from "./animalTable";
 import Modifier from "./Modifier";
 import ModifierPersonnel from "./ModifierPersonnel";
 import ModifierMateriel from "./ModifierMateriel";
+import  "./StyleResp.css";
+
 const style = {
     display: "grid",
     gridTemplateColumns: "50%  50%"}
+
 
 class MaterielPage extends Component{
     constructor(props){
@@ -28,7 +31,14 @@ class MaterielPage extends Component{
             var choosen = this.props.exploitation
     
             this.state={choosen:choosen }
+
+            if(this.state.choosen.image) this.src = 'http://localhost:3001/' + this.state.choosen.image
+            else this.src = 'https://st.mascus.com/imagetilewm/product/2b3bf478/john-deere-6120-r,a859601e.jpg'
+
         }
+
+
+        
         
         
 
@@ -46,14 +56,14 @@ class MaterielPage extends Component{
         return (<>
             
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> this.props.retour()}>retour</button>
-             <h1 style={{color:"#ffff"}}>Détails de l'exploitation</h1>
-             <hr style={{border: ".5px solid white"}}/>
+                <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails de l'exploitation</h1>
+                <hr class="style18"/>
             <div class="grid-container" style={style}>
             <div className="grid-item">
             
             <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
             <h3 style={{color:"#434c5e"}}>Information du Materiel</h3>
-            <hr style={{border: ".2px solid white"}}/>
+            <hr class="style18"/>
             <div  >
                 <strong> Nom</strong> : {(!this.state.choosen.nom)?"-":this.state.choosen.nom}
                 
@@ -87,7 +97,7 @@ class MaterielPage extends Component{
                 <strong> N° d'Enregistrement</strong> : {(!this.state.choosen.n_enregistrement)?"-":this.state.choosen.n_enregistrement}
               </div>
               <div>
-                <strong>Prix de location par heure</strong> : {(!this.state.choosen.prix_hr)?"-":this.state.choosen.prix_hr} dh
+                <strong>Prix de travail par heure</strong> : {(!this.state.choosen.prix_hr)?"-":this.state.choosen.prix_hr} dh
               </div>
               <div>
                 <strong>Propriétaire</strong> : {(!this.state.choosen.propriétaire)?"-":this.state.choosen.propriétaire}
@@ -106,7 +116,7 @@ class MaterielPage extends Component{
                   <div className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
                   <img
                  style={{width:"100%", height: "auto",}}
-                 src={"http://localhost:3001/uploads/1628505205753.jpg" } 
+                 src={this.src} 
                 alt=" hello"/>
                   </div>
 

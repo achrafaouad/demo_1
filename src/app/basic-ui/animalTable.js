@@ -2,9 +2,15 @@ import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import { Input} from 'antd';
 import AnimalProfil from "./animalProfil";
-
+import { format } from 'date-fns';
+import ReactHTMLTableToExcel from "react-html-table-to-excel"
 const { Search } = Input;
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var yyyy = today.getFullYear();
 
+today = mm + '/' + dd + '/' + yyyy;
 
 export class AnimalTable extends Component {
   constructor(props) {
@@ -50,7 +56,8 @@ async fetch_data() {
                      <tr key={id_ann} onClick ={()=> {this.setState({choosen_ann:student, afficher:true }); this.props.afficher_animal();console.log(student)}}>
                         <td>{id_ann}</td>
                         <td>{gender}</td>
-                        <td>{date_birth}</td>
+                        <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
+                             }</td>
                         <td>{race}</td>
                         <td>{sous_famille}</td>
                         <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
@@ -68,7 +75,8 @@ async fetch_data() {
                      <tr key={id_ann} onClick ={ ()=> {this.setState({choosen_ann:student,afficher:true }); this.props.afficher_animal(); console.log(student)}}>
                         <td>{id_ann}</td>
                         <td>{gender}</td>
-                        <td>{date_birth}</td>
+                        <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
+                             }</td>
                         <td>{race}</td>
                         <td>{sous_famille}</td>
                         <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
@@ -123,9 +131,9 @@ async fetch_data() {
 
             
             <div class="d-flex flex-row-reverse bd-highlight">
-            
+             
              <Search  placeholder="filtrer par l'id de votre animal" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
-       
+             <ReactHTMLTableToExcel className="btn btn-info" table="students"  filename={"Animaux_"+today} sheet="Sheet" buttonText="Export to Excel"/>
              </div>
              <br/>
              <br/>

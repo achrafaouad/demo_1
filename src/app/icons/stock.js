@@ -5,7 +5,7 @@ import { Input} from 'antd';
 import AddMouvement from "./addMouvement";
 import { FilteringTable } from "./FilteringTable";
 import Scroll from "../basic-ui/Scroll";
-
+import ReactHTMLTableToExcel from "react-html-table-to-excel"
 const { Search } = Input;
 const { TabPane } = Tabs;
 function callback(key) {
@@ -416,13 +416,13 @@ render(){
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
-                    
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students2"  filename="Produits" sheet="Sheet" buttonText="Export to Excel"/>
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students2' style={{width:"100%", height: "auto",}}>
                     <tbody>
                         <tr>{this.renderTableHeader()} </tr>
                         {this.renderTableData()}
@@ -453,13 +453,13 @@ render(){
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
-                    
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students1"  filename="Récoltes" sheet="Sheet" buttonText="Export to Excel"/>
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students1' style={{width:"100%", height: "auto",}}>
                     <tbody>
                         <tr>{this.renderTableHeaderRecolt()} </tr>
                         {this.renderTableDataRecolt()}
@@ -474,13 +474,14 @@ render(){
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
-                    
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students3"  filename="Aliments" sheet="Sheet" buttonText="Export to Excel"/>
+
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
                     <br/>
-                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <table id='students3' style={{width:"100%", height: "auto",}}>
                     <tbody>
                         <tr>{this.renderTableHeaderAliment()} </tr>
                         {this.renderTableDataAliment()}

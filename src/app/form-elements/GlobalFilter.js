@@ -8,9 +8,10 @@ export const GlobalFilter = ({ filter, setFilter }) => {
     setFilter(value || undefined)
   }, 1000)
   return (
-    <span>
-      Search:{' '}
+    <span style={{color:"#ffff"}} >
+      Recherche:{' '}
       <input
+        style={{color:"black"}}
         value={value || ''}
         onChange={e => {
           setValue(e.target.value);

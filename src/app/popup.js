@@ -11,10 +11,16 @@ import { Input } from 'antd';
 import { Radio ,DatePicker } from 'antd';
 import { Slider, Switch } from 'antd';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
+
 const { Option } = Select;
 const options = [
-  { label: 'Apple', value: 'Apple' },
-  { label: 'Pear', value: 'Pear' }
+  { label: 'Ovins', value: 'Ovins' },
+  { label: 'Bovin', value: 'Bovin' },
+  { label: 'Volaille', value: 'Volaille' },
 ];
 const bati = [ 
   { label: 'oui', value: true },
@@ -51,10 +57,58 @@ class Popup extends React.Component {
 
   }
   
-  handleOk = (e) => {
+  handleOk = async (e) => {
+
+    
+    var valid = true
+    await fetch("http://localhost:3001/get_foncier",{
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id:this.props.user.id,
+        
+      })
+ }).then(response =>{
+   if(response.ok){
+     return response.json();
+   }
+   throw new Error('request failed');}, networkError => console.log(networkError))
+   .then(responseJson =>{
+    if(responseJson) {
+      for(let i = 0;i<responseJson.length;i++){
+        if(this.state.nom ===responseJson[i].nom ){
+          valid = false
+          break;
+        }
+      }
+    }
+      
+   })
+
+   if(valid) toast.success('Le Nom est valide ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+     else toast.warn('Ce Nom exist deja !! ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+     
+     if(!this.state.typeFoncier){
+       toast.warn('veulliez choisie le type de foncier !!!  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+       valid = false
+     }
+     if(this.state.typeFoncier ==="loué" && (!this.state.date_loue || !this.state.prix_loue)){
+       toast.warn('veulliez inserer les information de location!!!  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+       valid = false
+     }
+     
+     if(this.state.production ==="animal"  && (!this.state.type)){
+       toast.warn('Veuillez choisit l\'espèce a élevé.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+       valid = false
+     }
+
+
+
+
     
     
-      fetch("http://localhost:3001/add_foncier",{
+    
+      if(valid){fetch("http://localhost:3001/add_foncier",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
@@ -74,6 +128,9 @@ class Popup extends React.Component {
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{
+
+    toast.success('Le foncier a été bien ajouté à la carte. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
     fetch("http://localhost:3001/add_exploitation",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
@@ -85,7 +142,8 @@ class Popup extends React.Component {
         note:this.state.prix_achat,
         errige:this.state.errige,
         culture_permanent:String(this.state.culture_permanent),
-        source_eau:String(this.state.source_eau)
+        source_eau:String(this.state.source_eau),
+        type:this.state.type
 
       })
  }).then(response =>{
@@ -93,14 +151,54 @@ class Popup extends React.Component {
      return response.json();
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
-   .then(responseJson =>{console.log(responseJson)} );
+   .then(responseJson =>{
+     console.log("brahim" , responseJson)
+
+     toast.success('L\'exploitation a été bien ajouté . ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
+     if( this.state.prix_loue ){
+       console.warn("hello")
+      fetch("http://localhost:3001/add_cout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: 'Location',
+          type: "COÛT",
+          id_exploitation: responseJson.data,
+          id_exp:Number(JSON.parse(sessionStorage.getItem('user')).id) ,
+          date: this.state.date_loue,
+          montant: this.state.prix_loue,
+          
+        }),
+      })
+        .then(
+          (response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error("request failed");
+          },
+          (networkError) => console.log(networkError)
+        )
+        .then((responseJson) => {
+          console.log(responseJson);
+          toast.success('le coût est bien ajouté ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000})
+         
+          
+        });
+    }
+    } );
+
+
+    
 
    })
+   
       this.props.update();
      
     this.setState({
       visible: false,
-    });
+    });}
   }
   
   handleCancel = (e) => {
@@ -154,13 +252,13 @@ class Popup extends React.Component {
       <div>
         <Button id="infoAdd"type="primary" onClick={this.showModal}>Open</Button>
         <Modal
-          title="Basic Modal"
+          title=""
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <p>Nom</p>
-          <Input placeholder="Basic usage" name="nom" value={this.state.nom} onChange={this.handlechange} />
+          <Input placeholder="Basic usage"  name="nom" value={this.state.nom} onChange={this.handlechange} />
           <br/>
 
           <p>surface</p>
@@ -192,6 +290,7 @@ class Popup extends React.Component {
           <FormControl
             placeholder="Recipient's username"
             name="prix_loue"
+            type="Number"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
@@ -211,6 +310,7 @@ class Popup extends React.Component {
        <FormControl
          placeholder="Recipient's username"
          name="prix_achat"
+         type="Number"
          aria-label="Recipient's username"
          aria-describedby="basic-addon2"
          onChange={this.handlechange}
@@ -242,6 +342,15 @@ class Popup extends React.Component {
           optionType="button"
           buttonStyle="solid"
         />
+    <p>Élevage des?</p>
+        <Radio.Group
+          name="type"
+          options={options}
+          onChange={this.handlechange}
+          value={this.state.type}
+          optionType="button"
+          buttonStyle="solid"
+        />
     </>
     }
 
@@ -250,7 +359,7 @@ class Popup extends React.Component {
 <br/>
 <br/>
 <p>errigée ?</p>
-<Radio.Group
+<Radio.Groupdate_loue
       options={bati}
       name="errige"
       onChange={this.handlechange}
@@ -290,15 +399,6 @@ class Popup extends React.Component {
 <p>donner une note sur cette production</p>
     <TextArea rows={2} name="note" onChange={this.handlechange} />
 
-        <br />
-        <br />
-        <Radio.Group
-          options={options}
-          onChange={this.onChange3}
-          value={value3}
-          optionType="button"
-          buttonStyle="solid"
-        />
    
 
         </Modal>

@@ -11,6 +11,10 @@ import { Input } from 'antd';
 import { Radio ,DatePicker } from 'antd';
 import { Slider, Switch } from 'antd';
 import TileSource from 'ol/source/Tile';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 const { Option } = Select;
 
@@ -66,6 +70,7 @@ class Alimantation extends React.Component {
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{
+    toast.success('L\'alimentation a été ajouté avec succès' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
      console.log(responseJson)
    })
       

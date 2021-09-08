@@ -10,6 +10,10 @@ import { Select } from 'antd';
 import { Input } from 'antd';
 import { Radio ,DatePicker } from 'antd';
 import { Slider, Switch } from 'antd';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 const { Option } = Select;
 const options = [
@@ -65,6 +69,7 @@ class Popup extends React.Component {
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{
+    toast.success('L\'animal a été ajouté avec succès' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
      console.log(responseJson)
    })
       
@@ -126,8 +131,6 @@ class Popup extends React.Component {
           
         </InputGroup>
 
-  <p>sous famille</p>
-    <Input  placeholder="sous famille" name="sous_famille" onChange={this.handlechange} />
     
     
        <p>prix d'achat</p>

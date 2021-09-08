@@ -115,7 +115,7 @@ export class Dropdowns extends Component {
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter un materiel
+                + ajouter une machine
               </button>
              </div>
              <br/>
@@ -127,7 +127,7 @@ export class Dropdowns extends Component {
       <h1>Loading</h1> :
       (
         <div className='tc'>
-          <h1 className='f1' style={{color:"#ffff"}}>Materiels</h1>
+          <h1 className='f1' style={{color:"#ffff"}}>Machinerie</h1>
           <Scroll>
             <CardList materiels={filteredRobots} ON_afficherList={this.ON_afficherList} ON_choosen ={this.choosen}/>
           </Scroll>

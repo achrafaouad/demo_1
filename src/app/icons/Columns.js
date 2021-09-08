@@ -67,7 +67,7 @@ export const COLUMNS = [
         Filter: ColumnFilter,
 
         Cell: ({ value }) => {
-            if(value) return  value + ' kg'
+            if(value) return  value + ' unité'
             else return '-'
           }
     },

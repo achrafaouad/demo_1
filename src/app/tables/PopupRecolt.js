@@ -14,7 +14,6 @@ import { Slider, Switch } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
-
 const { Option } = Select;
 const options = [
   { label: 'Apple', value: 'Apple' },
@@ -26,7 +25,7 @@ const gender = [
 ];
 const { TextArea } = Input;
 
-class PopupModifierPr extends React.Component {
+class PopupRecolt extends React.Component {
   constructor(props){
     super(props);
     this.state = {travaux:[]};
@@ -50,13 +49,13 @@ class PopupModifierPr extends React.Component {
   }
   
   handleOk = (e) => {
-    fetch("http://localhost:3001/update_personnel",{
+    fetch("http://localhost:3001/updateProduit144",{
         method:'POST',
         headers:{'Content-Type':"application/json"},
         body:JSON.stringify({
-            salaire_hr:this.state.salaire_hr,
+            prix_uni:this.state.prix_uni,
             VALIDE_DEPUIS:this.state.VALIDE_DEPUIS,
-            id_pers:this.props.choosen.id_pers
+            id_prod:this.props.choosen.id_prod
               
         })
    }).then(response =>{
@@ -66,7 +65,7 @@ class PopupModifierPr extends React.Component {
      throw new Error('request failed');}, networkError => console.log(networkError))
      .then(responseJson =>{
        console.log(responseJson)
-       toast.success('le salaire été bien mis a jour. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+       toast.success('le prix été bien mis a jour. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
      })
     
     
@@ -91,7 +90,7 @@ class PopupModifierPr extends React.Component {
   }
  
   handleChange(e){
-    this.setState({salaire_hr:e.target.value})
+    this.setState({prix_uni:e.target.value})
   }
 
   
@@ -119,7 +118,7 @@ class PopupModifierPr extends React.Component {
 
                 <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "hour" onChange={this.handleChange}/>
-                <span class="input-group-text" id="basic-addon2">dh/h</span>
+                <span class="input-group-text" id="basic-addon2">dh/{this.props.choosen.unité}</span>
                 </div>
 
               
@@ -142,4 +141,4 @@ class PopupModifierPr extends React.Component {
 }
 
 
-export default PopupModifierPr
+export default PopupRecolt

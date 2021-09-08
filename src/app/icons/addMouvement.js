@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import { Input } from 'antd';
 import { DatePicker, Radio } from "antd";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 const { TextArea } = Input;
 
 
@@ -58,7 +61,19 @@ class AddMouvement extends Component {
   
   onSUBMIT(e) {
     e.preventDefault();
-   var typo = this.state.Mouvement==='Achat'?"Entrant":"Sortant"
+    var test = false
+    if(!this.state.quantite){
+      toast.error('Ajouter une quantité !!' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      test = true;
+    }
+    console.log("hello hello",this.state.id_aliment ,this.state.id_prod)
+
+    if(this.state.id_aliment && !this.state.id_prod ){
+      toast.error('il faut choisir un produit  !!' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      test = true;
+    }
+
+   if(!test){var typo = this.state.Mouvement==='Achat'?"Entrant":"Sortant"
    console.log("typo",typo)
       fetch("http://localhost:3001/handleMouvement", {
         method: "POST",
@@ -91,10 +106,12 @@ class AddMouvement extends Component {
           (networkError) => console.log(networkError)
         )
         .then(responseJson =>{
-          console.log(responseJson.data);}
+          console.log(responseJson.data);
+          toast.success('le mouvement de stock a été bien effectué. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+        }
          );
         this.props.reafficher()
-      e.preventDefault();
+      e.preventDefault();}
     
   }
 
@@ -113,6 +130,8 @@ class AddMouvement extends Component {
        .then( responseJson2 =>{
          return responseJson2
         })
+
+
 
     this.data2 =await fetch("http://localhost:3001/getEngrais",{
                   method:'POST',
@@ -143,6 +162,8 @@ class AddMouvement extends Component {
            .then( responseJson2 =>{
              return responseJson2
             })
+
+            
         this.data = [...this.data1,...this.data2,...this.data3]
     
          this.setState({Produit:this.data})
@@ -179,6 +200,26 @@ class AddMouvement extends Component {
          })
            
            this.setState({dataAliment:this.data})  
+
+
+           this.data12 = await fetch("http://localhost:3001/getProduit12",{
+              method:'POST',
+              headers:{'Content-Type':"application/json"},
+              body:JSON.stringify({
+                id_exp:JSON.parse(sessionStorage.getItem('user')).id
+              })
+         }).then(response2 =>{
+               if(response2.ok){
+                 return response2.json();
+               }
+               throw new Error('request failed');}, networkError => console.log(networkError))
+               .then( responseJson2 =>{
+                 return responseJson2
+                })
+                console.log('data anim',this.data12)
+                this.setState({dataPrAnimal:this.data12}) 
+            
+               
         
 }
 
@@ -193,8 +234,14 @@ handleChange_valueAliment(e){
 }
 
   render() {
+    
     if(this.state.Produit){
         var lolo = this.state.Produit.map((e, key) => {
+         return <option key={e.id_prod} value={JSON.stringify(e)}>{e.nom}</option>;
+         })
+     }
+    if(this.state.dataPrAnimal){
+        var loloAnimal = this.state.dataPrAnimal.map((e, key) => {
          return <option key={e.id_prod} value={JSON.stringify(e)}>{e.nom}</option>;
          })
      }
@@ -209,6 +256,8 @@ handleChange_valueAliment(e){
          return <option key={e.id_aliment} value={JSON.stringify(e)}>{e.nom}</option>;
          })
      }
+
+    
     return (
       <div>
         <div
@@ -270,6 +319,7 @@ handleChange_valueAliment(e){
         {(this.state.Mouvement ==='Achat' && this.state.Exploitation ==='Végétal') && lolo}
         
         {(this.state.Mouvement ==='Vente'  && this.state.Exploitation ==='Végétal') && lolo1Stock}
+        {(this.state.Mouvement ==='Vente'  && this.state.Exploitation ==='Animal') && loloAnimal}
         
         </select></>}
 

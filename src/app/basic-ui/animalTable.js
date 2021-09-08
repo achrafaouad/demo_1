@@ -59,7 +59,6 @@ async fetch_data() {
                         <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
                              }</td>
                         <td>{race}</td>
-                        <td>{sous_famille}</td>
                         <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
                             <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
                      </tr>
@@ -78,7 +77,6 @@ async fetch_data() {
                         <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
                              }</td>
                         <td>{race}</td>
-                        <td>{sous_famille}</td>
                         <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
                             <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
                      </tr>
@@ -103,7 +101,6 @@ async fetch_data() {
            <th key={2}  >sexe</th>
            <th key={3}  >date de naissance</th>
            <th key={4}  >race</th>
-           <th key={5}  >sous famille</th>
            <th key={6}> Edit</th>
            </>
            )

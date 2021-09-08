@@ -1,18 +1,21 @@
 import React, { Component } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const bcrypt = require('bcrypt-nodejs');
 
+
+toast.configure();
 class ChangerMotPass extends Component {
   constructor(props) {
     super(props);
 
     if(this.props.user){
-      let uid = this.props.user.id,
-      state ={UserID:uid , user:this.props.user}
-      console.log("modepass")
+      let uid = this.props.user.id
+      this.state ={UserID:uid , user:this.props.user}
+      console.log("modepass",this.props.user)
     }
    
     this.handleChange = this.handleChange.bind(this);
-    
     this.onSUBMIT = this.onSUBMIT.bind(this);
   }
 
@@ -28,17 +31,18 @@ class ChangerMotPass extends Component {
  
   onSUBMIT(e) {
     e.preventDefault();
-    
-    bcrypt.compare(this.state.myPassword, this.state.user.password, function(err, resp) {
-      if(resp){
-          if(this.state.New === this.state.confirm){
+    console.log("test test",this.state.New)
+        console.log(this.state.confirm)
+  
             fetch("http://localhost:3001/password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id:this.state.UserID,
-          password: this.state.new,
-          
+          newPass:this.state.New,
+          confirm:this.state.confirm,
+          current:this.state.user.password,
+          password:this.state.myPassword         
         }),
       })
         .then(
@@ -49,17 +53,24 @@ class ChangerMotPass extends Component {
             throw new Error("request failed");
           },
           (networkError) => console.log(networkError)
-        )
+        ).then((responseJson) => {
+          if(responseJson === "passwordActuel") toast.error('Le mot de passe actuel est erroné.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+          if(responseJson === "identique22") toast.error('Les deux mots de passe ne sont pas identiques.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+          if(responseJson === "success"){
+             toast.success('Le mot de passe a été bien changé.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000})
+             this.props.afficherPass()
+        }
+
+        })
+          e.preventDefault();
+
           }
-      }
-    })
-    
       
         
 
-      e.preventDefault();
+     
     
-  }
+  
 
   render() {
     const mystyle = {
@@ -113,7 +124,7 @@ class ChangerMotPass extends Component {
                confirmer le mot de passe
               </label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
                 name="confirm"
                 id="Fabriquant"

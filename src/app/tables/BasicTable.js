@@ -8,7 +8,11 @@ import PopupMatMod from './PopupMatMod';
 import PopupSemece from './PopupSemece';
 import PopupUpdatePhyt from './PopupUpdatePhyt';
 import PopupUpdateEngrais from './PopupUpdateEngrais';
+import PopupProduitAnn from './PopupProduitAnn';
 import ReactHTMLTableToExcel from "react-html-table-to-excel"
+import PopupRecolt from './PopupRecolt';
+
+
 
 const { Search } = Input;
 const { TabPane } = Tabs;
@@ -128,6 +132,28 @@ export class BasicTable extends Component {
                     this.setState({ENGRAIS:this.data}) 
                 
                    }
+
+               async fetch_data_ProduitAnimal() {
+
+                this.data = await fetch("http://localhost:3001/getProduit12",{
+                  method:'POST',
+                  headers:{'Content-Type':"application/json"},
+                  body:JSON.stringify({
+                    id_exp:JSON.parse(sessionStorage.getItem('user')).id
+                  })
+             }).then(response2 =>{
+                   if(response2.ok){
+                     return response2.json();
+                   }
+                   throw new Error('request failed');}, networkError => console.log(networkError))
+                   .then( responseJson2 =>{
+                     return responseJson2
+                    })
+                    
+                    this.setState({data14:this.data}) 
+                
+                   
+                   }
     
 
                    componentDidMount(){
@@ -137,6 +163,8 @@ export class BasicTable extends Component {
                     this.fetch_data_SEMENCES_PLANTS()
                     this.fetch_data_PHYTOSANITAIRES()
                     this.fetch_data_ENGRAIS()
+                    this.fetch_data_ProduitAnimal()
+                    this.fetch_data4()
                     
                     var oneSecond = 40000;
            
@@ -146,6 +174,8 @@ export class BasicTable extends Component {
                       this.fetch_data_SEMENCES_PLANTS()
                       this.fetch_data_PHYTOSANITAIRES()
                       this.fetch_data_ENGRAIS()
+                      this.fetch_data_ProduitAnimal()
+                      this.fetch_data4()
                        
                        
                     }, oneSecond);
@@ -210,7 +240,7 @@ export class BasicTable extends Component {
                      return (
                         <>
                      <th key={1}  >OPÉRATEURS</th>
-                     <th key={2}  >PRIX</th>
+                     <th key={2}  >Salaire</th>
                      <th key={3}  >VALIDE DEPUIS LE:</th>
                      <th key={4}  >Modifer</th>
                      </>
@@ -331,6 +361,133 @@ export class BasicTable extends Component {
                   
                   
                }
+               async fetch_data4() {
+
+                this.data = await fetch("http://localhost:3001/getRecolte",{
+                          method:'POST',
+                          headers:{'Content-Type':"application/json"},
+                          body:JSON.stringify({
+                            id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+                          })
+                     }).then(response2 =>{
+                   if(response2.ok){
+                     return response2.json();
+                   }
+                   throw new Error('request failed');}, networkError => console.log(networkError))
+                   .then( responseJson2 =>{
+                     return responseJson2
+                    })
+                    
+                    this.setState({data4:this.data}) 
+                
+                   }
+               renderTableDataRecolte() {
+                if(this.state.data4){
+                    if(this.state.value){
+                      return this.state.data4.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
+                        const { nom, prix_uni,VALIDE_DEPUIS,id_prod } = student //destructuring
+              
+                        return (
+                         <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                         <td>{nom}</td>
+                         <td>{prix_uni}</td>
+                         <td>{  format(new Date(VALIDE_DEPUIS), 'dd/MM/yyyy')
+                             }</td>
+                         <td><PopupRecolt choosen={student}/></td>
+                      </tr>
+                        )
+                       })
+                    }
+                    else{
+                      return this.state.data4.map((student, index) => {
+                          
+                        const { nom, prix_uni,VALIDE_DEPUIS,id_prod } = student //destructuring
+              
+                        return (
+                         <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                         <td>{nom}</td>
+                         <td>{prix_uni}</td>
+                         <td>{  format(new Date(VALIDE_DEPUIS), 'dd/MM/yyyy')
+                             }</td>
+                         <td><PopupRecolt choosen={student}/></td>
+                      </tr>
+                        )   
+                       })
+                    }
+               
+            }}
+    
+        
+            renderTableHeaderRecolte() {
+                
+                   
+                   return (
+                      <>
+                   <th key={1}  >Nom de Produit</th>
+                   <th key={2}  >prix</th>
+                   <th key={3}  >valide depuis</th>
+                   <th key={4}  >Modifer</th>
+                   </>
+                   )
+                   }
+               renderTableDataProduitAnimal() {
+                    if(this.state.data14){
+                        if(this.state.value){
+                          return this.state.data14.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
+                            const { nom,id_prod,prix_uni,VALIDE_DEPUIS,unité } = student //destructuring
+                  
+                            return (
+                             <tr key={id_prod} onClick ={()=> this.setState({choosen:student })}>
+                             <td>{nom}</td>
+                             <td>{prix_uni} dh/{unité}</td>
+                             <td>{  format(new Date(VALIDE_DEPUIS), 'dd/MM/yyyy')
+                             }</td>
+                             
+                             <td><PopupProduitAnn choosen={student}/></td>
+                             
+                             
+                          </tr>
+                            )
+                           })
+                        }
+                        else{
+                          return this.state.data14.map((student, index) => {
+                              
+                            const { nom,id_prod,prix_uni,VALIDE_DEPUIS,unité } = student //destructuring
+                  
+                            return (
+                             <tr key={id_prod} onClick ={()=> this.setState({choosen:student })}>
+                             <td>{nom}</td>
+                             <td>{prix_uni} dh/{unité}</td>
+                             <td>{  format(new Date(VALIDE_DEPUIS), 'dd/MM/yyyy')
+                             }</td>
+                             <td><PopupProduitAnn choosen={student}/></td>
+                             
+                             
+                          </tr>
+                            )
+                           })
+                        }
+                   
+                }}
+
+                renderTableHeaderProduitAnimal() {
+                  
+                     
+                     return (
+                        <>
+                     <th key={1}  >produit </th>
+                     <th key={2}  >PRIX</th>
+                     <th key={3}  >VALIDE DEPUIS LE </th>
+                     <th key={4}  >Modifer</th>
+                     </>
+                     )
+                  
+                  
+                  
+               }
+
+
                   renderTableData_PHYTOSANITAIRES() {
                     if(this.state.phyto){
                         if(this.state.value){
@@ -345,8 +502,6 @@ export class BasicTable extends Component {
                              }</td>
                              <td><PopupUpdatePhyt choosen={student}/></td>
 
-                             
-                             
                           </tr>
                             )
                            })
@@ -559,6 +714,46 @@ export class BasicTable extends Component {
                     <tbody>
                          <tr>{this.renderTableHeader_ENGRAIS()} </tr>
                         {this.renderTableData_ENGRAIS()}
+                    </tbody>
+                    </table>
+                </TabPane>
+                <TabPane tab="Produits d'origine animale" key="6" >
+
+                <h1 id='title'>Produits d'origine animale</h1>
+
+            
+                    <div class="d-flex flex-row-reverse bd-highlight">
+                    
+                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students5"  filename="ENGRAIS" sheet="Sheet" buttonText="Export to Excel"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table id='students5' style={{width:"100%", height: "auto",}}>
+                    <tbody>
+                    <tr>{this.renderTableHeaderProduitAnimal()} </tr>
+                        {this.renderTableDataProduitAnimal()}
+                    </tbody>
+                    </table>
+                </TabPane>
+
+
+                <TabPane tab="RÉCOLTES" key="7" >
+
+                <h1 id='title'>RÉCOLTES</h1>
+
+            
+                    <div class="d-flex flex-row-reverse bd-highlight">
+                    
+                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students5"  filename="ENGRAIS" sheet="Sheet" buttonText="Export to Excel"/>
+                    </div>
+                    <br/>
+                    <br/>
+                    <table id='students5' style={{width:"100%", height: "auto",}}>
+                    <tbody>
+                    <tr>{this.renderTableHeaderRecolte()} </tr>
+                        {this.renderTableDataRecolte()}
                     </tbody>
                     </table>
                 </TabPane>

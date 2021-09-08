@@ -150,14 +150,14 @@ class  PopupRecolte extends React.Component {
         <i  onClick={this.showModal} > <BsCaretRight/> </i>
         {/* <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter des travaux</Button> */}
         <Modal
-          title="Ajouter Votre animal"
+          title="Ajouter Votre RÉCOLTE"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
      <p>RÉCOLTES</p>
         <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
-        <option defaultValue>choisie Votre RÉCOLTE</option>
+        <option defaultValue>choisie Votre Récolte</option>
         
         {lolo}
         

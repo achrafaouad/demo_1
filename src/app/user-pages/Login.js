@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Form,Alert} from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 
 export class Login extends Component {
   constructor(props){
@@ -17,6 +20,7 @@ export class Login extends Component {
     });
     console.log(this.state);
   }
+
   handleSubmit(e){
     e.preventDefault();
     fetch("http://localhost:3001/signin",{
@@ -27,11 +31,20 @@ export class Login extends Component {
         password:this.state.pass})
  }).then(response =>{
    if(response.ok){
+     //toast
+     
      return response.json();
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
-   .then(responseJson =>{console.log(responseJson);
-    if(responseJson){this.props.history.push(
+   .then(responseJson =>{
+    console.log(responseJson)
+    if(responseJson === "email" || responseJson === "password"){toast.error('L\'email ou bien le mot de pass n\'est pas correct ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});} 
+    
+    
+    else {
+      toast.success('Bonjour Monsieur ' + responseJson.nom ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      
+      this.props.history.push(
               {
                 pathname: '/dashboard',
                 state: {user:responseJson}

@@ -65,6 +65,27 @@ function callback(key) {
             
                }
 
+           async fetch_data14() {
+
+            this.data = await fetch("http://localhost:3001/getProduit12",{
+              method:'POST',
+              headers:{'Content-Type':"application/json"},
+              body:JSON.stringify({
+                id_exp:JSON.parse(sessionStorage.getItem('user')).id
+              })
+         }).then(response2 =>{
+               if(response2.ok){
+                 return response2.json();
+               }
+               throw new Error('request failed');}, networkError => console.log(networkError))
+               .then( responseJson2 =>{
+                 return responseJson2
+                })
+                
+                this.setState({data14:this.data}) 
+            
+               }
+
                async fetch_data3() {
 
                 this.data = await fetch("http://localhost:3001/getEngrais",{
@@ -138,7 +159,8 @@ function callback(key) {
             this.fetch_data3()
             this.fetch_data4()
             this.fetch_data5()
-            var oneSecond = 4000;
+            this.fetch_data14()
+            var oneSecond = 15000;
    
             this.intervalID = setInterval(() => {
                 
@@ -147,6 +169,7 @@ function callback(key) {
                 this.fetch_data3()
                 this.fetch_data4()
                 this.fetch_data5()
+                this.fetch_data14()
             }, oneSecond);
          }
    
@@ -285,6 +308,37 @@ function callback(key) {
                 }
            
         }}
+         renderTableDataProduitAnimal() {
+            if(this.state.data14){
+                if(this.state.value){
+                  return this.state.data14.filter((d)=>{if(d.nom) return d.nom.toUpperCase().includes(this.state.value)} ).map((student, index) => {
+                    const { nom,unité,id_prod } = student //destructuring
+          
+                    return (
+                     <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                     <td>{nom}</td>
+                     <td>{unité}</td>
+                     
+                  </tr>
+                    )
+                   })
+                }
+                else{
+                  return this.state.data14.map((student, index) => {
+                      
+                    const { nom,unité,id_prod } = student //destructuring
+          
+                    return (
+                     <tr key={id_prod} onClick ={()=> this.setState({choosen:student , afficher:true})}>
+                     <td>{nom}</td>
+                     <td>{unité}</td>
+                     
+                  </tr>
+                    )   
+                   })
+                }
+           
+        }}
 
          renderTableDataRecolte() {
             if(this.state.data4){
@@ -339,6 +393,19 @@ function callback(key) {
                   <>
                <th key={1}  >Nom de Produit</th>
                <th key={2}  >Culture</th>
+               <th key={3}  >Unité</th>
+               </>
+               )
+            
+            
+            
+         }
+               renderTableHeaderProduitAnimal() {
+            
+               
+               return (
+                  <>
+               <th key={1}  >Nom de Produit</th>
                <th key={3}  >Unité</th>
                </>
                )
@@ -431,7 +498,8 @@ render(){
         <div className="row">
           <div className="col-lg-12 grid-margin">
             <div className="card ">
-                { (this.state.addm === false) && <><div className="container">
+                { (this.state.addm === false) && <>
+            <div className="container">
                    <div class="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
                 <button
                 visible
@@ -538,6 +606,25 @@ render(){
                     <tbody>
                         <tr>{this.renderTableHeaderAliment()} </tr>
                         {this.renderTableDataAliment()}
+                    </tbody>
+                    </table>
+                </TabPane>
+
+                <TabPane tab="Produits d'origine animale" key="6" >
+
+                <h1 id='title'>Produits d'origine animale</h1>
+            
+                    <div class="d-flex flex-row-reverse bd-highlight">
+                    
+                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+            
+                    </div>
+                    <br/>
+                    <br/>
+                    <table id='students' style={{width:"100%", height: "auto",}}>
+                    <tbody>
+                        <tr>{this.renderTableHeaderProduitAnimal()} </tr>
+                        {this.renderTableDataProduitAnimal()}
                     </tbody>
                     </table>
                 </TabPane>

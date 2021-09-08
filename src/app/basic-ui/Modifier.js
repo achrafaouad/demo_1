@@ -10,6 +10,10 @@ import { Select } from 'antd';
 import { Input } from 'antd';
 import { Radio ,DatePicker } from 'antd';
 import { Slider, Switch } from 'antd';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 
 
 const { Option } = Select;
@@ -85,6 +89,8 @@ class Modifier extends React.Component {
       })
  }).then(response =>{
    if(response.ok){
+    toast.success('Les informations de l\'exploitation sont bien mises à jour.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
      return response.json();
    }
    throw new Error('request failed');}, networkError => console.log(networkError))

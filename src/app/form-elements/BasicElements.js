@@ -81,7 +81,7 @@ export class BasicElements extends Component {
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter un personnel
+                + ajouter  une operation
               </button>
                  <Scroll>
                    

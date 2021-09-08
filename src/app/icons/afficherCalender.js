@@ -56,6 +56,7 @@ export class AfficherCalender extends Component {
         const items = [];
         groups.forEach((group) => {
         group.items.forEach((item , index) => {
+
            let date =  format(new Date(group.date_application[index]), 'yyyy-MM-dd')
              items.push({
             id: items.length,

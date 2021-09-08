@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { FaBeer } from 'react-icons/fa';
 import 'antd/dist/antd.css';
 import { DatePicker, Radio } from "antd";
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 const bati = [ 
   { label: "COÛT", value: "COÛT" },
   { label: "REVENU", value: "REVENU" }
@@ -11,7 +15,7 @@ const Dure = [
   { label: "PLUS DE 1 AN", value: "PLUS DE 1 AN" }
 ];
 
-class ChartJs extends Component {
+class NouveauCout extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -27,7 +31,7 @@ class ChartJs extends Component {
 
   onChangeControl(date, dateString) {
     console.log(date, dateString);
-    this.setState({ derniere_controle_tec: dateString });
+    this.setState({ date: dateString });
   }
   onChangeAssurance(date, dateString) {
     console.log(date, dateString);
@@ -50,24 +54,20 @@ class ChartJs extends Component {
 
   onSUBMIT(e) {
     e.preventDefault();
-    if (this.state.nom) {
-      fetch("http://localhost:3001/add_materiel", {
+    
+      fetch("http://localhost:3001/add_cout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nom: this.state.nom,
-          description: this.state.description,
-          fabriquant: this.state.fabriquant,
-          model: this.state.model,
-          date_achat: this.state.date_achat,
-          derniere_assurence: this.state.derniere_assurence,
-          derniere_controle_tec: this.state.derniere_controle_tec,
-          prix_achat: this.state.prix_achat,
-          immatriculation: this.state.immatriculation,
-          immatriculation: this.state.immatriculation,
-          n_enregistrement: this.state.n_enregistrement,
-          prix_location_jour: this.state.prix_location_jour,
-          Propriétaire: this.state.Propriétaire,
+          type: this.state.type,
+          id_exploitation: this.state.id_exploitation,
+          id_exp:JSON.parse(sessionStorage.getItem('user')).id ,
+          date: this.state.date,
+          montant: this.state.montant,
+          durée_amortissement: this.state.durée_amortissement,
+          année_amortissement: this.state.année_amortissement
+          
         }),
       })
         .then(
@@ -80,38 +80,29 @@ class ChartJs extends Component {
           (networkError) => console.log(networkError)
         )
         .then((responseJson) => {
-          console.log(responseJson.data);
-          if(this.state.myFile){
-            const formdata = new FormData();
-          formdata.append("materiel", this.state.myFile);
-          formdata.append("id", responseJson.data);
-          fetch("http://localhost:3001/upload", {
-            method: "POST",
-            body: formdata,
-          })
-            .then(
-              (response) => {
-                if (response.ok) {
-                  return response.json();
-                }
-                throw new Error("request failed");
-              },
-              (networkError) => console.log(networkError)
-            )
-            .then((responseJson) => {
-              console.log(responseJson);
-              this.setState({ src: responseJson });
-            });
-          }
+          console.log(responseJson);
+          (this.state.type === "COÛT")?
+          toast.success('le coût est bien ajouté ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000})
+          :toast.success('le REVENU est bien ajouté ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000})
+         
           
         });
         this.props.reafficher()
       e.preventDefault();
-    }
+    
   }
 
   async optionExploitation(){
-    this.data = await fetch("http://localhost:3001/get_Exploitation").then(response2 =>{
+    this.data = await fetch("http://localhost:3001/get_Exploitation", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id ,
+        
+        
+      }),
+    }).then(response2 =>{
         if(response2.ok){
           return response2.json();
         }
@@ -159,9 +150,9 @@ handleChange_value(e){
               <br />
               <Radio.Group
           options={bati}
-          name="Type"
+          name="type"
           onChange={this.handlechange1}
-          value={this.state.Type}
+          value={this.state.type}
           optionType="button"
           buttonStyle="solid"
         />
@@ -179,7 +170,7 @@ handleChange_value(e){
                 id="Nom"
                 name="nom"
                 aria-describedby="emailHelp"
-                onChange={this.handleChange1}
+                onChange={this.handlechange1}
               />
               <div id="emailHelp" class="form-text">
                 Ajouter le nom de ce coût
@@ -206,14 +197,14 @@ handleChange_value(e){
 
             <div class="mb-3">
               <label for="exampleInputPassword1" class="form-label">
-               Montant 
+               Montant (dh)
               </label>
               <input
                 type="Number"
                 class="form-control"
-                name="Montant"
+                name="montant"
                 id="exampleInputPassword1"
-                onChange={this.handleChange1}
+                onChange={this.handlechange1}
               />
             </div>
 
@@ -224,9 +215,9 @@ handleChange_value(e){
               <br />
               <Radio.Group
               options={Dure}
-              name="amortissement_D"
+              name="durée_amortissement"
               onChange={this.handlechange1}
-              value={this.state.amortissement_D}
+              value={this.state.durée_amortissement}
               optionType="button"
               buttonStyle="solid"
             />
@@ -239,9 +230,10 @@ handleChange_value(e){
               <input
                 type="Number"
                 class="form-control"
-                name="anneAmortisement"
-                id="exampleInputPassword1"
-                onChange={this.handleChange}
+                name="année_amortissement"
+                id="exampleInputPassword1"  
+                value={this.state.année_amortissement}
+                onChange={this.handlechange1}
               />
             </div>
 
@@ -262,7 +254,7 @@ handleChange_value(e){
   }
 }
 
-export default ChartJs;
+export default NouveauCout;
 
 
 

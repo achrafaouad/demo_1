@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { BsBriefcaseFill, BsLayersHalf,BsFillPersonFill,BsDropletFill,BsFillAlarmFill,BsFillBucketFill,BsFillCalendarFill } from "react-icons/bs";
 import { MdDirectionsRailway,MdLocalFlorist } from "react-icons/md";
 import { BiCart } from "react-icons/bi";
-import './Style.css'
+
 import { DatePicker, Divider, Radio } from "antd";
 import PopupTrav from "./listDesTraveauxPop";
 import PopupPArc from "./listDesParcellesPop";
@@ -14,7 +14,11 @@ import 'antd/dist/antd.css';
 import PopupEngrais from "./PopupEngrais";
 import PopupRecolte from "./RecoltePopup";
 import PopupSemece from "./PopupSemence";
-import PopupPhyto from "./PopupPhyto"
+import PopupPhyto from "./PopupPhyto";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Style.css'
+toast.configure();
 const { TextArea } = Input;
 const bati = [ 
   { label: "LOCATION", value: "LOCATION" },
@@ -50,7 +54,7 @@ class NouvelleOperation extends Component {
     this.ListValues = this.ListValues.bind(this)
     this.ListPhyto = this.ListPhyto.bind(this)
     this.handlechangeNote = this.handlechangeNote.bind(this)
-    this.calcule_somme = this.calcule_somme.bind(this)
+     this.calcule_somme = this.calcule_somme.bind(this)
     
     this.ListValuesPhyto = this.ListValuesPhyto.bind(this)
     this.listPersRender = this.listPersRender.bind(this)
@@ -321,10 +325,83 @@ class NouvelleOperation extends Component {
       })
 
     }
+    var verification = false;
+    console.log("travaux1",this.state.listof)
+    console.log("travaux1",this.state.valP)
+    console.log("travaux1",this.state.DD)
+    
+    // //travaux
+    if(!this.state.listof){
+      toast.warn('Aucun travail n\'a été sélectionné. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verification = true
+    }
+    //exploitation
+    if(this.state.valP.length === 0){
+      toast.warn('Aucune exploitation n\'a été sélectionné. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verification = true
+    }
+    //dure
+    if(!this.state.hour && !this.state.min){
+      toast.warn('Aucune durée n\'a été mentionnée. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verification = true
+    }
+    if(!this.state.date_application){
+      toast.warn('Aucune date n\'a été mentionnée. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verification = true
+    }
+    
+    //personnel
+    if(this.state.DD.length === 0){
+      toast.warn('Aucun personnel n\'a été sélectionné. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verification = true
+    }
+
+    //les engrais
+    console.log('this.state.sd',this.state.sd)
+    if(this.state.listof && this.state.listof.includes('Fertiliser')){
+      if(this.state.sd.length === 0 || this.state.Values.length === 0){
+      
+      
+        toast.warn('Il vous faut mentionner les engrais et leur quantité.  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+        verification = true
+      }
+    }
+    //les recoltes
+    if(this.state.listof && this.state.listof.includes('Moissonner ou Récolter')){
+      console.log("Récolter",this.state.id_prod)
+      console.log("Récolter",this.state.quanitity)
+      
+      if( !this.state.id_prod || !this.state.quanitity ){
+        toast.warn('Il vous faut mentionner les récoltes et leur quantité.  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+        verification = true
+      }
+    }
+    //les semences
+    console.log("this.state.sem",this.state.sem)
+    console.log("this.state.sem",this.state.ValueSem)
+    if(this.state.listof && this.state.listof.includes('Semer ou Planter')){
+      if( this.state.sem.length ===0 || !this.state.ValueSem.length ===0 ){
+      
+        toast.warn('Il vous faut mentionner les Semences/Plantes et leurs quantité.  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+        verification = true
+      }
+    }
+
+    //les semences
+    if(this.state.listof && (this.state.listof.includes('Traitement phytosanitaire') || this.state.listof.includes('Traitement non chimique') )){
+      if(this.state.phyto.length === 0 || this.state.ListValuesPhyto.length === 0 || !(this.state.phyto.length === this.state.ListValuesPhyto.length )){
+      console.log('lolocaty')
+        toast.warn('Il vous faut mentionner les produits phytosanitaire et leurs quantité.  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+        verification = true
+      }
+    }
+
+
 
 
 
    
+      if(!verification){
       fetch("http://localhost:3001/add_operation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -347,6 +424,8 @@ class NouvelleOperation extends Component {
         )
         .then((responseJson) => {
           console.log(responseJson.data);
+          toast.success('L\'opération a été bien ajoutée.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
           this.setState({id_operation:responseJson.data})
 
           //seceomnd
@@ -394,6 +473,7 @@ class NouvelleOperation extends Component {
                   (networkError) => console.log(networkError)
                 )
                 .then((responseJson) => {
+                  toast.success('L\'opération va utiliser quelques produits' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
                   console.log(responseJson);
                   
              
@@ -425,7 +505,7 @@ class NouvelleOperation extends Component {
                 )
                 .then((responseJson) => {
                   console.log(responseJson);
-                  
+                  toast.success('L\'opération va utiliser quelques Materiels' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
             })
         }
 
@@ -449,6 +529,7 @@ class NouvelleOperation extends Component {
                   (networkError) => console.log(networkError)
                 )
                 .then((responseJson) => {
+                  toast.success('Des personnelles seront là pour effectuer le travail.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
                   console.log(responseJson);
                   
             })
@@ -474,6 +555,7 @@ class NouvelleOperation extends Component {
                   (networkError) => console.log(networkError)
                 )
                 .then((responseJson) => {
+                  toast.success('La quantité' + this.state.SumQRecolt +' a été bien ajoutée à votre récolte'  ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
                   console.log(responseJson);
                   
             })
@@ -531,6 +613,8 @@ class NouvelleOperation extends Component {
                 )
                 .then((responseJson) => {
                   console.log(responseJson);
+                  if(this.currentQuantity < 0) toast.console.warn('attention !!!  verifier votre stock vous n\'avez pas suffisamment de produit '  ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
                   
             })
         }
@@ -567,6 +651,7 @@ class NouvelleOperation extends Component {
 
           
     })
+  }
     
     
   
@@ -581,10 +666,10 @@ class NouvelleOperation extends Component {
   componentDidMount(){
 
     
-    const oneSecond = 500;
+    const oneSecond = 1000;
 
     this.intervalID = setInterval(() => {
-        this.calcule_somme()
+         this.calcule_somme()
         console.log("didmount")
        
     }, oneSecond);
@@ -707,6 +792,7 @@ listSemenceRender(){
  if(this.state.ValueSem){
  if(this.state.sem){
    return this.state.sem.map((st,index)=>{
+     
      return <li key={index}> {st} avec une quantité de {this.state.ValueSem[index]} kg </li>
    })
  }
@@ -818,7 +904,7 @@ calcule_somme(){
     if(this.state.phyto){
 
       for(let i = 0 ; i< this.state.ss.length;i++){
-        this.somme = this.somme + (Number(this.state.phyto[i].split(',')[1]) * Number(this.state.phyto[i]))
+        this.somme = this.somme + (Number(this.state.ss[i].split(',')[1]) * Number(this.state.ListValuesPhyto[i]))
   
       }
     }}
@@ -872,7 +958,7 @@ calcule_somme(){
             <div className=" mb-3 flex-container " >
               
                 
-             <div className='element'>
+             <div className='element' >
               <div htmlFor="Nom" className="form-label">
               <i className="icon-columns"><BsBriefcaseFill/></i> TRAVAUX
               </div>

@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { FaBeer } from 'react-icons/fa';
 import { DatePicker, Radio } from "antd";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
 const bati = [ 
   { label: "LOCATION", value: "LOCATION" },
   { label: "PROPRIÉTAIRE", value: "PROPRIÉTAIRE" }
@@ -80,7 +84,9 @@ class AddTracteur extends Component {
           (networkError) => console.log(networkError)
         )
         .then((responseJson) => {
-          console.log(responseJson.data);
+
+          toast.success('Le matériel a été ajouté avec succès' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
           if(this.state.myFile){
             const formdata = new FormData();
           formdata.append("materiel", this.state.myFile);
@@ -105,6 +111,9 @@ class AddTracteur extends Component {
           }
           
         });
+
+        
+
         this.props.reafficher()
       e.preventDefault();
     }

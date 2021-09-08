@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+toast.configure();
 
 
 class EditProfil extends Component {
@@ -61,6 +64,8 @@ class EditProfil extends Component {
         )
         .then((responseJson) => {
           console.log(responseJson.data);
+          toast.success('Votre profil a été bien mis à jour. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+          this.props.reAfficher()
           if(this.state.myFile){
             const formdata = new FormData();
             formdata.append("materiel", this.state.myFile);

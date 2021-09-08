@@ -122,7 +122,7 @@ class PopupTrav extends React.Component {
         <i  onClick={this.showModal} > <BsCaretRight/> </i>
         {/* <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter des travaux</Button> */}
         <Modal
-          title="Ajouter Votre animal"
+          title="Ajouter Votre travaux"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}

@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import { DatePicker, Radio } from "antd";
 import { Input } from 'antd';
 import 'antd/dist/antd.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
+
+
+
 const { TextArea } = Input;
 const bati = [ 
   { label: "PHYTOSANITAIRES", value: "PHYTOSANITAIRES" },
@@ -77,6 +83,8 @@ class AddProduit extends Component {
           (networkError) => console.log(networkError)
         )
         .then(responseJson =>{
+          toast.success(responseJson +' ' + this.state.nom + ' a été bien ajouté  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+          if(this.state.myProp === 'SEMENCES/PLANTS') toast.success(responseJson +' ' + this.state.nom + ' a été bien ajoutée au niveau de récoltes. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
           console.log(responseJson.data);}
          );
         this.props.reafficher()
@@ -106,7 +114,9 @@ class AddProduit extends Component {
           (networkError) => console.log(networkError)
         )
         .then(responseJson =>{
-          console.log(responseJson.data);}
+          console.log(responseJson.data);
+          toast.success('l\'Aliment' +this.state.nom+ ' a été bien ajouté  ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+        }
          );
         this.props.reafficher()
       e.preventDefault();

@@ -3,6 +3,9 @@ import { Input} from 'antd';
 import 'antd/dist/antd.css';
 
 import { DatePicker, Radio } from "antd";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 const bati = [ 
   { label: "Saisonnier", value: "Saisonnier" },
   { label: "Permanent", value: "Permanent" }
@@ -81,6 +84,8 @@ class AddPersonnel extends Component {
           (networkError) => console.log(networkError)
         )
         .then((responseJson) => {
+          toast.success('le personnel est bien ajouté ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
           console.log(responseJson.data);
           if(this.state.myFile){
             const formdata = new FormData();

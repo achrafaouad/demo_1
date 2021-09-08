@@ -61,7 +61,13 @@ export class Mdi extends Component {
   }
 
   async fetch_data() {
-    await fetch("http://localhost:3001/getCalender")
+    await fetch("http://localhost:3001/getCalender",{
+      method:'POST',
+      headers:{'Content-Type':"application/json"},
+      body:JSON.stringify({
+        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+      })
+ })
     .then(
       (response) => {
         if (response.ok) {

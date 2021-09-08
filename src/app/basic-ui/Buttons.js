@@ -19,6 +19,8 @@ class Buttons extends Component {
     
     this.handleClick=this.handleClick.bind(this);
     this.handleClickPass=this.handleClickPass.bind(this);
+    this.reAfficher=this.reAfficher.bind(this);
+    this.afficherPass=this.afficherPass.bind(this);
     
     console.log("webbi",this.props.userInfo)
     console.log(this.state)
@@ -71,6 +73,14 @@ class Buttons extends Component {
     
   }
 
+  reAfficher(){
+    var aff = this.state.afficher?false:true;
+    this.setState({afficher:aff})
+  }
+  afficherPass(){
+    var aff = this.state.afficherPass?false:true;
+    this.setState({afficherPass:aff})
+  }
 
 
   
@@ -131,7 +141,6 @@ class Buttons extends Component {
             </div>
             <div class="col-sm" style={{padding:"12px"}}>
             <button type="button" class="btn btn-success btn-sm" style={{marginBottom:"12px"}} onClick={this.handleClickPass}>Changer le mot de passe</button><br/>
-            
             </div>
           </div>
         </div>
@@ -144,8 +153,8 @@ class Buttons extends Component {
           <button type="button" class="btn btn-primary btn-sm btn-block " style={{width:"100%" , boxShadow:'5px 3px 2px 1px rgba(0, 0, 0, .3)'}} onClick={this.handleClick}>Modifier mon profil</button>
         </div>
         {console.error("hana",)}
-        { this.state.afficher && <EditProfil Edit = {this.state.user}/>}
-        {(this.state.afficherPass && this.state.afficher=== false) && <ChangerMotPass user = {this.state.user}/>}
+        { this.state.afficher && <EditProfil Edit = {this.state.user} reAfficher ={this.reAfficher}/>}
+        {(this.state.afficherPass && this.state.afficher=== false) && <ChangerMotPass user = {this.state.user} afficherPass ={this.afficherPass}/>}
              
               </div>
             </div>

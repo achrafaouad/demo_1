@@ -23,13 +23,15 @@ const BasicTable = lazy(() => import('./tables/BasicTable'));
 const Mdi = lazy(() => import('./icons/Mdi'));
 const stock = lazy(() => import('./icons/stock'));
 
-const ChartJs = lazy(() => import('./charts/ChartJs'));
+const TableAmortisement = lazy(() => import('./charts/TableAmortisement'));
+const NouveauCout = lazy(() => import('./charts/NouveauCout'));
 
 const Error404 = lazy(() => import('./error-pages/Error404'));
 const Error500 = lazy(() => import('./error-pages/Error500'));
 
 const Login = lazy(() => import('./user-pages/Login'));
 const Register1 = lazy(() => import('./user-pages/Register'));
+const RaportResult = lazy(() => import('./user-pages/RaportResult'));
 
 
 class AppRoutes extends Component {
@@ -40,8 +42,8 @@ class AppRoutes extends Component {
         <Route exact path="/" component={ Login } />
         <Route exact path="/dashboard" component={Dashboard}/>
           
-      
           <Route  path="/user-pages/register-1" component={ Register1 } />
+          <Route  path="/user-pages/RaportResult" component={ RaportResult } />
           <Route path="/basic-ui/buttons" component={Buttons}/>
            
           
@@ -52,6 +54,7 @@ class AppRoutes extends Component {
           <Route path="/basic-ui/typography" component={ Typography } />
           <Route path="/basic-ui/Travail" component={ Travail } />
           <Route path="/basic-ui/Traitement" component={ Traitement } />
+          
 
           <Route path="/form-Elements/basic-elements" component={ BasicElements } />
           <Route path="/form-Elements/NouvelleOperation" component={ NouvelleOperation } />
@@ -61,7 +64,8 @@ class AppRoutes extends Component {
           <Route path="/icons/mdi" component={ Mdi } />
           <Route path="/icons/stock" component={ stock } />
 
-          <Route path="/charts/chart-js" component={ ChartJs } />
+          <Route path="/charts/TableAmortisement" component={ TableAmortisement } />
+          <Route path="/charts/NouveauCout" component={ NouveauCout } />
 
 
           

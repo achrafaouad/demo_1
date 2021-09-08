@@ -184,6 +184,10 @@ componentWillUnmount(){
                 <strong> Id Animal</strong> : {this.state.animal.id_ann}
                 
               </div>
+            <div  >
+                <strong> Id mère</strong> : {this.state.animal.id_maman}
+                
+              </div>
             <div>
                 <strong> sexe</strong> : {this.state.animal.gender}
                 
@@ -197,10 +201,7 @@ componentWillUnmount(){
                 <strong> race</strong> : {this.state.animal.race}
                 
               </div>
-              <div>
-                <strong> Sous famille</strong> : {this.state.animal.sous_famille} 
-                
-              </div>
+            
               <div>
                 <strong> Coût d'achat</strong> : {this.state.animal.prix} dh
                 

@@ -70,7 +70,7 @@ class EditProfil extends Component {
             const formdata = new FormData();
             formdata.append("materiel", this.state.myFile);
             formdata.append("id", responseJson.data);
-            fetch("http://localhost:3001/upload", {
+            fetch("http://localhost:3001/uploadExploiteur", {
               method: "POST",
               body: formdata,
             })

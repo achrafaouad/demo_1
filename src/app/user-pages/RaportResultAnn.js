@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import 'antd/dist/antd.css';
 import { Tabs } from 'antd';
 import { Input} from 'antd';
-import { FilteringTableVeg} from "./FilteringTableVeg";
+import { FilteringTableAnn} from "./FilteringTableAnn";
 import Scroll from "../basic-ui/Scroll";
 import ReactHTMLTableToExcel from "react-html-table-to-excel"
 import { useFlexLayout } from "react-table";
@@ -13,7 +13,7 @@ function callback(key) {
     console.log(key);
   }
 
- class RaportResult extends Component {
+ class RaportResultAnn extends Component {
     constructor(props) {
         super(props) 
         this.state={duration:7}
@@ -42,7 +42,7 @@ function callback(key) {
      
 async fetch_dataHistorique() {
 
-    this.data = await fetch("http://localhost:3001/RaportResult",{
+    this.data = await fetch("http://localhost:3001/Rapport_resultAnimal",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
@@ -72,7 +72,7 @@ async fetch_dataHistorique() {
             <div className="card "key={uuidv4()}>
               {  (this.state.data144) && <Scroll>
                    
-           <FilteringTableVeg datadnem = {this.state.data144} handlechangement={this.handlechangement} values={this.state.duration}/>
+           <FilteringTableAnn datadnem = {this.state.data144} handlechangement={this.handlechangement} values={this.state.duration}/>
        
         </Scroll>}
               {  (!this.state.data144) && <div style={{display:'flex', justifyContent: "center"}}>
@@ -94,4 +94,4 @@ async fetch_dataHistorique() {
 
     }
 
-    export default RaportResult
+    export default RaportResultAnn

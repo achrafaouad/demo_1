@@ -224,7 +224,8 @@ class Sidebar extends Component {
                 <ul className="nav flex-column sub-menu">
                   <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/login-1') ? 'nav-link active' : 'nav-link' } to="/user-pages/login-1"><Trans>Login</Trans></Link></li>
                   <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/register-1') ? 'nav-link active' : 'nav-link' } to="/user-pages/register-1"><Trans>Register</Trans></Link></li>
-                  <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/RaportResult') ? 'nav-link active' : 'nav-link' } to="/user-pages/RaportResult"><Trans>Raport des Résultats</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/RaportResult') ? 'nav-link active' : 'nav-link' } to="/user-pages/RaportResult"><Trans>Raport des Résultats végétal</Trans></Link></li>
+                  <li className="nav-item"> <Link className={ this.isPathActive('/user-pages/RaportResultAnn') ? 'nav-link active' : 'nav-link' } to="/user-pages/RaportResultAnn"><Trans>Raport des Résultats animal</Trans></Link></li>
                 </ul>
               </div>
             </Collapse>

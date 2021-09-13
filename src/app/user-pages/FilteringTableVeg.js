@@ -1,25 +1,22 @@
 import React, { useMemo } from 'react'
 import { useTable ,useGlobalFilter, useFilters,usePagination} from 'react-table'
 //import MOCK_DATA from './MOCK_DATA.json'
-import { COLUMNS } from './Columns'
+import { COLUMNSVeg } from './ColumnsVeg'
 import './Style.css'
 import { GlobalFilter } from './GlobalFilter'
 import ReactHTMLTableToExcel from "react-html-table-to-excel"
 
 
-
-
-
 var MOCK_DATA = []
 
-export const FilteringTable = ({datadnem}) => {
+export const FilteringTableVeg = ({datadnem ,handlechangement, values}) => {
 
-  console.log( "hanadzeb" ,datadnem)
+  console.log( "camilia" ,datadnem)
   MOCK_DATA = datadnem;
   
   
 
-  const columns = useMemo(() => COLUMNS, [])
+  const columns = useMemo(() => COLUMNSVeg, [])
   const data = useMemo(() => MOCK_DATA, [])
   
 
@@ -56,10 +53,22 @@ export const FilteringTable = ({datadnem}) => {
       
     <ReactHTMLTableToExcel className="btn btn-info" table="emp-table1"  filename="Emp Excel file" sheet="Sheet" buttonText="Export to Excel"/>
     </div>
+    
     <div style={{margin:"10px"}}>
     <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter}  />
     </div>
     </div>
+   
+    <div class="mb-3 " style={{margin:"10px" , width:"200px"}}>
+    <span>filtrer vos resultats</span>
+              <select className="custom-select custom-select-sm" onChange={handlechangement } value={String(values)} >
+                <option value="7">dernière semaine</option>
+                <option value="14">dernière deux semaines</option>
+                <option value="30">dernière mois</option>
+                <option value="90">dernière 3 mois</option> 
+                <option value="365">dernière année </option> 
+              </select>
+            </div>
       <table {...getTableProps()} id="emp-table1">
         <thead>
           {headerGroups.map(headerGroup => (

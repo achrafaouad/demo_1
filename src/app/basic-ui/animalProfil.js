@@ -52,26 +52,6 @@ class AnimalProfil extends Component{
         console.log("ha les traitement" ,this.state.data) 
 }
 
-    async calculePrice() {
-    
-
-      await fetch("http://localhost:3001/calculePrix",{
-        method:'POST',
-        headers:{'Content-Type':"application/json"},
-        body:JSON.stringify({id_ann:this.state.animal.id_ann, id_exploitation:this.state.animal.id_exploitation })}).then(response2 =>{
-       if(response2.ok){
-         return response2.json();
-       }
-       throw new Error('request failed');}, networkError => console.log(networkError))
-       .then( responseJson2 =>{
-           console.log("ha data", responseJson2)
-           this.setState({prix_total:responseJson2})
-        })
-        
-        
-        console.log("ha les traitement" ,this.state.data) 
-}
-
 componentDidMount(){
   console.log("didmount")
   var oneSecond = 5000;
@@ -79,7 +59,6 @@ componentDidMount(){
   this.intervalID = setInterval(() => {
       
      this.fetch_data()
-     this.calculePrice()
      console.log("ha lhistrique")
      
   }, oneSecond);
@@ -212,7 +191,7 @@ componentWillUnmount(){
               </div>
 
               <div style={{color:"#0c8599"}}>
-                <strong> Coût de revient </strong> : {(!this.state.prix_total)?'-':this.state.prix_total} dh
+                <strong> Coût de revient </strong> : {(!this.state.animal.cout_revien)?'-':this.state.animal.cout_revien} dh
                 
               </div>
               

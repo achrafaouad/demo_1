@@ -5,6 +5,7 @@ import { DatePicker, Radio } from "antd";
 import { Input} from 'antd';
 import NouveauCout from "./NouveauCout";
 import { format } from 'date-fns';
+import ReactHTMLTableToExcel from "react-html-table-to-excel"
 const { Search } = Input;
 
 
@@ -149,6 +150,7 @@ class TableAmortisement extends Component {
 
                         <h1 id='title'>Coûts fixes</h1>
                         <div className="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
+                        
                         <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
 
                         <button
@@ -160,6 +162,8 @@ class TableAmortisement extends Component {
                     >
                         + NOUVEAU COÛT
                     </button>
+
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students"  filename="Coûts_fixes" sheet="Sheet" buttonText="Export to Excel"/>
 
                     </div>
                     

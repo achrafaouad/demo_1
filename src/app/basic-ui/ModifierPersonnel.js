@@ -54,6 +54,7 @@ class ModifierPersonnel extends React.Component {
     this.handlechange=this.handlechange.bind(this);
     this.select_spécifique=this.select_spécifique.bind(this);
     this.select_certification=this.select_certification.bind(this);
+    this.fileChange = this.fileChange.bind(this);
   }}
 
 
@@ -107,6 +108,28 @@ class ModifierPersonnel extends React.Component {
    .then(responseJson =>{
      console.log(responseJson)
      toast.success('les information sont bien mis a jour ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+     if(this.state.myFile){
+      const formdata = new FormData();
+    formdata.append("materiel", this.state.myFile);
+    formdata.append("id", this.state.id_pers);
+    fetch("http://localhost:3001/uploadMypers", {
+      method: "POST",
+      body: formdata,
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("request failed");
+        },
+        (networkError) => console.log(networkError)
+      )
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({ src: responseJson });
+      });
+    }
    })
       
      
@@ -129,7 +152,14 @@ class ModifierPersonnel extends React.Component {
       [target.name]: target.value
     });
     console.log(this.state);
-  } 
+  }
+
+
+  fileChange(e) {
+    this.setState({ myFile: e.target.files[0] });
+    console.log(e.target.files[0]);
+    this.forceUpdate();
+  }
 
   
 
@@ -176,8 +206,18 @@ class ModifierPersonnel extends React.Component {
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
-          
+         
         </InputGroup>
+        <p>Type</p>
+    <Radio.Group
+          options={type}
+          name="type"
+          onChange={this.handlechange}
+          value={this.state.type}
+          optionType="button"
+          buttonStyle="solid"
+        />
+
         <p>Ville</p>
        
           <InputGroup className="mb-3">
@@ -204,7 +244,17 @@ class ModifierPersonnel extends React.Component {
             onChange={this.handlechange}
           />
           
+          
         </InputGroup>
+        <p>Niveau de qualification</p>
+    <Radio.Group
+          options={qualification}
+          name="niveau_qualification"
+          onChange={this.handlechange}
+          value={this.state.niveau_qualification}
+          optionType="button"
+          buttonStyle="solid"
+        />
         <p>Pays</p>
        
           <InputGroup className="mb-3">
@@ -258,8 +308,18 @@ class ModifierPersonnel extends React.Component {
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
+         
           
         </InputGroup>
+        <p>Est un conseiller</p>
+    <Radio.Group
+          options={conseiller}
+          name="conseiller"
+          onChange={this.handlechange}
+          value={this.state.conseiller}
+          optionType="button"
+          buttonStyle="solid"
+        />
         <p>Email</p>
        
           <InputGroup className="mb-3">
@@ -300,35 +360,19 @@ class ModifierPersonnel extends React.Component {
           
         </InputGroup>
 
-    <p>Type</p>
-    <Radio.Group
-          options={type}
-          name="type"
-          onChange={this.handlechange}
-          value={this.state.type}
-          optionType="button"
-          buttonStyle="solid"
-        />
-      
-    <p>Niveau de qualification</p>
-    <Radio.Group
-          options={qualification}
-          name="niveau_qualification"
-          onChange={this.handlechange}
-          value={this.state.niveau_qualification}
-          optionType="button"
-          buttonStyle="solid"
-        />
-    <p>Est un conseiller</p>
-    <Radio.Group
-          options={conseiller}
-          name="conseiller"
-          onChange={this.handlechange}
-          value={this.state.conseiller}
-          optionType="button"
-          buttonStyle="solid"
-        />
-    
+
+ 
+        <div class="mb-1">
+              <p>choisie l'image de votre materiel</p>
+              <input
+                class="form-control"
+                type="file"
+                name="materiel"
+                id="formFile"
+                onChange={this.fileChange}
+              />
+            </div>
+        
    
 
 

@@ -39,6 +39,7 @@ class ModifierMateriel extends React.Component {
     this.handlechange=this.handlechange.bind(this);
     this.select_spécifique=this.select_spécifique.bind(this);
     this.select_certification=this.select_certification.bind(this);
+    this.fileChange = this.fileChange.bind(this);
   }}
 
 
@@ -87,6 +88,41 @@ class ModifierMateriel extends React.Component {
    .then(responseJson =>{
      console.log(responseJson)
      toast.success('les information sont bien mis a jour ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
+     if(this.state.myFile){
+      const formdata = new FormData();
+    formdata.append("materiel", this.state.myFile);
+    formdata.append("id", this.props.expl.id_mat );
+    fetch("http://localhost:3001/upload", {
+      method: "POST",
+      body: formdata,
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("request failed");
+        },
+        (networkError) => console.log(networkError)
+      )
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({ src: responseJson });
+      });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
    })
       
      
@@ -110,6 +146,12 @@ class ModifierMateriel extends React.Component {
     });
     console.log(this.state);
   } 
+
+  fileChange(e) {
+    this.setState({ myFile: e.target.files[0] });
+    console.log(e.target.files[0]);
+    this.forceUpdate();
+  }
 
   
 
@@ -257,7 +299,16 @@ class ModifierMateriel extends React.Component {
           />
           
         </InputGroup> 
-        
+        <div class="mb-1">
+              <p>choisie l'image de votre materiel</p>
+              <input
+                class="form-control"
+                type="file"
+                name="materiel"
+                id="formFile"
+                onChange={this.fileChange}
+              />
+            </div>
         
         
         

@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { Input} from 'antd';
 import 'antd/dist/antd.css';
 import ExploitationPage from "./exploitationPage";
+
 //import AddTracteur from './add_tracteur';
 const { Search } = Input;
 
@@ -161,7 +162,7 @@ export class Dropdowns extends Component {
                </tbody>
             </table> </> }
             
-            { (this.state.afficher)&& <ExploitationPage exploitation={this.state.choosen} retour={this.retour} />}
+            { (this.state.afficher)&& <ExploitationPage exploitation={this.state.choosen} retour={this.retour}  />}
 
 
               

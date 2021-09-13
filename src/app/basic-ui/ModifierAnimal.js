@@ -39,10 +39,8 @@ class ModifierAnimal extends React.Component {
     this.handlechange=this.handlechange.bind(this);
     this.select_spécifique=this.select_spécifique.bind(this);
     this.select_certification=this.select_certification.bind(this);
-   
+    this.fileChange = this.fileChange.bind(this);
     this.onChange_date_Exploitation=this.onChange_date_Exploitation.bind(this);
-    
-
     
   }
 
@@ -88,6 +86,33 @@ class ModifierAnimal extends React.Component {
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{
      console.log(responseJson)
+     toast.success('les information sont bien mis a jour ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
+     if(this.state.myFile){
+      const formdata = new FormData();
+    formdata.append("materiel", this.state.myFile);
+    formdata.append("id", this.state.id_ann );
+    fetch("http://localhost:3001/uploadAnimal", {
+      method: "POST",
+      body: formdata,
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("request failed");
+        },
+        (networkError) => console.log(networkError)
+      )
+      .then((responseJson) => {
+        console.log(responseJson);
+        this.setState({ src: responseJson });
+      });
+    }
+
+
+
    })
       
      
@@ -117,6 +142,13 @@ class ModifierAnimal extends React.Component {
   onChange_date_Exploitation(date,dateString) {
     console.log(date,dateString);
     this.setState({"date_birth":dateString})
+  }
+
+  
+  fileChange(e) {
+    this.setState({ myFile: e.target.files[0] });
+    console.log(e.target.files[0]);
+    this.forceUpdate();
   }
 
 
@@ -191,6 +223,16 @@ class ModifierAnimal extends React.Component {
        />
        
      </InputGroup>
+     <div class="mb-1">
+              <p>choisie l'image de votre animal</p>
+              <input
+                class="form-control"
+                type="file"
+                name="materiel"
+                id="formFile"
+                onChange={this.fileChange}
+              />
+            </div>
      
     <p>statut</p>
     <TextArea rows={2} name="note" value={this.state.note} onChange={this.handlechange} />

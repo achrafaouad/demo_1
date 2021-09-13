@@ -32,6 +32,7 @@ const Error500 = lazy(() => import('./error-pages/Error500'));
 const Login = lazy(() => import('./user-pages/Login'));
 const Register1 = lazy(() => import('./user-pages/Register'));
 const RaportResult = lazy(() => import('./user-pages/RaportResult'));
+const RaportResultAnn = lazy(() => import('./user-pages/RaportResultAnn'));
 
 
 class AppRoutes extends Component {
@@ -40,10 +41,12 @@ class AppRoutes extends Component {
       <Suspense fallback={<Spinner/>}>
         <Switch>
         <Route exact path="/" component={ Login } />
-        <Route exact path="/dashboard" component={Dashboard}/>
+
+          {JSON.parse(sessionStorage.getItem('user')) && <><Route exact path="/dashboard" component={Dashboard}/>
           
           <Route  path="/user-pages/register-1" component={ Register1 } />
           <Route  path="/user-pages/RaportResult" component={ RaportResult } />
+          <Route  path="/user-pages/RaportResultAnn" component={ RaportResultAnn } />
           <Route path="/basic-ui/buttons" component={Buttons}/>
            
           
@@ -66,6 +69,8 @@ class AppRoutes extends Component {
 
           <Route path="/charts/TableAmortisement" component={ TableAmortisement } />
           <Route path="/charts/NouveauCout" component={ NouveauCout } />
+          </>
+          }
 
 
           

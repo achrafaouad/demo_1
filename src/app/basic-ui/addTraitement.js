@@ -45,6 +45,8 @@ class AddTraitement extends React.Component {
       visible: true,
     });
   }
+
+
   
   handleOk = (e) => {
     
@@ -204,7 +206,7 @@ onChange_date_traitement(date,dateString) {
        <FormControl
          type="text"
          placeholder="Numero de Bulletin"
-         name="Numero de Bulletin"
+         name="numero_bulletin"
          aria-label="Recipient's username"
          aria-describedby="basic-addon2"
          onChange={this.handlechange}

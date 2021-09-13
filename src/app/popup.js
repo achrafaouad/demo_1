@@ -97,10 +97,10 @@ class Popup extends React.Component {
        valid = false
      }
      
-     if(this.state.production ==="animal"  && (!this.state.type)){
-       toast.warn('Veuillez choisit l\'espèce a élevé.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
-       valid = false
-     }
+    //  if(this.state.production ==="animal"  && (!this.state.type)){
+    //    toast.warn('Veuillez choisit l\'espèce a élevé.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+    //    valid = false
+    //  }
 
 
 
@@ -359,7 +359,7 @@ class Popup extends React.Component {
 <br/>
 <br/>
 <p>errigée ?</p>
-<Radio.Groupdate_loue
+<Radio.Group
       options={bati}
       name="errige"
       onChange={this.handlechange}

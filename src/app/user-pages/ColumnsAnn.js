@@ -1,10 +1,18 @@
 import { format } from 'date-fns'
 import { ColumnFilter} from './ColumnFilter'
-export const COLUMNS = [
+export const COLUMNSAnn = [
     {
         Header: 'Parcelle',
         Footer:'parcelle',
-        accessor:'nomFoncier',
+        accessor:'nom',
+        
+        Filter: ColumnFilter,
+
+    },
+    {
+        Header: 'Espèce',
+        Footer:'Espèce',
+        accessor:'type',
         
         Filter: ColumnFilter,
 
@@ -13,7 +21,7 @@ export const COLUMNS = [
     {
         Header: 'Coûts totaux',
         Footer:'Coûts_totaux',
-        accessor:'priceTot',
+        accessor:'prixtot',
         Filter: ColumnFilter,
         disableFilters:true,
         Cell: ({ value }) => {
@@ -25,7 +33,7 @@ export const COLUMNS = [
     {
         Header: 'Produit',
         Footer:'produit',
-        accessor:'recolt'
+        accessor:'Produit'
         ,
         Filter: ColumnFilter,
         disableFilters:true,
@@ -47,20 +55,31 @@ export const COLUMNS = [
           }
     },
     {
-        Header: 'machinerie',
+        Header: 'Oeufs',
         Footer:'machinerie',
-        accessor:'matPrice',
+        accessor:'eggs',
         Filter: ColumnFilter,
         disableFilters:true,
         Cell: ({ value }) => {
-            if(value) return Math.round(value) + ' dh'
+            if(value) return value + 'Oeuf'
             else return '-'
           }
     },
     {
-        Header: 'Opérateur',
-        Footer:'Opérateur',
-        accessor: 'operateur',
+        Header: 'Lait',
+        Footer:'Lait',
+        accessor:'Lait',
+        Filter: ColumnFilter,
+        disableFilters:true,
+        Cell: ({ value }) => {
+            if(value) return value + 'L'
+            else return '-'
+          }
+    },
+    {
+        Header: 'traitements',
+        Footer:'traitements',
+        accessor: 'traitements',
         Filter: ColumnFilter,
         disableFilters:true,
         Cell: ({ value }) => {
@@ -70,62 +89,18 @@ export const COLUMNS = [
         
     },
     {
-        Header: 'Semence/Plante',
-        Footer:'Semence/Plante',
-        accessor:'Sem',
+        Header: 'alimentation',
+        Footer:'alimentation',
+        accessor: 'alimentation',
         Filter: ColumnFilter,
         disableFilters:true,
         Cell: ({ value }) => {
             if(value) return Math.round(value) + ' dh'
             else return '-'
           }
-        
         
     },
-
-    {
-        Header: 'Engrais',
-        Footer:'Engrais',
-        accessor:'Eng',
-        Filter: ColumnFilter,
-        disableFilters:true,
-        Cell: ({ value }) => {
-            if(value) return Math.round(value) + ' dh'
-            else return '-'
-          }
-        
-        
-    },
-
-    {
-        Header: 'PHYTOSANITAIRE',
-        Footer:'phytosanitaire',
-        accessor:'Phy',
-        Filter: ColumnFilter,
-        disableFilters:true,
-        Cell: ({ value }) => {
-            if(value) return Math.round(value) + ' dh'
-            else return '-'
-          }
-        
-        
-    }
-    ,
-
-    {
-        Header: 'Toutes les Entrants',
-        Footer:'Entrant',
-        accessor:'Entrant',
-        Filter: ColumnFilter,
-        disableFilters:true,
-        Cell: ({ value }) => {
-            if(value) return Math.round(value) + ' dh'
-            else return '-'
-          }
-        
-    }
-    ,
-
+   
     {
         Header: ' le Roi',
         Footer:'Roi',

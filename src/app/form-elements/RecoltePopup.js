@@ -156,16 +156,17 @@ class  PopupRecolte extends React.Component {
           onCancel={this.handleCancel}
         >
      <p>RÉCOLTES</p>
-        <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
+        <select class="custom-select" aria-label="Default select example" onChange={this.handleChange_value}>
         <option defaultValue>choisie Votre Récolte</option>
         
         {lolo}
         
         </select>
         <br/>
+        <br/>
 
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "kg" onChange={this.handleChange}/>
+  <input type="text" class="form-control" placeholder="Quantité" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "kg" onChange={this.handleChange}/>
   <span class="input-group-text" id="basic-addon2">KG</span>
 </div>
             

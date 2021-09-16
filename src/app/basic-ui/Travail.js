@@ -97,7 +97,8 @@ class Travail extends Component {
                 <div>
                 <div className="row">
                   <div className="col-lg-12 grid-margin">
-                    <div className="card ">
+                    <div className="card " style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
                     
               <h1 id='title'>Travaux</h1>
 

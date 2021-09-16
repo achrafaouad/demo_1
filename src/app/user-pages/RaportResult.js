@@ -69,7 +69,8 @@ async fetch_dataHistorique() {
               <div>
         <div className="row">
           <div className="col-lg-12 grid-margin">
-            <div className="card "key={uuidv4()}>
+            <div className="card "key={uuidv4()} style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
               {  (this.state.data144) && <Scroll>
                    
            <FilteringTableVeg datadnem = {this.state.data144} handlechangement={this.handlechangement} values={this.state.duration}/>

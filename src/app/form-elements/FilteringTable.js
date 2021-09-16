@@ -40,7 +40,7 @@ export const FilteringTable = ({datadnem}) => {
   } = useTable({
     columns,
     data,
-    initialState: { pageSize: 10 } 
+    initialState: { pageSize: 8 } 
   }, useGlobalFilter , useFilters,usePagination)
   
 

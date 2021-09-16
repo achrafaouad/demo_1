@@ -85,21 +85,26 @@ export class Mdi extends Component {
 }
 
   componentDidMount(){
-    console.log("didmount")
-    this.fetch_data()
-    var oneSecond = 3000;
+//     console.log("didmount")
+//     this.fetch_data()
+//     var oneSecond = 3000;
 
-    this.intervalID = setInterval(() => {
+//     this.intervalID = setInterval(() => {
         
-       this.fetch_data()
+  this.fetch_data()
+  this.fetch_data()
        
-    }, oneSecond);
- }
+//     }, oneSecond);
+//  }
 
- componentWillUnmount(){
-    clearInterval(this.intervalID);
+//  componentWillUnmount(){
+//     clearInterval(this.intervalID);
     
-  }
+   }
+
+  
+
+
 
 
   render() {
@@ -112,8 +117,11 @@ export class Mdi extends Component {
         <div className="row">
         <div className="col-lg-12">
           <div className="card">
-            <div className="card-body">
+            <div className="card-body" style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
+
             <div className="timeline">
+            <h1 id='title'>Calendrier des cultures cultivé</h1>
              {( this.state.groups) && <AfficherCalender groups = {this.state.groups}/>}
         </div>
           </div>

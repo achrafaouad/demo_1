@@ -178,7 +178,7 @@ handleChange_value(e){
             </div>
 
             <p>Exploitation</p>
-        <select class="form-select" aria-label="Default select example" style={{color:"black"}} onChange={this.handleChange_value}>
+        <select class="custom-select" aria-label="Default select example" style={{color:"black"}} onChange={this.handleChange_value}>
         <option defaultValue>Choisie Votre Exploitation</option>
         
         {lolo}

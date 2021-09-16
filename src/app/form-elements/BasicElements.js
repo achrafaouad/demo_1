@@ -70,7 +70,8 @@ export class BasicElements extends Component {
       
           <div className="col-12 grid-margin">
             <div className="card">
-              <div className="card-body">
+              <div className="card-body" style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
                 <h4 className="card-title">Mes Operation</h4>
                 
                  
@@ -90,7 +91,7 @@ export class BasicElements extends Component {
                  </Scroll> </>
                  
                  }
-                 {(this.state.addm === true) && <><NouvelleOperation/> </>}
+                 {(this.state.addm === true) && <><NouvelleOperation operation={this.addMat}/> </>}
               </div>
             </div>
           </div>

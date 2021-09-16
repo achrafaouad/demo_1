@@ -614,7 +614,8 @@ export class BasicTable extends Component {
         <div className="row">
           <div className="col-lg-12 grid-margin stretch-card">
             <div className="card">
-              <div className="card-body" style={{height:"100%"}}>
+              <div className="card-body" style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
                 <h1 className="card-title">les prix</h1>
               
                 <div className="table-responsive">
@@ -625,8 +626,9 @@ export class BasicTable extends Component {
 
             
                     <div class="d-flex flex-row-reverse bd-highlight">
-                    <ReactHTMLTableToExcel className="btn btn-info" table="students1"  filename="personnel" sheet="Sheet" buttonText="Export to Excel"/>
                     <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <ReactHTMLTableToExcel className="btn btn-info" table="students1"  filename="personnel" sheet="Sheet" buttonText="Export to Excel"/>
+                    
             
                     </div>
                     <br/>

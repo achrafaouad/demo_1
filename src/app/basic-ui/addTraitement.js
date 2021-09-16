@@ -155,7 +155,7 @@ onChange_date_traitement(date,dateString) {
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter un traitement</Button>
+        <button type="button"  class="btn btn-warning btn-lg btn-block" onClick={this.showModal}>Ajouter un traitement</button>
         <Modal
           title="Ajouter Votre animal"
           visible={this.state.visible}

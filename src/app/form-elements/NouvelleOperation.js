@@ -335,6 +335,7 @@ class NouvelleOperation extends Component {
       toast.warn('Aucun travail n\'a été sélectionné. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
       verification = true
     }
+    
     //exploitation
     if(this.state.valP.length === 0){
       toast.warn('Aucune exploitation n\'a été sélectionné. ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
@@ -402,6 +403,7 @@ class NouvelleOperation extends Component {
 
    
       if(!verification){
+        this.props.operation()
       fetch("http://localhost:3001/add_operation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -951,16 +953,16 @@ calcule_somme(){
           style={{ height: "120px" }}
         >
           {" "}
-          Nouvelle operation + {this.state.sommeN}
+          Nouvelle operation 
         </div>
         <div className="grid">
           <form className="myForm" >
-            <div className=" mb-3 flex-container " >
+            
               
                 
-             <div className='element' >
+             <div className='element'  >
               <div htmlFor="Nom" className="form-label">
-              <i className="icon-columns"><BsBriefcaseFill/></i> TRAVAUX
+              <i><BsBriefcaseFill/></i> TRAVAUX
               </div>
               <div className="d-flex flex-row-reverse bd-highlight" >
               
@@ -972,8 +974,6 @@ calcule_somme(){
               </ul>
               </div>
 
-            </div>
-            
 
             <div className='element'>
             <div

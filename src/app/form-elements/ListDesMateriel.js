@@ -127,8 +127,8 @@ class PopupMat extends React.Component {
           
         return this.state.data.map((st,index)=>{
             return (<div class="form-check" key={index}>
-            <input class="form-check-input" type="checkbox" value={[st.nom, st.prix_hr, st.id_mat]} id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value={[st.nom, st.prix_hr, st.id_mat]} id={"test"+index + st.nom } onChange={this.handleCh}/>
+            <label class="form-check-label" for={"test"+index + st.nom }>
             {st.nom}
             </label>
             </div>)

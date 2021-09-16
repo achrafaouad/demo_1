@@ -40,7 +40,7 @@ class MaterielPage extends Component{
 
         
         
-        
+          
 
 
     }
@@ -58,69 +58,93 @@ class MaterielPage extends Component{
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> this.props.retour()}>retour</button>
                 <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails de l'exploitation</h1>
                 <hr class="style18"/>
-            <div class="grid-container" style={style}>
-            <div className="grid-item">
+
+                
+                <div class="container">
+           <div class="row">
+
+           <div class="col-sm">
+                    <div className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+                    <img
+                  style={{width:"100%", height: "auto",}}
+                  src={this.src} 
+                  alt=" hello"/>
+                    </div>
+
+           </div>
+
+               <div class="col-sm" >
             
-            <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
-            <h3 style={{color:"#434c5e"}}>Information du Materiel</h3>
-            <hr class="style18"/>
-            <div  >
-                <strong> Nom</strong> : {(!this.state.choosen.nom)?"-":this.state.choosen.nom}
-                
-              </div>
-            <div>
-                <strong> Description</strong> : {(!this.state.choosen.description)?"-":this.state.choosen.description}
-                
-              </div>
-            <div>
-                <strong> Model</strong> : {(!this.state.choosen.model)?"-":this.state.choosen.model}
-                
-              </div>
-            <div>
-                <strong> Immatriculation</strong> : {(!this.state.choosen.immatriculation)?"-":this.state.choosen.immatriculation}
-                
-              </div>
-            
-            <div>
-                <strong> Fabriquant</strong> : {(!this.state.choosen.fabriquant)?"-":this.state.choosen.fabriquant}
-                
-              </div>
-             
-              <div>
-                <strong> dernière controle technique </strong> : {(!this.state.choosen.derniere_controle_tec)?"-":this.state.choosen.derniere_controle_tec} 
-              </div>
-              <div>
-                <strong> dernière assurence</strong> : {(!this.state.choosen.derniere_assurence)?"-":this.state.choosen.derniere_assurence}
-              </div>
-              
-              <div>
-                <strong> N° d'Enregistrement</strong> : {(!this.state.choosen.n_enregistrement)?"-":this.state.choosen.n_enregistrement}
-              </div>
-              <div>
-                <strong>Prix de travail par heure</strong> : {(!this.state.choosen.prix_hr)?"-":this.state.choosen.prix_hr} dh
-              </div>
-              <div>
-                <strong>Propriétaire</strong> : {(!this.state.choosen.propriétaire)?"-":this.state.choosen.propriétaire}
-              </div>
-             
+                    <div style = {{width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+                      <div  style={{color:"black"}}   >
+                    <h3 style={{color:"#434c5e" }}>Information du Materiel</h3>
+                    <hr class="style18"/>
+                    <div  >
+                        <strong> Nom</strong> : {(!this.state.choosen.nom)?"-":this.state.choosen.nom}
+                        
+                      </div>
+                    <div>
+                        <strong> Description</strong> : {(!this.state.choosen.description)?"-":this.state.choosen.description}
+                        
+                      </div>
+                    <div>
+                        <strong> Model</strong> : {(!this.state.choosen.model)?"-":this.state.choosen.model}
+                        
+                      </div>
+                    <div>
+                        <strong> Immatriculation</strong> : {(!this.state.choosen.immatriculation)?"-":this.state.choosen.immatriculation}
+                        
+                      </div>
+                    
+                    <div>
+                        <strong> Fabriquant</strong> : {(!this.state.choosen.fabriquant)?"-":this.state.choosen.fabriquant}
+                        
+                      </div>
+                    
+                      <div>
+                        <strong> dernière controle technique </strong> : {(!this.state.choosen.derniere_controle_tec)?"-":this.state.choosen.derniere_controle_tec} 
+                      </div>
+                      <div>
+                        <strong> dernière assurence</strong> : {(!this.state.choosen.derniere_assurence)?"-":this.state.choosen.derniere_assurence}
+                      </div>
+                      
+                      <div>
+                        <strong> N° d'Enregistrement</strong> : {(!this.state.choosen.n_enregistrement)?"-":this.state.choosen.n_enregistrement}
+                      </div>
+                      <div>
+                        <strong>Prix de travail par heure</strong> : {(!this.state.choosen.prix_hr)?"-":this.state.choosen.prix_hr} dh
+                      </div>
+                      <div>
+                        <strong>Propriétaire</strong> : {(!this.state.choosen.propriétaire)?"-":this.state.choosen.propriétaire}
+                      </div>
+                    
               
               
 
-            </div>
-            <div style={{display: "flex"}}>
-            <ModifierMateriel id={this.state.choosen.id_exploitation} expl={this.state.choosen}/>
-            <button type="button" style={{width:"80px" , marginLeft:"10px"}} class="btn btn-success btn-sm">suprimer</button>
-            </div>
-            </div>
-            <div class="grid-item">
-                  <div className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
-                  <img
-                 style={{width:"100%", height: "auto",}}
-                 src={this.src} 
-                alt=" hello"/>
-                  </div>
+                </div>
+                </div>
+               
 
-              </div>
+
+            </div>
+            <div class="container">
+              <div class="row">
+              <div class="col-sm" style={{width:"100%", margin:'10px'}}>
+                <ModifierMateriel id={this.state.choosen.id_exploitation} expl={this.state.choosen} />
+                </div>
+                <div class="col-sm" style={{width:"100%", margin:'10px'}}>
+                <button type="button"  class="btn btn-danger btn-lg btn-block">suprimer</button>
+                </div>
+                </div>
+                </div>
+
+
+            
+
+
+            </div>
+
+           
             </div>
             
             

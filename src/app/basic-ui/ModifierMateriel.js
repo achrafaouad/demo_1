@@ -165,7 +165,7 @@ class ModifierMateriel extends React.Component {
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>Modifier</Button>
+        <button type="button"  class="btn btn-warning btn-lg btn-block" onClick={this.showModal}>Modifier</button>
         <Modal
           title="Modifier les information de votre personnel"
           visible={this.state.visible}

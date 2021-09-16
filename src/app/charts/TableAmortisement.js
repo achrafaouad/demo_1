@@ -142,32 +142,32 @@ class TableAmortisement extends Component {
         <div>
         <div className="row">
           <div className="col-lg-12 grid-margin">
-            <div className="card ">
+            <div className="card " style={{minHeight: '100vh',
+      maxHeight: "100hv"}}>
         
 
             
                     {(this.state.addm === false) && <>
 
                         <h1 id='title'>Coûts fixes</h1>
-                        <div className="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
                         
-                        <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                        <div className="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
+                        <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200,marginLeft:"10px" }} />
+                        <ReactHTMLTableToExcel className="btn btn-info" table="students"  filename="Coûts_fixes" sheet="Sheet" buttonText="Export to Excel"/>
 
-                        <button
+                        
+                    </div>
+                    
+                    <button
                         visible
                         type="button"
                         className="btn btn-success btn-sm "
                         id="drow_polygone"
                         onClick={this.addMat}
+                        style={{margin:"10px"}}
                     >
                         + NOUVEAU COÛT
                     </button>
-
-                    <ReactHTMLTableToExcel className="btn btn-info" table="students"  filename="Coûts_fixes" sheet="Sheet" buttonText="Export to Excel"/>
-
-                    </div>
-                    
-                     
                     
             
                     

@@ -54,7 +54,7 @@ class AnimalProfil extends Component{
 
 componentDidMount(){
   console.log("didmount")
-  var oneSecond = 5000;
+  var oneSecond = 15000;
 
   this.intervalID = setInterval(() => {
       
@@ -152,56 +152,60 @@ componentWillUnmount(){
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> {this.props.afficher();console.log("rje3")} }>retour</button>
              <h1 style={{color:"#ffff" , textAlign:'center'}}>Détails de l'animal</h1>
              <hr class="style18"/>
-            <div class="grid-container" style={style}>
-            <div class="grid-item">
-            <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
-            <h3 style={{color:"#434c5e"}}>Information sur l'animal</h3>
-            <hr class="style18"/>
-              
-            
-            <div  >
-                <strong> Id Animal</strong> : {this.state.animal.id_ann}
-                
-              </div>
-            <div  >
-                <strong> Id mère</strong> : {this.state.animal.id_maman}
-                
-              </div>
-            <div>
-                <strong> sexe</strong> : {this.state.animal.gender}
-                
-              </div>
-            <div>
-                <strong> date de naissance </strong> : {format(new Date(this.state.animal.date_birth), 'dd/MM/yyyy')
-                             }
-                
-              </div>
-            <div>
-                <strong> race</strong> : {this.state.animal.race}
-                
-              </div>
-            
-              <div>
-                <strong> Coût d'achat</strong> : {this.state.animal.prix} dh
-                
-              </div>
-              <div>
-                <strong> statut</strong> : {this.state.animal.note} 
-                
-              </div>
 
-              <div style={{color:"#0c8599"}}>
-                <strong> Coût de revient </strong> : {(!this.state.animal.cout_revien)?'-':this.state.animal.cout_revien} dh
-                
-              </div>
-              
+
+             <div class="container">
+           <div class="row">
+
+           <div class="col-sm">
+
+
+            <div style={{margin: "15px",color:"black", width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+                    <h3 style={{color:"#434c5e"}}>Information sur l'animal</h3>
+                    <hr class="style18"/>
+                      
+                    
+                    <div  >
+                        <strong> Id Animal</strong> : {this.state.animal.id_ann}
+                        
+                      </div>
+                    <div  >
+                        <strong> Id mère</strong> : {this.state.animal.id_maman}
+                        
+                      </div>
+                    <div>
+                        <strong> sexe</strong> : {this.state.animal.gender}
+                        
+                      </div>
+                    <div>
+                        <strong> date de naissance </strong> : {format(new Date(this.state.animal.date_birth), 'dd/MM/yyyy')
+                                    }
+                        
+                      </div>
+                    <div>
+                        <strong> race</strong> : {this.state.animal.race}
+                        
+                      </div>
+                    
+                      <div>
+                        <strong> Coût d'achat</strong> : {this.state.animal.prix} dh
+                        
+                      </div>
+                      <div>
+                        <strong> statut</strong> : {this.state.animal.note} 
+                        
+                      </div>
+
+                      <div style={{color:"#0c8599"}}>
+                        <strong> Coût de revient </strong> : {(!this.state.animal.cout_revien)?'-':this.state.animal.cout_revien} dh
+                        
+                      </div>
+                      
             </div>
-            <div className="flex-container">
-            <div style={{flex: "33.33%", margin:'10px'}}><AddTraitement id={this.state.animal.id_ann} /></div>
-            <div style={{flex: "33.33%" , margin:'10px'}}><ModifierAnimal expl={this.state.animal} id={this.state.animal.id_ann}/> </div>
             </div>
-            </div>
-            <div class="grid-item">
+
+           
+            <div class="col-sm">
                  
                  <img
                  style={{width:"100%", height: "auto",}}
@@ -211,6 +215,22 @@ componentWillUnmount(){
           
             </div>
 
+
+           
+
+            </div>
+
+            <div class="container">
+              <div class="row">
+                  <div class="col-sm" style={{width:"100%", margin:'10px'}}>
+                  <AddTraitement id={this.state.animal.id_ann} />
+                  </div>
+
+                  <div class="col-sm" style={{width:"100%", margin:'10px'}}>
+                  <ModifierAnimal expl={this.state.animal} id={this.state.animal.id_ann}/>
+                  </div>
+            </div>
+            </div>
             </div>
             <h2 style={{color:"#ffff",textAlign: "center"}} > Historique des traitement</h2>
             <div class="d-flex flex-row-reverse bd-highlight" style={{margin:"15px"}}>

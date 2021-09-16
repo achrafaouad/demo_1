@@ -132,8 +132,8 @@ class PopupPArc extends React.Component {
           
         return this.state.data.map((st,index)=>{
             return (<div class="form-check" key={st.nom}>
-            <input class="form-check-input" type="checkbox" value={[st.nom,st.id_exploitation]} id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value={[st.nom,st.id_exploitation]} id={"test"+index + st.nom }onChange={this.handleCh}/>
+            <label class="form-check-label" for={"test"+index + st.nom }>
             {st.nom}
             </label>
             </div>)

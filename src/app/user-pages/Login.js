@@ -12,6 +12,7 @@ export class Login extends Component {
     this.state={mail:"",pass:"", alert:false,user:{},parcels:{}};
     this.handlechange = this.handlechange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
   handlechange({target}){
     console.log(this.state);
@@ -43,7 +44,7 @@ export class Login extends Component {
     
     else {
       toast.success('Bonjour Monsieur ' + responseJson.nom ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
-      
+      sessionStorage.setItem('user', JSON.stringify(responseJson))
       this.props.history.push(
               {
                 pathname: '/dashboard',

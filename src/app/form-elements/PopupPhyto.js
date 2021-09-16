@@ -145,15 +145,15 @@ class PopupPhyto extends React.Component {
           
         return this.state.data.map((st,index)=>{
             return (<div class="form-check">
-            <input key={st.azot} class="form-check-input" type="checkbox" value={[st.nom,st.prix_uni,st.id_prod,st.quantité]} id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input key={st.azot} class="form-check-input" type="checkbox" value={[st.nom,st.prix_uni,st.id_prod,st.quantité]} id={"test"+index + st.nom } onChange={this.handleCh}/>
+            <label class="form-check-label" for={"test"+index + st.nom }>
             {st.nom}
             </label>
             <div class="input-group mb-3">
-            <input key={st.nom} type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = {st.nom} onChange={this.saveInput}/>
+            <input key={st.nom} type="text" class="form-control" placeholder="Quantité" aria-label="Recipient's username" aria-describedby="basic-addon2" name = {st.nom} onChange={this.saveInput}/>
             <span class="input-group-text" id="basic-addon2">{st.unité}</span>
             </div>
-            <button key={st.unité} onClick={this.handleValue}> Add Item </button>
+            <button key={st.unité} class="btn btn-info" onClick={this.handleValue}> confirmer </button>
             </div>
             )
             

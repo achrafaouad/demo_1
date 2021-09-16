@@ -52,12 +52,29 @@ class PersonnelPage extends Component{
         return (<>
             
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> this.props.retour()}>retour</button>
-             <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails de l'exploitation</h1>
+             <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails du Personnel</h1>
              <hr class="style18"/>
-            <div class="grid-container" style={style}>
-            <div className="grid-item">
-            
-            <div style={{margin: "15px",color:"black", width:"100%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+
+
+
+
+            <div class="container">
+           <div class="row">
+
+           <div class="col-sm">
+                  <div style={{display: "flex", justifyContent: "center"}}>
+                  <img
+                 style={{width:"50%", height: "auto", borderRadius: "10px" , boxShadow: "5px 5px 5px"}}
+                 src={this.src } 
+                alt=" hello"/>
+                </div>
+              </div>
+
+
+
+
+           <div class="col-sm">
+            <div style={{color:"black", width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
             <h3 style={{color:"#434c5e"}}>Information du Personnel</h3>
             <hr class="style18"/>
             <div  >
@@ -114,26 +131,36 @@ class PersonnelPage extends Component{
                 <strong>Notes</strong> : {(!this.state.choosen.note)?"-":this.state.choosen.note}
               </div>
               
-              
+              </div>
+                </div>
+
+
+                
 
             </div>
-            <div style={{display: "flex"}}>
-            <ModifierPersonnel id={this.state.choosen.id_exploitation} expl={this.state.choosen}/>
-            <button type="button" style={{width:"80px" , marginLeft:"10px"}} class="btn btn-success btn-sm">suprimer</button>
-            </div>
-            </div>
-            <div class="grid-item">
-                  <div style={{display: "flex", justifyContent: "center"}}>
-                  <img
-                 style={{width:"50%", height: "auto", borderRadius: "10px" , boxShadow: "5px 5px 5px"}}
-                 src={this.src } 
-                alt=" hello"/>
-                </div>
-              </div>
+
+            
+            
+            <div class="container">
+              <div class="row">
+
+              
+                      <div  class="col-sm" style={{width:"100%", margin:'10px'}}>
+                      <ModifierPersonnel id={this.state.choosen.id_exploitation} expl={this.state.choosen}/>
+                      </div>
+                      
+                     <div class="col-sm" style={{width:"100%", margin:'10px'}}> <button type="button" class="btn btn-danger btn-lg btn-block">suprimer</button>
+                     </div>
+                  
+                  </div>
             </div>
             
             
             
+            </div>
+
+           
+
         </>)
     }
 }

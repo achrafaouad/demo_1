@@ -129,8 +129,8 @@ class PopupTrav extends React.Component {
         >
 
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Autres travaux" id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="Autres travaux" id="test1" onChange={this.handleCh}/>
+            <label class="form-check-label" for="test1" >
              Autres travaux
             </label>
             </div>
@@ -141,38 +141,38 @@ class PopupTrav extends React.Component {
             </label>
             </div>
                         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Fertiliser" id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="Fertiliser" id="test3" onChange={this.handleCh}/>
+            <label class="form-check-label" for="test3">
             Fertiliser
             </label>
             </div>
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Moissonner ou Récolter" id="flexCheckChecked" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" value="Moissonner ou Récolter" id="test4" onChange={this.handleCh}/>
+            <label class="form-check-label" for="test4">
             Moissonner ou Récolter
             </label>
             </div>
                         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Préparer le sol" id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="Préparer le sol" id="test5" onChange={this.handleCh}/>
+            <label class="form-check-label" for="test5">
             Préparer le sol
             </label>
             </div>
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Semer ou Planter" id="flexCheckChecked" onChange={this.handleCh} />
-            <label class="form-check-label" for="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" value="Semer ou Planter" id="test6" onChange={this.handleCh} />
+            <label class="form-check-label" for="test6">
             Semer ou Planter    
             </label>
             </div>
                         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Traitement non chimique" id="flexCheckDefault" onChange={this.handleCh}/>
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" type="checkbox" value="Traitement non chimique" id="test7" onChange={this.handleCh}/>
+            <label class="form-check-label" for="test7">
             Traitement non chimique
             </label>
             </div>
             <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="Traitement phytosanitaire" id="flexCheckChecked" onChange={this.handleCh} />
-            <label class="form-check-label" for="flexCheckChecked">
+            <input class="form-check-input" type="checkbox" value="Traitement phytosanitaire" id="test8" onChange={this.handleCh} />
+            <label class="form-check-label" for="test8">
             Traitement phytosanitaire
             </label>
             </div>

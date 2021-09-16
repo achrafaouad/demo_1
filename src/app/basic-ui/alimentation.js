@@ -166,9 +166,11 @@ class Alimantation extends React.Component {
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter une alimentation</Button>
+        
+        <button type="button" class="btn btn-warning btn-lg btn-block" onClick={this.showModal}>Ajouter une alimentation</button>
+
         <Modal
-          title="ajouter une alimentation"
+          title="Ajouter une alimentation"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -177,12 +179,13 @@ class Alimantation extends React.Component {
           
           
         <p>Aliment</p>
-        <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
+        <select class="custom-select" aria-label="Default select example" onChange={this.handleChange_value}>
         <option defaultValue>choisie Votre Aliment</option>
         
         {lolo}
         
         </select>
+        <br/>
         <br/>
           
     <p>Qauntité par jour</p>
@@ -198,7 +201,7 @@ class Alimantation extends React.Component {
        <InputGroup.Text id="basic-addon2">{this.state.unit}</InputGroup.Text>
      </InputGroup>
     
-       <p>prix d'achat par {this.state.unit}</p>
+       <p>Prix d'achat par {this.state.unit}</p>
        <InputGroup className="mb-3">
        <FormControl
          type="Number"
@@ -210,7 +213,7 @@ class Alimantation extends React.Component {
        <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
      </InputGroup>
 
-     <p>total a payer en dh</p>
+     <p>Total a payer en dh</p>
        <InputGroup className="mb-3">
        <FormControl
          type="Number"
@@ -232,7 +235,7 @@ class Alimantation extends React.Component {
     <DatePicker onChange={this.onChange_date_fin}/>
 
 
-<p>note</p>
+<p>Note</p>
     <TextArea rows={2} name="note" onChange={this.handlechange} />
 
    

@@ -33,6 +33,7 @@ const Login = lazy(() => import('./user-pages/Login'));
 const Register1 = lazy(() => import('./user-pages/Register'));
 const RaportResult = lazy(() => import('./user-pages/RaportResult'));
 const RaportResultAnn = lazy(() => import('./user-pages/RaportResultAnn'));
+const pageAccueil = lazy(() => import('./user-pages/pageAccueil'));
 
 
 class AppRoutes extends Component {
@@ -42,11 +43,13 @@ class AppRoutes extends Component {
         <Switch>
         <Route exact path="/" component={ Login } />
 
-          {JSON.parse(sessionStorage.getItem('user')) && <><Route exact path="/dashboard" component={Dashboard}/>
+          {JSON.parse(sessionStorage.getItem('user')) && <>
+          <Route exact path="/dashboard" component={Dashboard}/>
           
           <Route  path="/user-pages/register-1" component={ Register1 } />
           <Route  path="/user-pages/RaportResult" component={ RaportResult } />
           <Route  path="/user-pages/RaportResultAnn" component={ RaportResultAnn } />
+          <Route  path="/user-pages/pageAccueil" component={ pageAccueil } />
           <Route path="/basic-ui/buttons" component={Buttons}/>
            
           

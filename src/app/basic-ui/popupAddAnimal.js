@@ -109,7 +109,7 @@ class Popup extends React.Component {
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>ajouter un animal</Button>
+        <button type="button"  class="btn btn-warning btn-lg btn-block" onClick={this.showModal}>Ajouter un animal</button>
         <Modal
           title="Ajouter Votre animal"
           visible={this.state.visible}

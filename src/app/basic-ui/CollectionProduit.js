@@ -212,9 +212,11 @@ handleChange_value(e){
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>webi</Button>
+        <button type="button" class="btn btn-warning btn-lg btn-block" onClick={this.showModal}>Collecter des produits</button>
+
+        
         <Modal
-          title="modifier les information de votre production"
+          title="Collecter des produits de votre production"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -277,16 +279,17 @@ handleChange_value(e){
 
         {(this.state.Reproduction === "Oui") &&<>
 
-        <p>mère</p>
-        <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
+        <p>Mère</p>
+        <select class="custom-select" aria-label="Default select example" onChange={this.handleChange_value}>
         <option defaultValue>choisie la mère de votre animal</option>
         
         {lolo}
         
         </select>
         <br/>
+        <br/>
 
-            <p>race</p>
+            <p>Race</p>
        
           <InputGroup className="mb-3">
           <FormControl
@@ -298,7 +301,7 @@ handleChange_value(e){
           />
           
         </InputGroup>
-            <p>sexe</p>
+            <p>Sexe</p>
     <Radio.Group
           options={gender}
           name="gender"
@@ -314,7 +317,7 @@ handleChange_value(e){
 <p>Date de naissance</p>
     <DatePicker onChange={this.onChange_date_naissance}/>
 
-<p>statut</p>
+<p>Statut</p>
     <TextArea rows={2} name="note" onChange={this.handlechange} />
 
             </>

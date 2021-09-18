@@ -116,7 +116,7 @@ export class Dropdowns extends Component {
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter une machine
+                + Ajouter une machine
               </button>
              </div>
              <br/>
@@ -125,7 +125,11 @@ export class Dropdowns extends Component {
            
 
     {!data ?
-      <h1>Loading</h1> :
+      <div style={{display:'flex', justifyContent: "center"}}>
+      <div class="spinner-border text-success" role="status" style={{}}>
+      <span class="sr-only">Loading...</span>
+    </div>
+    </div> :
       (
         <div className='tc'>
           <h1 className='f1' style={{color:"#ffff"}}>Machinerie</h1>

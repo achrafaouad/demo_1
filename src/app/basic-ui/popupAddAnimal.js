@@ -36,6 +36,7 @@ class Popup extends React.Component {
     this.handlechange=this.handlechange.bind(this);
    
     this.onChange_date_naissance=this.onChange_date_naissance.bind(this);
+    this.onChange_date_achat=this.onChange_date_achat.bind(this);
     
 
     
@@ -56,9 +57,9 @@ class Popup extends React.Component {
       body:JSON.stringify({
             gender:this.state.gender,
             date_birth:this.state.date_birth,
+            date_achat:this.state.date_achat,
             race:this.state.race,
             sous_famille:this.state.sous_famille,
-            
             note:this.state.note,
             prix:this.state.prix,
             id_exploitation:this.props.id
@@ -101,6 +102,10 @@ class Popup extends React.Component {
     console.log(date,dateString);
     this.setState({"date_birth":dateString})
   }
+  onChange_date_achat(date,dateString) {
+    console.log(date,dateString);
+    this.setState({"date_achat":dateString})
+  }
 
 
   render() {
@@ -118,7 +123,7 @@ class Popup extends React.Component {
         >
           
         
-        <p>race</p>
+        <p>Race</p>
        
           <InputGroup className="mb-3">
           <FormControl
@@ -133,7 +138,7 @@ class Popup extends React.Component {
 
     
     
-       <p>prix d'achat</p>
+       <p>Prix d'achat</p>
        <InputGroup className="mb-3">
        <FormControl
          type="Number"
@@ -145,6 +150,9 @@ class Popup extends React.Component {
        />
        <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
      </InputGroup>
+
+     <p>Date d'achat</p>
+    <DatePicker onChange={this.onChange_date_naissance}/>
     
 
     <p>sexe</p>

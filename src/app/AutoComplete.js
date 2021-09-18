@@ -14,6 +14,7 @@ class AutoComplete extends Component {
          
         style={{ width: "100%" }}
         onPlaceSelected={(place) => {
+            console.log("achraf" , place.geometry.location.lng())
         { place.geometry && this.props.coordinate(place.geometry.location.lng(), place.geometry.location.lat());}
           
         }}

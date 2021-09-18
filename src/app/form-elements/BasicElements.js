@@ -72,17 +72,20 @@ export class BasicElements extends Component {
             <div className="card">
               <div className="card-body" style={{minHeight: '100vh',
       maxHeight: "100hv"}}>
-                <h4 className="card-title">Mes Operation</h4>
+               
                 
                  
 
-                 {(this.state.addm === false && this.state.data144) && <><button
+                 {(this.state.addm === false && this.state.data144) && <>
+                  <h4 className="card-title" style={{textAlign:"center"}}>Mes Operation</h4>
+                 <button
+
                 type="button"
                 className="btn btn-success btn-sm "
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter  une operation
+                + Nouvelle operation
               </button>
                  <Scroll>
                    

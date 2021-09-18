@@ -41,6 +41,7 @@ class ModifierAnimal extends React.Component {
     this.select_certification=this.select_certification.bind(this);
     this.fileChange = this.fileChange.bind(this);
     this.onChange_date_Exploitation=this.onChange_date_Exploitation.bind(this);
+    this.onChange_date_achat=this.onChange_date_achat.bind(this);
     
   }
 
@@ -76,11 +77,11 @@ class ModifierAnimal extends React.Component {
         sous_famille:this.state.sous_famille,
         note:this.state.note,
         prix:this.state.prix,
-        id_ann:this.state.id_ann
+        id_ann:this.state.id_ann,
+        date_achat:this.state.date_achat
       })
  }).then(response =>{
    if(response.ok){
-    toast.success('Les informations de l\'animal sont bien mises à jour.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
      return response.json();
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
@@ -144,6 +145,11 @@ class ModifierAnimal extends React.Component {
     this.setState({"date_birth":dateString})
   }
 
+  onChange_date_achat(date,dateString) {
+    console.log(date,dateString);
+    this.setState({"date_achat":dateString})
+  }
+
   
   fileChange(e) {
     this.setState({ myFile: e.target.files[0] });
@@ -185,15 +191,7 @@ class ModifierAnimal extends React.Component {
   <p>Date de naissance</p>
     <DatePicker onChange={this.onChange_date_Exploitation}/>
 
-    <p>sexe</p>
-    <Radio.Group
-          options={gender}
-          name="gender"
-          onChange={this.handlechange}
-          value={this.state.gender}
-          optionType="button"
-          buttonStyle="solid"
-        />
+  
 
         <p>Prix d'achat</p>
        
@@ -209,6 +207,16 @@ class ModifierAnimal extends React.Component {
        <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
      </InputGroup>
 
+     <p>sexe</p>
+    <Radio.Group
+          options={gender}
+          name="gender"
+          onChange={this.handlechange}
+          value={this.state.gender}
+          optionType="button"
+          buttonStyle="solid"
+        />
+
 
     <p>Sous famille</p>
        
@@ -223,6 +231,9 @@ class ModifierAnimal extends React.Component {
        />
        
      </InputGroup>
+
+     <p>Date d'achat</p>
+    <DatePicker onChange={this.onChange_date_achat}/>
      <div class="mb-1">
               <p>choisie l'image de votre animal</p>
               <input

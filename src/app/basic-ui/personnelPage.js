@@ -16,6 +16,7 @@ import AnimalTable from "./animalTable";
 import Modifier from "./Modifier";
 import ModifierPersonnel from "./ModifierPersonnel";
 import  "./StyleResp.css";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 
 const style = {
@@ -51,7 +52,7 @@ class PersonnelPage extends Component{
     render(){
         return (<>
             
-                <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> this.props.retour()}>retour</button>
+                <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-sm" onClick ={()=> this.props.retour()}><IoMdArrowRoundBack color="#783ee3" size="2rem"/></button>
              <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails du Personnel</h1>
              <hr class="style18"/>
 

@@ -31,8 +31,8 @@ class Pov extends Component {
 
     render(){
         return( 
-        <Popover placement="right" title={this.text} content={this.content} trigger="click">
-        <button  type="button" className="btn btn-success btn-sm "> 
+        <Popover placement="right" title={this.text} content={this.content} >
+        <button  type="button" className="btn  btn-sm " style={{backgroundColor:"rgba(48, 95, 153,0.63)"}}> 
        < BsFillLayersFill />
       </button>
         </Popover>)

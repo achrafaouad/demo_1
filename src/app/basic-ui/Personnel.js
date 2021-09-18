@@ -117,7 +117,7 @@ export class Personnel extends Component {
                 id="drow_polygone"
                 onClick={this.addMat}
               >
-                + ajouter un personnel
+                + Ajouter un personnel
               </button>
              </div>
              <br/>
@@ -126,7 +126,11 @@ export class Personnel extends Component {
            
 
     {!data ?
-      <h1>Loading</h1> :
+      <div style={{display:'flex', justifyContent: "center"}}>
+      <div class="spinner-border text-success" role="status" style={{}}>
+      <span class="sr-only">Loading...</span>
+    </div>
+    </div> :
       (
         <div className='tc'>
           <h1 className='f1' style={{color:"#ffff"}}>Personnel</h1>

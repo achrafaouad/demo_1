@@ -17,6 +17,7 @@ import Modifier from "./Modifier";
 import ModifierPersonnel from "./ModifierPersonnel";
 import ModifierMateriel from "./ModifierMateriel";
 import  "./StyleResp.css";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const style = {
     display: "grid",
@@ -55,8 +56,8 @@ class MaterielPage extends Component{
     render(){
         return (<>
             
-                <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> this.props.retour()}>retour</button>
-                <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails de l'exploitation</h1>
+                <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-sm" onClick ={()=> this.props.retour()}><IoMdArrowRoundBack color="#783ee3" size="2rem"/></button>
+                <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails du Machine</h1>
                 <hr class="style18"/>
 
                 
@@ -77,7 +78,7 @@ class MaterielPage extends Component{
             
                     <div style = {{width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
                       <div  style={{color:"black"}}   >
-                    <h3 style={{color:"#434c5e" }}>Information du Materiel</h3>
+                    <h3 style={{color:"#434c5e" }}>Information du Machine</h3>
                     <hr class="style18"/>
                     <div  >
                         <strong> Nom</strong> : {(!this.state.choosen.nom)?"-":this.state.choosen.nom}

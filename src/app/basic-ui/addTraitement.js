@@ -157,7 +157,7 @@ onChange_date_traitement(date,dateString) {
       <div>
         <button type="button"  class="btn btn-warning btn-lg btn-block" onClick={this.showModal}>Ajouter un traitement</button>
         <Modal
-          title="Ajouter Votre animal"
+          title="Ajouter un Traitement"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
@@ -166,7 +166,7 @@ onChange_date_traitement(date,dateString) {
           
           
         <p>traitement</p>
-        <select class="form-select" aria-label="Default select example" onChange={this.handleChange_value}>
+        <select class="custom-select" aria-label="Default select example" onChange={this.handleChange_value}>
         <option defaultValue>choisie Votre traitement</option>
         
         {lolo}
@@ -175,7 +175,7 @@ onChange_date_traitement(date,dateString) {
         <br/>
           
     
-       <p>cout de traitement </p>
+       <p>Coût de traitement </p>
        <InputGroup className="mb-3">
        <FormControl
          type="Number"
@@ -189,7 +189,7 @@ onChange_date_traitement(date,dateString) {
        <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
      </InputGroup>
 
-     <p>veterinaire</p>
+     <p>Vétérinaire</p>
        <InputGroup className="mb-3">
        <FormControl
          type="text"
@@ -218,7 +218,7 @@ onChange_date_traitement(date,dateString) {
     <DatePicker onChange={this.onChange_date_traitement}/>
 
 
-<p>note</p>
+<p>Cause/Note</p>
     <TextArea rows={2} name="note" onChange={this.handlechange} />
 
    

@@ -10,7 +10,7 @@ import { Select } from 'antd';
 import { Input } from 'antd';
 import { Radio ,DatePicker } from 'antd';
 import { Slider, Switch } from 'antd';
-
+import { AiOutlineCheck } from "react-icons/ai";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -250,7 +250,8 @@ class Popup extends React.Component {
     console.log(this.props.last_feature)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>Open</Button>
+        
+        <button  type="button" className="btn  btn-sm " style={{backgroundColor:"rgba(164, 255, 36,0.7)"}} onClick={this.showModal}><AiOutlineCheck/> </button>
         <Modal
           title=""
           visible={this.state.visible}
@@ -358,7 +359,7 @@ class Popup extends React.Component {
 
 <br/>
 <br/>
-<p>errigée ?</p>
+<p>Irriguée ?</p>
 <Radio.Group
       options={bati}
       name="errige"
@@ -369,7 +370,7 @@ class Popup extends React.Component {
     />
 
 <br/>
-<p>culture permanent ?</p>
+<p>Culture permanent ?</p>
 <Radio.Group
       options={bati}
       name="culture_permanent"
@@ -379,7 +380,7 @@ class Popup extends React.Component {
       buttonStyle="solid"
     />
 
-<p>source d'eau ?</p>
+<p>Source d'eau ?</p>
 <Radio.Group
       options={bati}
       name="source_eau"
@@ -396,7 +397,7 @@ class Popup extends React.Component {
 <p>Date d'exploitation</p>
     <DatePicker onChange={this.onChange_date_exploitation}/>
 
-<p>donner une note sur cette production</p>
+<p>Donner une note sur cette production</p>
     <TextArea rows={2} name="note" onChange={this.handlechange} />
 
    

@@ -4,6 +4,7 @@ import ModifierAnimal from "./ModifierAnimal";
 import  "./StyleResp.css";
 import ReactHTMLTableToExcel from "react-html-table-to-excel";
 import { format } from 'date-fns';
+import { IoMdArrowRoundBack } from "react-icons/io";
 const style = {
     display: "grid",
     gridTemplateColumns: "50%  50%"}
@@ -149,7 +150,7 @@ componentWillUnmount(){
       
         return (<>
             { (this.state.animal) && <>
-                <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-success btn-sm" onClick ={()=> {this.props.afficher();console.log("rje3")} }>retour</button>
+                <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-sm" onClick ={()=> {this.props.afficher();console.log("rje3")} }><IoMdArrowRoundBack color="#783ee3" size="2rem"/></button>
              <h1 style={{color:"#ffff" , textAlign:'center'}}>Détails de l'animal</h1>
              <hr class="style18"/>
 

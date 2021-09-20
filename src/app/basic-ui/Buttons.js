@@ -102,21 +102,23 @@ class Buttons extends Component {
             <div className="card" style={{height:'auto'}}>
             <div className="card-body">
             <div class="container" id='profil' style={{height:"auto" , color:"#ffff"}}>
-          <div class="row">
-            <div class="col-sm center">
+          <div class="row"  style={{alignItems:"center"}}>
+            <div class="col-sm"  style={{display: "flex" , justifyContent: "center"}}>
+              <div>
               <img
                 className=" shadow"
                  
-                style={{ width:"150px", height: "auto", margin: "20px",clipPath:"ellipse(40% 40%)" }}
+                style={{ width:"150px", height: "auto",clipPath:"ellipse(40% 40%)" }}
                   src={"http://localhost:3001/"+ myPhoto } 
                 alt=" hello"
               />
-              
+              <div className='namePro'>
+                {this.state.user.nom}
+              </div>
+              </div>
             </div>
             <div class="col-sm" style={{padding:"12px"}}>
-              <div>
-                <strong> Nom</strong> : {this.state.user.nom}
-              </div>
+              
               <div>
                 <strong>CIN </strong> :{this.state.user.cin}
               </div>

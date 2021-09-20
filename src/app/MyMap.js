@@ -31,8 +31,11 @@ import zIndex from "@material-ui/core/styles/zIndex";
 
 const popupText = (coordinate , selected) => {
   if (!coordinate) return "";
-  if("source_eau" in selected) return  "<h3>"+selected.nom+"</h3> <p>Exploitation végétale</p> <p> surface: "+ Math.round(selected.surface)+" ha</p>";
+  if(selected){
+    if("source_eau" in selected) return  "<h3>"+selected.nom+"</h3> <p>Exploitation végétale</p> <p> surface: "+ Math.round(selected.surface)+" ha</p>";
   return  "<h3>"+selected.nom+"</h3> <p>Exploitation animale("+selected.type+ ")</p> <p> surface: "+ Math.round(selected.surface)+" ha</p>";
+  }
+  
 };
 const NotSelected = new Style({
   stroke: new Stroke({

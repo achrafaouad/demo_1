@@ -2,6 +2,7 @@ import React, { Component,Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Spinner from '../app/shared/Spinner';
+import Register from './user-pages/Register';
 
 const Dashboard = lazy(() => import('./dashboard/Dashboard'));
 
@@ -20,18 +21,18 @@ const NouvelleOperation = lazy(() => import('./form-elements/NouvelleOperation')
 
 const BasicTable = lazy(() => import('./tables/BasicTable'));
 
-const Mdi = lazy(() => import('./icons/Mdi'));
+const Mdi = lazy(() => import('./charts/Mdi'));
 const stock = lazy(() => import('./icons/stock'));
 
-const TableAmortisement = lazy(() => import('./charts/TableAmortisement'));
-const NouveauCout = lazy(() => import('./charts/NouveauCout'));
+const TableAmortisement = lazy(() => import('./tables/TableAmortisement'));
+const NouveauCout = lazy(() => import('./tables/NouveauCout'));
 
 const Error404 = lazy(() => import('./error-pages/Error404'));
 const Error500 = lazy(() => import('./error-pages/Error500'));
 
 const Login = lazy(() => import('./user-pages/Login'));
 const Register1 = lazy(() => import('./user-pages/Register'));
-const RaportResult = lazy(() => import('./user-pages/RaportResult'));
+const RaportResult = lazy(() => import('./error-pages/RaportResult'));
 const RaportResultAnn = lazy(() => import('./user-pages/RaportResultAnn'));
 const pageAccueil = lazy(() => import('./user-pages/pageAccueil'));
 
@@ -41,13 +42,13 @@ class AppRoutes extends Component {
     return (
       <Suspense fallback={<Spinner/>}>
         <Switch>
-        <Route exact path="/" component={ Login } />
+        <Route exact  path="/" component={ pageAccueil } />
 
           {JSON.parse(sessionStorage.getItem('user')) && <>
           <Route exact path="/dashboard" component={Dashboard}/>
           
           <Route  path="/user-pages/register-1" component={ Register1 } />
-          <Route  path="/user-pages/RaportResult" component={ RaportResult } />
+          <Route  path="/error-pages/RaportResult" component={ RaportResult } />
           <Route  path="/user-pages/RaportResultAnn" component={ RaportResultAnn } />
           <Route  path="/user-pages/pageAccueil" component={ pageAccueil } />
           <Route path="/basic-ui/buttons" component={Buttons}/>
@@ -67,18 +68,18 @@ class AppRoutes extends Component {
 
           <Route path="/tables/basic-table" component={ BasicTable } />
 
-          <Route path="/icons/mdi" component={ Mdi } />
+          <Route path="/charts/mdi" component={ Mdi } />
           <Route path="/icons/stock" component={ stock } />
 
-          <Route path="/charts/TableAmortisement" component={ TableAmortisement } />
-          <Route path="/charts/NouveauCout" component={ NouveauCout } />
+          <Route path="/tables/TableAmortisement" component={ TableAmortisement } />
+          <Route path="/tables/NouveauCout" component={ NouveauCout } />
           </>
           }
 
 
           
-          
-
+              <Route exact path='/user-pages/login-2' component={ Login } />
+              <Route  exact path="/user-pages/register-1" component={ Register1 } />
           <Route path="/error-pages/error-404" component={ Error404 } />
           <Route path="/error-pages/error-500" component={ Error500 } />
 

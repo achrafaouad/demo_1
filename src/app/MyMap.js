@@ -8,6 +8,9 @@ import fullscreen from "ol/control/FullScreen";
 import OlSourcexyz from "ol/source/XYZ";
 import Draw from "ol/interaction/Draw";
 import VectorSource from "ol/source/Vector";
+import feature from "ol/Feature";
+import {Point} from "ol/geom";
+import Icon from 'ol/style/Icon';
 import Overlay from "ol/Overlay";
 import olVectorLayer from "ol/layer/Vector";
 import Style from "ol/style/Style";
@@ -110,7 +113,8 @@ class PublicMap extends Component {
       visible: false,
       baseMap: this.arcgisMap,
       map_name: "",
-      travaux:["Exploitation Vegetale", "Exploitation animale"]
+      travaux:["Exploitation Vegetale", "Exploitation animale"],
+      icons:[]
      
     };
     
@@ -179,8 +183,50 @@ class PublicMap extends Component {
     this.close = this.close.bind(this);
     this.serchValue = this.serchValue.bind(this);  
     this.handleCh  = this.handleCh.bind(this);  
+    this.addMapPoint  = this.addMapPoint.bind(this);  
     console.log(this.props);
   }
+
+  // add_map_point = (lat, lng) => {
+    addMapPoint = ({ map, lat, lng, name,type }) => {
+      var test; 
+      if(type == "Bovin"){
+        test = "https://image.flaticon.com/icons/png/512/2395/2395796.png"
+      }
+      else if(type == 'Ovins'){
+        test = "https://cdn-icons-png.flaticon.com/512/2711/2711858.png"
+      }
+      else if(type == 'Volaille'){
+        test = "https://cdn0.iconfinder.com/data/icons/easter-2040/256/Holidays_Colored_-32-512.png"
+      }
+      else{
+        test = "https://cdn.iconscout.com/icon/premium/png-256-thumb/block-106-643147.png"
+      }
+    var vectorLayer = new olVectorLayer({
+      source: new VectorSource({
+        features: [
+          new feature({
+            geometry: new Point([lng, lat]),
+            name
+          })
+        ]
+      }),
+      style: new Style({
+        image: new Icon({
+           anchor: [0.5, 0.5],
+          //anchor: [0.5, 1],
+          size: [1000, 1000],
+          scale: 0.1,
+           offset: [10, 10],
+          anchorXUnits: "fraction",
+          anchorYUnits: "fraction",
+          src:test
+        })
+      })
+    });
+    map.addLayer(vectorLayer);
+  };
+
 
   changeBaseMap = (e) => {
     console.log(this.olmap.getLayers().getArray()[0]);
@@ -337,7 +383,28 @@ class PublicMap extends Component {
                   if("batiment" in item && this.state.travaux.includes("Exploitation animale")){  
                   this.mediumLowAnnsrc.addFeatures(
                     this.format.readFeatures(item.geometryjson, { featureProjection: "EPSG:3857" })
-                  );}
+                  );
+                  var x = 0
+                  var y = 0
+                  var nbr=JSON.parse(item.geometryjson).coordinates[0].length ;
+                  
+                  for(let i=0 ; i<nbr; i++){
+                    x=x+JSON.parse(item.geometryjson).coordinates[0][i][0]
+                    y=y+JSON.parse(item.geometryjson).coordinates[0][i][1]
+                  }
+                  if(nbr){
+                   var bX = (x/nbr)
+                    var bY = (y/nbr)
+                  }
+                  var New = this.state.icons
+                  New.push({bX:bX,bY:bY,nbr,type:item.type})
+
+                  console.log("new",New)
+                  this.setState({icons:New})
+                 
+                
+                }
+                
                   else if(this.state.travaux.includes("Exploitation Vegetale")) { 
                   this.mediumLow.addFeatures(
                     this.format.readFeatures(item.geometryjson, { featureProjection: "EPSG:3857" })
@@ -375,7 +442,28 @@ class PublicMap extends Component {
       if("batiment" in item && this.state.travaux.includes("Exploitation animale")){  
                   this.mediumLowAnnsrc.addFeatures(
                     this.format.readFeatures(item.geometryjson, { featureProjection: "EPSG:3857" })
-                  );}
+                  );
+                  var x = 0
+                  var y = 0
+                  var nbr=JSON.parse(item.geometryjson).coordinates[0].length ;
+                  console.log("addpoint",nbr)
+                  for(let i=0 ; i<nbr; i++){
+                    x=x+JSON.parse(item.geometryjson).coordinates[0][i][0]
+                    y=y+JSON.parse(item.geometryjson).coordinates[0][i][1]
+                  }
+                  console.log("addpoint",x,y)
+                  if(nbr){
+                   var bX = (x/nbr)
+                    var bY = (y/nbr)
+                  }
+                  var New = this.state.icons
+                  New.push({bX:bX,bY:bY,nbr,type:item.type})
+                  console.log("new",New)
+                  this.setState({icons:New})
+
+                  
+                
+                }
                   else if(this.state.travaux.includes("Exploitation Vegetale")){  
                   this.mediumLow.addFeatures(
                     this.format.readFeatures(item.geometryjson, { featureProjection: "EPSG:3857" })
@@ -384,8 +472,6 @@ class PublicMap extends Component {
         // else if(!this.state.travaux.includes("Exploitation Vegetale") && this.state.travaux.includes("Exploitation animale")){
         //   this.mediumLowAnn.clear();
         // }
-
-
 
       console.log("lmm",i++);
       sessionStorage.setItem('indice',i)
@@ -428,12 +514,23 @@ class PublicMap extends Component {
 
     this.olmap.addLayer(this.mediumLowVector);
     this.olmap.addLayer(this.mediumLowAnn);
+    for(let i =0;i<this.state.icons.length;i++){
+      this.addMapPoint(
+        {map:this.olmap,
+        lat:this.state.icons[i].bY,
+        lng:this.state.icons[i].bX,
+        type:this.state.icons[i].type,
+        name:"hrloo"}
+        )
+    }
 
     document.getElementById("undo").addEventListener("click", () => {
       if (this.draw) {
         this.draw.removeLastPoint();
       }
     });
+
+    
   }
   componentWillUnmount(){
     clearInterval(this.intervalID);

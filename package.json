@@ -10,6 +10,7 @@
     "@tinymce/tinymce-react": "^3.3.2",
     "animate.css": "^4.1.1",
     "antd": "^4.16.9",
+    "aos": "^2.3.4",
     "bcrypt": "^5.0.1",
     "bcrypt-nodejs": "0.0.3",
     "bootstrap": "^4.3.1",

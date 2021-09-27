@@ -49,27 +49,8 @@ table {
   }
 
 
-  .acc{
-    background: url("./loginImg.jpg") no-repeat center center ;
-    height: 100vh;
-    position:relative
-}
-.section1{
-  background: url('https://webcdn.agroptima.com/wp-content/uploads/2017/02/30151545/home-1-1.jpg') no-repeat fixed center center;
-  -webkit-background-size:cover;
-  -moz-background-size:cover;
-  -o-background-size:cover;
-  background-size:cover;
-  background-position-y: -230px
-}
 
 
-.container1 {
-  height: 70vh; /* height of the browser viewport */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .dd14{
   height: 90vh; /* height of the browser viewport */
   display: flex;

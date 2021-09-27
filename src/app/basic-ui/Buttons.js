@@ -146,11 +146,11 @@ class Buttons extends Component {
             </div>
           </div>
         </div>
-        <div className="container" >
+        <div  >
             A propos : {this.state.user.description}
         </div>
 
-        <div className="container" >
+        <div>
 
           <button type="button" class="btn btn-primary btn-sm btn-block " style={{width:"100%" , boxShadow:'5px 3px 2px 1px rgba(0, 0, 0, .3)'}} onClick={this.handleClick}>Modifier mon profil</button>
         </div>

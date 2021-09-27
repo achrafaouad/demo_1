@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
+import icon from './farm.png'
 
 export class Register extends Component {
   constructor(props){
@@ -8,6 +9,7 @@ export class Register extends Component {
     this.state = {userName:'', email:'',country:'',passWord:'',confirm:'', alert:false};
     this.handlechange = this.handlechange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   handlechange({target}){
@@ -17,6 +19,15 @@ export class Register extends Component {
     console.log(this.state)
   }
   handleSubmit(e){
+    this.setState({alert:false})
+    if(!this.state.password || !this.state.userName || !this.state.confirm || !this.state.email){
+      this.setState({alert:true})
+     
+    }
+    if(this.state.password != this.state.confirm){
+      this.setState({alert:true})
+    }
+    if(this.state.alert === false){
     fetch("http://localhost:3001/register",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
@@ -32,6 +43,8 @@ export class Register extends Component {
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{console.log(responseJson)} );
+
+  }
    e.preventDefault();
 
   }
@@ -42,13 +55,16 @@ export class Register extends Component {
           <div className="row w-100 mx-0">
             <div className="col-lg-4 mx-auto">
               <div className="card text-left py-5 px-4 px-sm-5 myregistercard">
-                <div className="brand-logo">
-                  <img src={require("../../assets/images/logo.svg")} alt="logo" />
+              <div className="brand-logo" style={{display:"flex",alignItems:"center",justifyContent: "center"}}>
+                <img
+                    src={icon}
+                    style={{width:"150px"}}
+                    alt=" hello"/>
                 </div>
-                <h4>New here?</h4>
-                <h6 className="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+      
+                
                    {this.state.alert && <Alert  variant ='danger'>
-                  passwords doesn't match!!!!!!!!
+                  les mots de pass ne sont pas identiques
                 </Alert>}
                   <form className="pt-3" onSubmit={this.handleSubmit}>
                   <div className="form-group">
@@ -57,16 +73,7 @@ export class Register extends Component {
                   <div className="form-group">
                     <input value={this.state.email} name="email" type="email" className="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" onChange={this.handlechange}/>
                   </div>
-                  <div className="form-group">
-                    <select value={this.state.country} name="country" className="form-control form-control-lg" id="exampleFormControlSelect2" onChange={this.handlechange}>
-                      <option>Country</option>
-                      <option>United States of America</option>
-                      <option>United Kingdom</option>
-                      <option>India</option>
-                      <option>Germany</option>
-                      <option>Argentina</option>
-                    </select>
-                  </div>
+                 
                   <div className="form-group">
                     <input value={this.state.password} name="password" type="password" className="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" onChange={this.handlechange}/>
                   </div>
@@ -88,7 +95,7 @@ export class Register extends Component {
         </button>
                   </div>
                   <div className="text-center mt-4 font-weight-light">
-                    Already have an account? <Link to="/user-pages/login" className="text-primary">Login</Link>
+                    Already have an account? <Link to="/user-pages/login-2" className="text-primary">Login</Link>
                   </div>
                 </form>
               </div>

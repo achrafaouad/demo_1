@@ -44,14 +44,14 @@ export class Mdi extends Component {
         "prix_totale": 227194,
         "duré": "11:00",
         "travaux": "{\"Semer ou Planter\"}",
-        "content": "vegitale",
+        "content": "testParcel",
         "date_application": [
           "2021-08-24T23:00:00.000Z",
           "2021-08-24T23:00:00.000Z",
           "2021-08-23T23:00:00.000Z"
         ],
         "items": [
-          "onion",
+          "test",
         ],
         "id": 1
       }

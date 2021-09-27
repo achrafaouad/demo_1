@@ -500,7 +500,7 @@ render(){
             <div className="card " style={{minHeight: '100vh',
       maxHeight: "100hv"}}>
                 { (this.state.addm === false) && <>
-            <div className="container">
+            <div style={{padding:"10px"}}>
                    <div class="d-flex flex-row-reverse bd-highlight" style={{margin:"10px"}}>
                 <button
                 visible

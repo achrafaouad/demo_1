@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link , withRouter } from 'react-router-dom';
 import { Form,Alert} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import icon from './farm.png'
 toast.configure();
 
 export class Login extends Component {
@@ -23,13 +23,13 @@ export class Login extends Component {
   }
 
   handleSubmit(e){
-    e.preventDefault();
+    
     fetch("http://localhost:3001/signin",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
         email:this.state.mail,
-        password:this.state.pass})
+        password:this.state.pass})  
  }).then(response =>{
    if(response.ok){
      //toast
@@ -52,9 +52,11 @@ export class Login extends Component {
             }
      )}
           }
+
+         
     )
 
-
+    e.preventDefault();
   
 }
 forceUpdateHandler(){
@@ -67,17 +69,19 @@ forceUpdateHandler(){
           <div className="row w-100 mx-0 ">
             <div className="col-lg-4 mx-auto">
               <div className="card text-left py-5 px-4 px-sm-5 mylogincard">
-                <div className="brand-logo">
-                  <img src={require("../../assets/images/logo.svg")} alt="logo" />
+                <div className="brand-logo" style={{display:"flex",alignItems:"center",justifyContent: "center"}}>
+                <img
+                    src={icon}
+                    style={{width:"150px"}}
+                    alt=" hello"/>
                 </div>
-                <h4>Hello! let's get started</h4>
-                <h6 className="font-weight-light">Sign in to continue.</h6>
+      
                 {this.state.alert && <Alert  variant ='danger'>
                   passwords doesn't match!!!!!!!!
                 </Alert>}
                 <Form className="pt-3" onSubmit={this.handleSubmit}>
                   <Form.Group className="d-flex search-field">
-                    <Form.Control name="mail" type="email" placeholder="Username" size="lg" className="h-auto" onChange={this.handlechange} />
+                    <Form.Control name="mail" type="email" placeholder="mail" size="lg" className="h-auto" onChange={this.handlechange} />
                   </Form.Group>
                   <Form.Group className="d-flex search-field">
                     <Form.Control name="pass" type="password" placeholder="Password" size="lg" className="h-auto" onChange={this.handlechange}/>

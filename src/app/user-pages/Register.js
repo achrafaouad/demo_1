@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import icon from './farm.png'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+toast.configure();
 export class Register extends Component {
   constructor(props){
     super(props);
-    this.state = {userName:'', email:'',country:'',passWord:'',confirm:'', alert:false};
+    this.state = {userName:'', email:'',country:'',passWord:'',confirm:''};
     this.handlechange = this.handlechange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -19,15 +21,30 @@ export class Register extends Component {
     console.log(this.state)
   }
   handleSubmit(e){
-    this.setState({alert:false})
-    if(!this.state.password || !this.state.userName || !this.state.confirm || !this.state.email){
-      this.setState({alert:true})
-     
+    var alert = false
+
+    if(!this.state.password){
+      alert =true
+      toast.warn("veillez inserer votre mot de pass" ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
     }
-    if(this.state.password != this.state.confirm){
-      this.setState({alert:true})
+    if( !this.state.userName){
+      alert = true
+      toast.warn("veillez inserer votre nom d'utilisateur " ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+
     }
-    if(this.state.alert === false){
+    if( this.state.password != this.state.confirm ){
+      alert = true
+      toast.warn("les deux mots de pass ne sont pas identiques" ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+    }
+    if( !this.state.email ){
+      alert = true
+      toast.warn("veillez inserer la confirmation de votre email" ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+    }
+
+
+
+  
+    if(alert === false){
     fetch("http://localhost:3001/register",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
@@ -42,9 +59,17 @@ export class Register extends Component {
      return response.json();
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
-   .then(responseJson =>{console.log(responseJson)} );
+   .then(responseJson =>{
+     if(responseJson==="success"){
+      toast.success('Votre compte a été bien crée' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      this.props.history.push("/user-pages/login-2")
+     }
+     else  toast.error('un compte existe deja avec l\'email aue vous avez inserer' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+    
+    console.log(responseJson)} );
 
   }
+  console.log("hello", this.state.alert)
    e.preventDefault();
 
   }
@@ -61,11 +86,6 @@ export class Register extends Component {
                     style={{width:"150px"}}
                     alt=" hello"/>
                 </div>
-      
-                
-                   {this.state.alert && <Alert  variant ='danger'>
-                  les mots de pass ne sont pas identiques
-                </Alert>}
                   <form className="pt-3" onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <input value={this.state.userName} name="userName" type="text" className="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" onChange={this.handlechange} />

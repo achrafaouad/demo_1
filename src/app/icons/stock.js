@@ -562,7 +562,7 @@ render(){
                 </TabPane>
                 <TabPane tab="stock des produits d'origine animale" key="6" >
 
-                <h1 id='title'>Aliments</h1>
+                <h1 id='title'>produits d'origine animale</h1>
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     

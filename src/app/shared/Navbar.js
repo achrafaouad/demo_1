@@ -48,6 +48,7 @@ out(){
     var srcF
 if(JSON.parse(sessionStorage.getItem('user'))) srcF = "http://localhost:3001/"+JSON.parse(sessionStorage.getItem('user')).photo
 else srcF = '../../assets/images/faces/face15.jpg'
+
     return (
       <nav className="navbar p-0 fixed-top d-flex flex-row">
         <div className="navbar-brand-wrapper d-flex d-lg-none align-items-center justify-content-center">

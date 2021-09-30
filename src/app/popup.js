@@ -121,6 +121,7 @@ class Popup extends React.Component {
         date_loue:this.state.date_loue,
         prix_achat:this.state.prix_achat,
         date_achat:this.state.date_achat,
+        type_foncier:this.state.typeFoncier
       })
  }).then(response =>{
    if(response.ok){
@@ -143,7 +144,8 @@ class Popup extends React.Component {
         errige:this.state.errige,
         culture_permanent:String(this.state.culture_permanent),
         source_eau:String(this.state.source_eau),
-        type:this.state.type
+        type:this.state.type,
+        production:this.state.production
 
       })
  }).then(response =>{

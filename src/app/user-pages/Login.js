@@ -3,6 +3,7 @@ import { Link , withRouter } from 'react-router-dom';
 import { Form,Alert} from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BsFillPersonFill } from "react-icons/bs";
 import icon from './farm.png'
 toast.configure();
 
@@ -23,7 +24,16 @@ export class Login extends Component {
   }
 
   handleSubmit(e){
-    
+    var verrify = false
+    if(!this.state.mail){
+      toast.error('Veiller à insérer votre e-mail',{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verrify = true
+    }
+    if(!this.state.pass){
+      toast.error('Veiller à insérer votre mot de pass ',{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+      verrify = true
+    }
+    if( verrify === false){
     fetch("http://localhost:3001/signin",{
       method:'POST',
       headers:{'Content-Type':"application/json"},
@@ -46,7 +56,7 @@ export class Login extends Component {
       toast.success('Bonjour Monsieur ' + responseJson.nom ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
       sessionStorage.setItem('user', JSON.stringify(responseJson))
       this.props.history.push(
-              {
+              { 
                 pathname: '/dashboard',
                 state: {user:responseJson}
             }
@@ -55,7 +65,7 @@ export class Login extends Component {
 
          
     )
-
+        }
     e.preventDefault();
   
 }
@@ -81,10 +91,11 @@ forceUpdateHandler(){
                 </Alert>}
                 <Form className="pt-3" onSubmit={this.handleSubmit}>
                   <Form.Group className="d-flex search-field">
-                    <Form.Control name="mail" type="email" placeholder="mail" size="lg" className="h-auto" onChange={this.handlechange} />
+                    
+                    <Form.Control name="mail" type="Email" placeholder="email" size="lg" className="h-auto" onChange={this.handlechange} />
                   </Form.Group>
                   <Form.Group className="d-flex search-field">
-                    <Form.Control name="pass" type="password" placeholder="Password" size="lg" className="h-auto" onChange={this.handlechange}/>
+                    <Form.Control name="pass" type="password" placeholder="mot de pass" size="lg" className="h-auto" onChange={this.handlechange}/>
                   </Form.Group>
                   <button className="mt-3 btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit"> submit
         
@@ -94,14 +105,14 @@ forceUpdateHandler(){
                       <label className="form-check-label text-muted">
                         <input type="checkbox" className="form-check-input"/>
                         <i className="input-helper"></i>
-                        Keep me signed in
+                        Gardez-moi connecté
                       </label>
                     </div>
-                    <a href="!#" onClick={event => event.preventDefault()} className="auth-link text-muted">Forgot password?</a>
+                    <a href="!#" onClick={event => event.preventDefault()} className="auth-link text-muted">mot de passe oublié?</a>
                   </div>
               
                   <div className="text-center mt-4 font-weight-light">
-                    Don't have an account? <Link to="/user-pages/register-1" className="text-primary">Create</Link>
+                  Vous n'avez pas de compte ? <Link to="/user-pages/register-1" className="text-primary">créer</Link>
                   </div>
                 </Form>
               </div>

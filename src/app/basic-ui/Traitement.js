@@ -19,7 +19,7 @@ class Travail extends Component {
             method:'POST',
             headers:{'Content-Type':"application/json"},
             body:JSON.stringify({
-              id_exp:this.state.id_exp
+              id_exp:JSON.parse(sessionStorage.getItem('user')).id 
             })
        }).then(response2 =>{
            if(response2.ok){
@@ -94,16 +94,16 @@ class Travail extends Component {
 
 
         renderTableHeader() {
-            if(this.state.data){
+            
                
                return (
                   <>
                <th key={1}  >id</th>
-               <th key={2}  >Nom de l'operation</th>
+               <th key={2}  >Nom de l'opération</th>
                </>
                )
             
-            }
+            
             
          }
         onChange(e){
@@ -137,7 +137,7 @@ class Travail extends Component {
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px",marginRight:"10px" }} />
+                    <Search  placeholder="filtrer vos opérations" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px",marginRight:"10px" }} />
                     <PopupNewTraitment/>
                     </div>
                     <br/>

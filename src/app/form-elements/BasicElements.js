@@ -52,8 +52,21 @@ export class BasicElements extends Component {
     });
   };
 
-  componentDidMount() {
+  
+  componentDidMount(){
     bsCustomFileInput.init()
+    console.log("didmount")
+    const oneSecond = 25000;
+
+    this.intervalID = setInterval(() => {
+      this.fetching()
+       
+    }, oneSecond);
+ }
+
+ componentWillUnmount(){
+    clearInterval(this.intervalID);
+    
   }
 
   

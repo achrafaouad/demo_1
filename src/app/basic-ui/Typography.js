@@ -5,6 +5,10 @@ import { format } from 'date-fns';
 import { Input} from 'antd';
 import 'antd/dist/antd.css';
 import ExploitationPage from "./exploitationPage";
+import { BiEdit } from "react-icons/bi";
+
+import DeleteFromTable from "./DeleteFromTable";
+
 
 //import AddTracteur from './add_tracteur';
 const { Search } = Input;
@@ -76,34 +80,34 @@ export class Dropdowns extends Component {
                     const { id_exploitation, surface, date_exploitation, batiment,nom } = student //destructuring
         
                     return (
-                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
+                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student})}>
                         <td>{id_exploitation}</td>
                         <td>{nom}</td>
                         <td>{Math.round(surface)} ha</td>
                         <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
                              }</td>
                         <td>{(batiment)?'Oui':'Non'}</td>
-                        <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
-                            <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
+                        <td>{<><button type="button" class="btn btn-success btn-sm"  onClick ={()=> this.setState({choosen:student ,  afficher:true})} ><BiEdit/></button>
+                        <DeleteFromTable choosen = {this.state.choosen} type = 'Prodanimal'/></>}</td>
                      </tr>
                   )
-                 })
-              }
+                 })  
+              }      
               else{
                 return this.state.data.map((student, index) => {
                     
                   const { id_exploitation, surface, date_exploitation, batiment,nom } = student //destructuring
         
                   return (
-                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student ,  afficher:true})}>
+                     <tr key={id_exploitation} onClick ={()=> this.setState({choosen:student})}>
                         <td>{id_exploitation}</td>
                         <td>{nom}</td>
-                        <td>{Math.round(surface)} ha </td>
+                        <td>{Math.round(surface)} ha</td>
                         <td>{  format(new Date(date_exploitation), 'dd/MM/yyyy')
                              }</td>
                         <td>{(batiment)?'Oui':'Non'}</td>
-                        <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
-                            <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
+                        <td>{<><button type="button" class="btn btn-success btn-sm"  onClick ={()=> this.setState({choosen:student ,  afficher:true})} ><BiEdit/></button>
+                        <DeleteFromTable choosen = {this.state.choosen } type = 'Prodanimal'/></>}</td>
                      </tr>
                   )
                  })

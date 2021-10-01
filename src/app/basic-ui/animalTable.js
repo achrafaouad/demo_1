@@ -4,6 +4,9 @@ import { Input} from 'antd';
 import AnimalProfil from "./animalProfil";
 import { format } from 'date-fns';
 import ReactHTMLTableToExcel from "react-html-table-to-excel"
+import { BiEdit } from "react-icons/bi";
+import { BsFillTrashFill } from "react-icons/bs";
+import DeleteFromTable from "./DeleteFromTable";
 const { Search } = Input;
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
@@ -53,14 +56,14 @@ async fetch_data() {
                   const { id_ann, gender, date_birth, race,sous_famille } = student //destructuring
       
                   return (
-                     <tr key={id_ann} onClick ={()=> {this.setState({choosen_ann:student, afficher:true }); this.props.afficher_animal();console.log(student)}}>
+                     <tr key={id_ann} onClick ={()=> {this.setState({choosen_ann:student }); ;console.log(student)}}>
                         <td>{id_ann}</td>
                         <td>{gender}</td>
                         <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
                              }</td>
                         <td>{race}</td>
-                        <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
-                            <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
+                        <td>{<><button type="button" class="btn btn-success btn-sm"  onClick ={()=> {this.setState({ afficher:true}); this.props.afficher_animal()}}><BiEdit/></button>
+                        <DeleteFromTable choosen = {this.state.choosen_ann } type = 'animal'   /></>}</td>
                      </tr>
                   )
                })
@@ -69,18 +72,17 @@ async fetch_data() {
               return this.state.data.map((student, index) => {
                   
                 const { id_ann, gender, date_birth, race,sous_famille } = student //destructuring
-      
-                  return (
-                     <tr key={id_ann} onClick ={ ()=> {this.setState({choosen_ann:student,afficher:true }); this.props.afficher_animal(); console.log(student)}}>
-                        <td>{id_ann}</td>
-                        <td>{gender}</td>
-                        <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
-                             }</td>
-                        <td>{race}</td>
-                        <td>{<><button type="button" class="btn btn-success btn-sm" >Editer</button>
-                            <button type="button" class="btn btn-danger btn-sm">Suprimer</button></>}</td>
-                     </tr>
-                  )
+                return (
+                  <tr key={id_ann} onClick ={()=> {this.setState({choosen_ann:student }); ;console.log(student)}}>
+                     <td>{id_ann}</td>
+                     <td>{gender}</td>
+                     <td>{  format(new Date(date_birth), 'dd/MM/yyyy')
+                          }</td>
+                     <td>{race}</td>
+                     <td>{<><button type="button" class="btn btn-success btn-sm"  onClick ={()=> {this.setState({ afficher:true}); this.props.afficher_animal()}}><BiEdit/></button>
+                     <DeleteFromTable choosen = {this.state.choosen_ann } type = 'animal' /></>}</td>
+                  </tr>
+               )
                })
             }
        
@@ -124,7 +126,7 @@ async fetch_data() {
           <div className="col-lg-12 grid-margin">
             <div className="card">
           
-            {(!this.state.afficher) && <><h1 id='title'>Exploitation Animal</h1>
+            {(!this.state.afficher) && <><h1 id='title'>Mes Animaux</h1>
 
             
             <div class="d-flex flex-row-reverse bd-highlight">

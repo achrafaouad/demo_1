@@ -19,7 +19,7 @@ const { Option } = Select;
 
 const gender = [ 
   { label: 'mâle', value: "mâle" },
-  { label: 'femelle ', value: "femelle " }
+  { label: 'femelle ', value: "femelle" }
 ];
 const { TextArea } = Input;
 

@@ -260,7 +260,7 @@ class AddProduit extends Component {
                     Fabriquant 
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     class="form-control"
                     name="fabriquant"
                     id="exampleInputEmail1"

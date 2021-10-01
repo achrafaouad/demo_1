@@ -233,7 +233,7 @@ componentWillUnmount(){
             </div>
             </div>
             </div>
-            <h2 style={{color:"#ffff",textAlign: "center"}} > Historique des traitement</h2>
+            <h2 style={{color:"#ffff",textAlign: "center"}} > Historique des traitements</h2>
             <div class="d-flex flex-row-reverse bd-highlight" style={{margin:"15px"}}>
             <ReactHTMLTableToExcel className="btn btn-info me-md-3" table="students"  filename={"Traitements"+today +"_animal_" + this.state.animal.id_ann } sheet="Sheet" buttonText="Export to Excel"/>
             </div>

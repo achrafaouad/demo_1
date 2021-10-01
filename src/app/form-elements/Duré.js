@@ -112,12 +112,12 @@ class PopupDure extends React.Component {
         >
 
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "hour" onChange={this.handleChange}/>
+  <input type="text" class="form-control" placeholder="l'heure" aria-label="l'heure" aria-describedby="basic-addon2" name = "hour" onChange={this.handleChange}/>
   <span class="input-group-text" id="basic-addon2">h</span>
 </div>
             
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "min" onChange={this.handleChange}/>
+  <input type="text" class="form-control" placeholder="min" aria-label="Recipient's username" aria-describedby="basic-addon2" name = "min" onChange={this.handleChange}/>
   <span class="input-group-text" id="basic-addon2">min</span>
 </div>
             

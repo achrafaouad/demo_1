@@ -105,7 +105,7 @@ class Travail extends Component {
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos travaux" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
 
                     </div>
                     <br/>

@@ -520,7 +520,7 @@ render(){
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos produits" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
@@ -540,7 +540,7 @@ render(){
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos produits" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
@@ -559,7 +559,7 @@ render(){
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos produits" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
@@ -578,7 +578,7 @@ render(){
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos produits" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
@@ -598,7 +598,7 @@ render(){
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos produits" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>
@@ -617,7 +617,7 @@ render(){
             
                     <div class="d-flex flex-row-reverse bd-highlight">
                     
-                    <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+                    <Search  placeholder="filtrer vos produits" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
             
                     </div>
                     <br/>

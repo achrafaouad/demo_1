@@ -12,6 +12,7 @@ import { Radio ,DatePicker } from 'antd';
 import { Slider, Switch } from 'antd';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BsFillTrashFill } from "react-icons/bs";
 
 toast.configure();
 
@@ -26,16 +27,20 @@ const gender = [
 ];
 const { TextArea } = Input;
 
-class PopupNewTraitment extends React.Component {
+class DeleteFromProfil extends React.Component {
   constructor(props){
     super(props);
-    this.state = { visible: this.props.visible, typeFoncier: false ,production:"animal"};
+    this.state = {};
+    if(this.props.choosen) this.setState({choosen:this.props.choosen})
+    
+    
     this.handleOk=this.handleOk.bind(this);
     this.handleCancel=this.handleCancel.bind(this);
     this.showModal=this.showModal.bind(this);
     this.handlechange=this.handlechange.bind(this);
    
     this.onChange_date_naissance=this.onChange_date_naissance.bind(this);
+    this.onChange_date_achat=this.onChange_date_achat.bind(this);
     
 
     
@@ -49,13 +54,16 @@ class PopupNewTraitment extends React.Component {
   
   handleOk = (e) => {
     
-    
-      fetch("http://localhost:3001/add_NewTraitement",{
+     if(this.props.type === 'Prodanimal') var url = "/deleteExpAnn"
+     if(this.props.type === 'animal') var url = "/deleteAnn"
+     if(this.props.type === 'Prodveg') var url = "/deleteProdveg"
+
+      fetch("http://localhost:3001"+url,{
       method:'POST',
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
-        operation:this.state.operation,
-        id_exp:JSON.parse(sessionStorage.getItem('user')).id 
+            id_foncier:this.props.choosen.id_foncier,
+            id_ann:this.props.choosen.id_ann,
       })
  }).then(response =>{
    if(response.ok){
@@ -63,14 +71,18 @@ class PopupNewTraitment extends React.Component {
    }
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{
+     
+    toast.success('La supression a été effectué avec succès' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+    this.props.retour()
      console.log(responseJson)
-     toast.success('Le traitement a été ajouté avec succès.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
    })
       
      
     this.setState({
       visible: false,
     });
+
+
   }
   
   handleCancel = (e) => {
@@ -95,40 +107,27 @@ class PopupNewTraitment extends React.Component {
     console.log(date,dateString);
     this.setState({"date_birth":dateString})
   }
+  onChange_date_achat(date,dateString) {
+    console.log(date,dateString);
+    this.setState({"date_achat":dateString})
+  }
+  
 
 
   render() {
-    const {  value3 } = this.state;
-    console.log('props', this.props)
-    console.log(this.props.last_feature)
+    console.error(this.props.choosen)
     return (
       <div>
-        <Button id="infoAdd"type="primary" onClick={this.showModal}>Ajouter un traitement</Button>
+        <button type="button"  class="btn btn-danger btn-lg btn-block" onClick={this.showModal}><BsFillTrashFill/></button>
         <Modal
-          title="Ajouter une opération/traitement"
+          title="suprimer cette production?"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          
-        
-        <p>Opération</p>
-       
-          <InputGroup className="mb-3">
-          <FormControl
-            placeholder="ajouter une opération"
-            name="operation"
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            onChange={this.handlechange}
-          />
-          
-        </InputGroup>
-
- 
-
-   
-
+          <div style={{textAlign:'center'}}>
+            {(this.props.choosen )&& <> <p>vous voulez vraiment suprimer</p> {this.props.choosen.nom} ? </>}
+          </div>
         </Modal>
       </div>
     );
@@ -136,4 +135,4 @@ class PopupNewTraitment extends React.Component {
 }
 
 
-export default PopupNewTraitment
+export default DeleteFromProfil

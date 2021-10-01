@@ -16,6 +16,7 @@ import AnimalTable from "./animalTable";
 import Modifier from "./Modifier";
 import ModifierPersonnel from "./ModifierPersonnel";
 import  "./StyleResp.css";
+import Delete from "./suprimer";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 
@@ -150,7 +151,7 @@ class PersonnelPage extends Component{
                       <ModifierPersonnel id={this.state.choosen.id_exploitation} expl={this.state.choosen}/>
                       </div>
                       
-                     <div class="col-sm" style={{width:"100%", margin:'10px'}}> <button type="button" class="btn btn-danger btn-lg btn-block">suprimer</button>
+                     <div class="col-sm" style={{width:"100%", margin:'10px'}}> <Delete id={this.state.choosen.id_exploitation} expl={this.state.choosen} retour = {this.props.retour} option = "Personnel"/>
                      </div>
                   
                   </div>

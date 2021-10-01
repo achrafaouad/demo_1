@@ -109,10 +109,10 @@ export class Personnel extends Component {
             { (this.state.addm === false && this.state.afficher_card === false) &&<>
             <div class="d-flex flex-row-reverse bd-highlight">
             
-             <Search  placeholder="filtrer vos materiels" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
+             <Search  placeholder="filtrer vos personnel" onChange={this.onChange} style={{ width: 200, marginRight:"30px",marginLeft:"10px" }} />
              <button
                 visible
-                type="button"
+                type="button" 
                 className="btn btn-success btn-sm "
                 id="drow_polygone"
                 onClick={this.addMat}

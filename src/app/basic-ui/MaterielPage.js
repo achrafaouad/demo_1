@@ -18,6 +18,8 @@ import ModifierPersonnel from "./ModifierPersonnel";
 import ModifierMateriel from "./ModifierMateriel";
 import  "./StyleResp.css";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { suppressDeprecationWarnings } from "moment";
+import Delete from "./suprimer";
 
 const style = {
     display: "grid",
@@ -39,16 +41,17 @@ class MaterielPage extends Component{
         }
 
 
-        
+        this.retour = this.retour.bind(this)
         
           
-
 
     }
     
 
     
-    
+    retour(){
+      this.props.retour()
+    }
 
    
     
@@ -134,7 +137,7 @@ class MaterielPage extends Component{
                 <ModifierMateriel id={this.state.choosen.id_exploitation} expl={this.state.choosen} />
                 </div>
                 <div class="col-sm" style={{width:"100%", margin:'10px'}}>
-                <button type="button"  class="btn btn-danger btn-lg btn-block">suprimer</button>
+                <Delete id={this.state.choosen.id_exploitation} expl={this.state.choosen} retour = {this.retour} option = "Materiel"/>
                 </div>
                 </div>
                 </div>

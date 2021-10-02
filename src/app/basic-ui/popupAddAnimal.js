@@ -72,6 +72,7 @@ class Popup extends React.Component {
    .then(responseJson =>{
     toast.success('L\'animal a été ajouté avec succès' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
      console.log(responseJson)
+     this.props.retour()
    })
       
      

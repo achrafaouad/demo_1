@@ -9,7 +9,26 @@ export const COLUMNSVeg = [
         Filter: ColumnFilter,
 
     },
-
+    {
+        Header: 'Culture Cultivé',
+        Footer:'Culture Cultivé',
+        accessor:'culture',
+        Filter: ColumnFilter,
+        
+    },
+    {
+        Header: 'Surface ocupée',
+        Footer:'Surface ocupée',
+        accessor:'surfaceOcupé',
+        Filter: ColumnFilter,
+        disableFilters:true,
+        Cell: ({ value }) => {
+            if(value) return Math.round(value) + 'ha'
+            else return '-'
+          }
+        
+    },
+    
     {
         Header: 'Coûts totaux',
         Footer:'Coûts_totaux',

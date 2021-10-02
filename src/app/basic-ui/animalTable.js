@@ -22,6 +22,7 @@ export class AnimalTable extends Component {
     this.fetch_data();
     this.onChange = this.onChange.bind(this)
     this.afficheranimal = this.afficheranimal.bind(this)
+    this.retour145 = this.retour145.bind(this)
  
 }
 
@@ -45,6 +46,10 @@ async fetch_data() {
         
         
         console.log("ha l hayawan" ,this.state.data) 
+}
+
+retour145(){
+   this.props.retour()
 }
 
        renderTableData() {
@@ -80,7 +85,7 @@ async fetch_data() {
                           }</td>
                      <td>{race}</td>
                      <td>{<><button type="button" class="btn btn-success btn-sm"  onClick ={()=> {this.setState({ afficher:true}); this.props.afficher_animal()}}><BiEdit/></button>
-                     <DeleteFromTable choosen = {this.state.choosen_ann } type = 'animal' /></>}</td>
+                     <DeleteFromTable choosen = {this.state.choosen_ann } type = 'animal' retour = {this.retour145} /></>}</td>
                   </tr>
                )
                })

@@ -73,7 +73,9 @@ class DeleteFromTable extends React.Component {
    .then(responseJson =>{
      
     toast.success('La supression a été effectué avec succès' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
-    
+     if(this.props.type === "animal"){
+       this.props.retour()
+     }
      console.log(responseJson)
    })
       

@@ -126,6 +126,11 @@ class DeleteFromProfil extends React.Component {
           onCancel={this.handleCancel}
         >
           <div style={{textAlign:'center'}}>
+          <img
+                 style={{width:"50%", height: "auto", borderRadius: "10px" , boxShadow: "5px 5px 5px"}}
+                 src="https://image.flaticon.com/icons/png/512/1100/1100349.png"
+                alt=" hello"/>
+
             {(this.props.choosen )&& <> <p>vous voulez vraiment suprimer</p> {this.props.choosen.nom} ? </>}
           </div>
         </Modal>

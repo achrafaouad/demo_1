@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* === Plugin styles === */
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 
 
 @import "~slick-carousel/slick/slick.css";
@@ -395,3 +396,8 @@ input[type=radio]:checked + label>img {
   font-family: 'Acme', sans-serif;
   font-size: 30px;
 }
+.MyResult{
+  font-family: 'Pirata One', cursive;
+}
+
+

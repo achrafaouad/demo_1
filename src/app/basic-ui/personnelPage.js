@@ -54,7 +54,7 @@ class PersonnelPage extends Component{
         return (<>
             
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-sm" onClick ={()=> this.props.retour()}><IoMdArrowRoundBack color="#783ee3" size="2rem"/></button>
-             <h1 style={{color:"#ffff" , textAlign:"center"}}>Détails du Personnel</h1>
+             <h1 className="MyResult" style={{color:"#ffff" , textAlign:"center"}}>Détails du Personnel</h1>
              <hr class="style18"/>
 
 

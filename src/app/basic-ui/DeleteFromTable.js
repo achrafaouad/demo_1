@@ -122,12 +122,16 @@ class DeleteFromTable extends React.Component {
       <div>
         <button type="button"  class="btn btn-danger btn-sm" onClick={this.showModal}><BsFillTrashFill/></button>
         <Modal
-          title="suprimer cette production?"
+          title="suppression"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
           <div style={{textAlign:'center'}}>
+          <img
+                 style={{width:"100px", height: "auto", borderRadius: "10px" }}
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-mKgwySGPrSGAC62f-NHB1RTzg5uWRW31Jg&usqp=CAU"
+                alt=" hello"/>
             {(this.props.choosen )&& <> <p>vous voulez vraiment suprimer</p> {this.props.choosen.nom} ? </>}
           </div>
         </Modal>

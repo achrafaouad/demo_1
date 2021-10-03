@@ -127,8 +127,8 @@ class DeleteFromProfil extends React.Component {
         >
           <div style={{textAlign:'center'}}>
           <img
-                 style={{width:"50%", height: "auto", borderRadius: "10px" , boxShadow: "5px 5px 5px"}}
-                 src="https://image.flaticon.com/icons/png/512/1100/1100349.png"
+                 style={{width:"100px", height: "auto", borderRadius: "10px" }}
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-mKgwySGPrSGAC62f-NHB1RTzg5uWRW31Jg&usqp=CAU"
                 alt=" hello"/>
 
             {(this.props.choosen )&& <> <p>vous voulez vraiment suprimer</p> {this.props.choosen.nom} ? </>}

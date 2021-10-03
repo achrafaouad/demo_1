@@ -151,7 +151,7 @@ componentWillUnmount(){
         return (<>
             { (this.state.animal) && <>
                 <button type="button" style={{width:"80px",margin:"20px"}} class="btn btn-sm" onClick ={()=> {this.props.afficher();console.log("rje3")} }><IoMdArrowRoundBack color="#783ee3" size="2rem"/></button>
-             <h1 style={{color:"#ffff" , textAlign:'center'}}>Détails de l'animal</h1>
+             <h1 className="MyResult" style={{color:"#ffff",fontSize:"40px" , textAlign:'center'}}>Détails de l'animal</h1>
              <hr class="style18"/>
 
 

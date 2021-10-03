@@ -16,9 +16,10 @@ function callback(key) {
  class RaportResult extends Component {
     constructor(props) {
         super(props) 
-        this.state={duration:7}
+        this.state={duration:7 ,hectar:"DH"}
         this.fetch_dataHistorique()
         this.handlechangement= this.handlechangement.bind(this)
+        this.handlechange= this.handlechange.bind(this)
     }
 
 
@@ -35,6 +36,11 @@ function callback(key) {
       this.fetch_dataHistorique()
       
     }
+    if (prevState.hectar !== this.state.hectar) {
+      console.log('pokemons state has changed.')
+      this.fetch_dataHistorique()
+      
+    }
   }
   
 
@@ -47,7 +53,8 @@ async fetch_dataHistorique() {
       headers:{'Content-Type':"application/json"},
       body:JSON.stringify({
         id_exp:JSON.parse(sessionStorage.getItem('user')).id,
-        duration:this.state.duration
+        duration:this.state.duration,
+        hectar:this.state.hectar
       })
  }).then(response2 =>{
        if(response2.ok){
@@ -60,6 +67,13 @@ async fetch_dataHistorique() {
         console.log(this.data)
         this.setState({data144:this.data})
        }  
+       handlechange({target}){
+        console.log("ello");
+        this.setState({
+          [target.name]: target.value
+        });
+        console.log(this.state);
+      }
 
 
            render(){
@@ -73,7 +87,7 @@ async fetch_dataHistorique() {
       maxHeight: "100hv"}}>
               {  (this.state.data144) && <Scroll>
                    
-           <FilteringTableVeg datadnem = {this.state.data144} handlechangement={this.handlechangement} values={this.state.duration}/>
+           <FilteringTableVeg datadnem = {this.state.data144} handlechangement={this.handlechangement} handlechange = {this.handlechange}values={this.state.duration} val={this.state.hectar}/>
        
         </Scroll>}
               {  (!this.state.data144) && <div style={{display:'flex', justifyContent: "center"}}>

@@ -144,6 +144,10 @@ class Delete extends React.Component {
         >
           
         <div style={{textAlign:"center"}}> 
+        <img
+                 style={{width:"100px", height: "auto", borderRadius: "10px" }}
+                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-mKgwySGPrSGAC62f-NHB1RTzg5uWRW31Jg&usqp=CAU"
+                alt=" hello"/>
           Vous êtes sûr de supprimer ce {this.props.option} ?   
           </div> 
         </Modal>

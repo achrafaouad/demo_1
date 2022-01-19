@@ -104,7 +104,7 @@ class Collect extends React.Component {
    throw new Error('request failed');}, networkError => console.log(networkError))
    .then(responseJson =>{
      console.log(responseJson)
-     toast.success('Les informations sur l\'exploitation ont été mises à jour avec success.' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
+     toast.success('la collect a été bien éffectuée .' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
    })}
    else  toast.warn('il y a un manque d\'informations ' ,{position:toast.POSITION.TOP_RIGHT , autoClose:8000});
 

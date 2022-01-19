@@ -3,6 +3,7 @@ import Timeline from 'react-visjs-timeline'
 import moment from "moment";
 import { format } from 'date-fns';
 
+
 const options = {
     width: "100%",
     height: window.innerHeight,
@@ -48,7 +49,7 @@ export class AfficherCalender extends Component {
    this.state = {}
   }
 
-  
+
   render() {
     const groups  = this.props.groups
     if(this.props.groups){
@@ -56,19 +57,18 @@ export class AfficherCalender extends Component {
         const items = [];
         groups.forEach((group) => {
         group.items.forEach((item , index) => {
-
-           let date =  format(new Date(group.date_application[index]), 'yyyy-MM-dd')
+          console.log("hello",groups[index].date_application);
              items.push({
             id: items.length,
-            start: date,
-            end: addDays(date, 365), // end is optional
+            start: new Date (groups[index].date_application),
+            end: addDays(groups[index].date_application, 365), // end is optional
             content: item,
             group: group.id
           });
         });
       });
         console.log('items',items)
-        console.log('items',groups)
+        console.log('groups',groups)
     
         console.log("maareft mal had bent l 9e7ba ")
         return (

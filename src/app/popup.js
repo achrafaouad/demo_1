@@ -278,9 +278,9 @@ class Popup extends React.Component {
         </InputGroup>
 
         <p>foncier</p>
-    <Select name="typeFoncier" defaultValue="possédée" value={(this.state.typeFoncier)}  style={{ width: 120 }} onChange={this.handleChange_value}>
+    <Select name="typeFoncier" defaultValue="possédé" value={(this.state.typeFoncier)}  style={{ width: 120 }} onChange={this.handleChange_value}>
       <Option value="loué">Loué</Option>
-      <Option value="possédée">possédée</Option>
+      <Option value="possédée">possédé</Option>
     </Select>
         
         <br/>
@@ -298,7 +298,7 @@ class Popup extends React.Component {
             aria-describedby="basic-addon2"
             onChange={this.handlechange}
           />
-          <InputGroup.Text id="basic-addon2">$</InputGroup.Text>
+          <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
         </InputGroup>
 
   <p>proprietaire</p>
@@ -318,7 +318,7 @@ class Popup extends React.Component {
          aria-describedby="basic-addon2"
          onChange={this.handlechange}
        />
-       <InputGroup.Text id="basic-addon2">$</InputGroup.Text>
+       <InputGroup.Text id="basic-addon2">dh</InputGroup.Text>
      </InputGroup>
     <p>Date d'achat</p>
     

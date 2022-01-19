@@ -46,7 +46,12 @@ export const COLUMNS = [
         accessor:'travaux'
         ,
         Filter: ColumnFilter,
-        
+        Cell: ({ value }) => {
+            if(value)
+            value = value.split("{\"")[1]
+            value = value.split("\"}")[0]
+            return value
+          }
         
     },
     {

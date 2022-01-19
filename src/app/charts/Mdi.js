@@ -46,9 +46,8 @@ export class Mdi extends Component {
         "travaux": "{\"Semer ou Planter\"}",
         "content": "testParcel",
         "date_application": [
-          "2021-08-24T23:00:00.000Z",
-          "2021-08-24T23:00:00.000Z",
-          "2021-08-23T23:00:00.000Z"
+          "2021-08-24T23:00:00.000Z"
+          
         ],
         "items": [
           "test",
@@ -79,6 +78,8 @@ export class Mdi extends Component {
     )
     .then((responseJson) => {
       this.setState({groups:responseJson})
+      console.log(responseJson)
+      console.log('brahim')
     }
       )
       

@@ -7,7 +7,7 @@ import { BsFillLayersFill } from "react-icons/bs";
 class Pov extends Component {
     constructor(props){
         super(props);
-        this.text = <span>Choisie une baseMap:</span>;
+        this.text = <span>Choisie un fond de carte:</span>;
        this.content = (
       <div style={{display: "flex" , justifyContent: "center"}}>
 

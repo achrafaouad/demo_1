@@ -423,7 +423,7 @@ async fetch_dataHistorique() {
               <h2 style={{textAlign:"center" , color:"white"}}>Les Intrants</h2>
               <div class="row">
               
-              <div class="col-4">
+              <div class="col-6">
               <div style={{color:"black", width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
               <h2 style={{ textAlign:"center"}}>Semence</h2>
               
@@ -431,23 +431,27 @@ async fetch_dataHistorique() {
                 
               </div>
               </div>
-              <div class="col-4">
+              <div class="col-6">
               <div style={{color:"black", width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
               <h2 style={{textAlign:"center"}}>Engrais</h2>
                 <PieChart data={this.state.eng}/>
                 
               </div>
               </div>
-              <div class="col-4">
-              <div style={{color:"black", width:"96%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
+
+        </div>
+        <div class="row" >
+        <div class="col-12">
+              <div style={{color:"black", width:"98%"}} className=" tc grow bg-near-white br3 pa3 ma2 dib bw2 shadow-5">
               <h2 style={{textAlign:"center"}}>phytosanitaire</h2>
                 <PieChart data={this.state.phy}/>
                 
               </div>
               </div>
-              
-
-        </div>
+              </div>
+          
+          <div/>
+       
       </div>
       <h2 style={{textAlign:"center" , color:"white"}}>Le Roi</h2>
       <BarClass data={this.state.Roi}/>
